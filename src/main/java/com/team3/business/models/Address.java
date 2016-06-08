@@ -1,6 +1,7 @@
 package com.team3.business.models;
 
 public class Address {
+	//test
 	private int addressID;
 	private String addressType;
 	private String addressLine1;
