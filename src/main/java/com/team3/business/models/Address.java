@@ -1,7 +1,7 @@
 package com.team3.business.models;
 // comment
 public class Address {
-	//test
+	//test2
 	private int addressID;
 	private String addressType;
 	private String addressLine1;
