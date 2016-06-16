@@ -9,7 +9,7 @@
   
   
 	<properties>
-		<spring.version>4.2.0.RELEASE</spring.version>
+		<spring.version>4.3.0.RELEASE</spring.version>
 		<jackson.version>1.9.10</jackson.version>
 	</properties>
 
@@ -56,15 +56,35 @@
            <groupId>org.twitter4j</groupId>
            <artifactId>twitter4j-core</artifactId>
            <version>4.0.4</version>
-       </dependency>
+       	</dependency>
        
-       <dependency>
-  <groupId>org.facebook4j</groupId>
-  <artifactId>facebook4j-core</artifactId>
-  <version>2.4.4</version>
-</dependency>
+		<dependency>
+			<groupId>org.facebook4j</groupId>
+		  	<artifactId>facebook4j-core</artifactId>
+		  	<version>2.4.4</version>
+		</dependency>
+		
+		<!-- http://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+			
+		
 	</dependencies>
 	<build>
+		<resources>
+	        <resource>
+	            <directory>src/main/java</directory>
+	            <includes>                      
+	                <include>**/*.xml</include>
+	            </includes>
+	        </resource>
+	        <resource>
+	            <directory>src/main/resources</directory>
+	        </resource>
+	    </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
