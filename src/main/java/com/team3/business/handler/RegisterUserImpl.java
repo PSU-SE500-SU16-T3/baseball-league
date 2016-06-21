@@ -14,12 +14,13 @@ public class RegisterUserImpl implements RegisterUser{
 	@Autowired
 	Dao daoImpl;
 
-	public void processUser(Map<String, String> allRequestParams) {
+	public User processUser(Map<String, String> allRequestParams) {
 		User user = new User();
 		user.setUsername(allRequestParams.get("username"));
 		user.setUserPassword(allRequestParams.get("password"));
 		user.setUserEmail(allRequestParams.get("email"));
 		daoImpl.insert(user);
+		return user;
 	}
 
 }

@@ -10,10 +10,10 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 
 	public void insert(User user) {
 		String sql = "INSERT INTO USERS " +
-				"(userName, passw, email, userID, userRole) VALUES (?, ?, ?, ?, ?)";
+				"(userName, passw, email, userID, userRole) VALUES (?, ?, ?, userID_SEQ.NEXTVAL, ?)";
 					 
 		getJdbcTemplate().update(sql, new Object[] { user.getUsername(),
-				user.getUserPassword(), user.getUserEmail(), 123, 345});
+				user.getUserPassword(), user.getUserEmail(), 345});
 		
 	}
 
