@@ -19,7 +19,7 @@ public class RegisterUserImpl implements RegisterUser{
 		user.setUsername(allRequestParams.get("username"));
 		user.setUserPassword(allRequestParams.get("password"));
 		user.setUserEmail(allRequestParams.get("email"));
-		daoImpl.insert(user);
+		daoImpl.insertUser(user);
 		return user;
 	}
 

@@ -8,7 +8,7 @@ import com.team3.business.models.User;
 @Component("daoImpl")
 public class DaoImpl extends JdbcDaoSupport implements Dao{
 
-	public void insert(User user) {
+	public void insertUser(User user) {
 		String sql = "INSERT INTO USERS " +
 				"(userName, passw, email, userID, userRole) VALUES (?, ?, ?, userID_SEQ.NEXTVAL, ?)";
 					 
