@@ -5,7 +5,7 @@ public class User {
 	private String username;
 	private String userPassword;
 	private String userEmail;
-	private String userRole;
+	private int userRole;
 	
 	public User() {
 	}
@@ -42,11 +42,11 @@ public class User {
 		this.userEmail = userEmail;
 	}
 
-	public String getUserRole() {
+	public int getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(String userRole) {
+	public void setUserRole(int userRole) {
 		this.userRole = userRole;
 	}
 	
