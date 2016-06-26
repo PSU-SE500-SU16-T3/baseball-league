@@ -4,10 +4,10 @@ public class RefereePlayer extends Player {
 
 	private int refereePlayerID;
 	
-	public int getRefereePlayer() {
+	public int getRefereePlayerID() {
 		return refereePlayerID;
 	}
-	public void setRefereePlayer(int refereePlayerID) {
+	public void setRefereePlayerID(int refereePlayerID) {
 		this.refereePlayerID = refereePlayerID;
 	}
 	

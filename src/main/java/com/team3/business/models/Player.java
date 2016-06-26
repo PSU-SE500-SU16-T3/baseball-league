@@ -1,14 +1,24 @@
 package com.team3.business.models;
 
+import java.util.Calendar;
+
 public class Player {
 	private String firstName;
+	private int personID;
 	private String lastName;
 	private String middleName;
-	private String dateOfBirth;
+	private Calendar dateOfBirth;
 	private int userID;
 	private int addressID;
 	private int phoneID;
 	private int paymentID;
+	
+	public int getPersonID() {
+		return personID;
+	}
+	public void setPersonID(int personID) {
+		this.personID = personID;
+	}
 	
 	public String getFirstName() {
 		return firstName;
@@ -28,10 +38,10 @@ public class Player {
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
-	public String getDateOfBirth() {
+	public Calendar getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Calendar dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public int getUserID() {

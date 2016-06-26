@@ -1,11 +1,13 @@
 package com.team3.business.models;
 
+import java.util.Calendar;
+
 public class Payment {
 	private int paymentID;
 	private String paymentType;
 	private String nameOnCard;
 	private String cardNumber;
-	private String expDate;
+	private Calendar expDate;
 	private String cvvCode;
 	
 	public int getPaymentID() {
@@ -32,10 +34,10 @@ public class Payment {
 	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
-	public String getExpDate() {
+	public Calendar getExpDate() {
 		return expDate;
 	}
-	public void setExpDate(String expDate) {
+	public void setExpDate(Calendar expDate) {
 		this.expDate = expDate;
 	}
 	public String getCvvCode() {

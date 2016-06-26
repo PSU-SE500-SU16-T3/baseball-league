@@ -1,30 +1,86 @@
 package com.team3.business.models;
 
 public class Team {
-	private String firstName;
-	private String lastName;
-	private int age;
-	public String getFirstName() {
-		return firstName;
+	private int teamID;
+	private String teamTitle;
+	private int teamNumPlayers;
+	private int divisionID;
+	private int seasonID;
+	private int fieldID;
+	private int leagueID;
+	private int refereeID;
+	private int personID;
+	
+	public int getTeamID() {
+		return this.teamID;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	
+	public String getTeamTitle() {
+		return this.teamTitle;
 	}
-	public String getLastName() {
-		return lastName;
+	
+	public int getTeamNumPlayers(){
+		return this.teamNumPlayers;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	
+	public int getDivisionID(){
+		return this.divisionID;
 	}
-	public int getAge() {
-		return age;
+	
+	public int getSeasonID(){
+		return this.seasonID;
 	}
-	public void setAge(int age) {
-		this.age = age;
+	
+	public int getFieldID() {
+		return this.fieldID;
 	}
-	@Override
-	public String toString() {
-		return "Team [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + "]";
+	
+	public int getLeagueID() {
+		return this.leagueID;
+	}
+	
+	public int getRefereeID() {
+		return this.refereeID;
+	}
+	
+	public int getPersonID() {
+		return this.personID;
+	}
+	
+	public void setTeamID(int teamID) {
+		this.teamID = teamID;
+	}
+	
+	public void setTeamTitle(String teamTitle) {
+		this.teamTitle = teamTitle;
+	}
+	
+	public void setTeamNumPlayers(int teamNumPlayers) {
+		this.teamNumPlayers = teamNumPlayers;
+	}
+	
+	public void setDivisionID(int divisonID) {
+		this.divisionID = divisonID;
+	}
+	
+	public void setSeasonID(int seasonID) {
+		this.seasonID = seasonID;
+	}
+	
+	public void setLeagueID(int leagueID) {
+		this.leagueID = leagueID;
+	}
+	
+	public void setFieldID(int fieldID) {
+		this.fieldID = fieldID;
+	}
+	
+	public void setRefereeID(int refereeID) {
+		this.refereeID = refereeID;
+	}
+	
+	public void setPersonID(int personID) {
+		this.personID = personID;
 	}
 	
 }

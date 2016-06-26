@@ -1,11 +1,13 @@
 package com.team3.business.models;
 
+import java.util.Calendar;
+
 public class Season {
 	private int seasonID;
 	private int leagueID;
 	private String seasonName;
-	private String startDate;
-	private String endDate;
+	private Calendar startDate;
+	private Calendar endDate;
 	private int numPlayer;
 	
 	public Season() {
@@ -35,19 +37,19 @@ public class Season {
 		this.seasonName = seasonName;
 	}
 
-	public String getStartDate() {
+	public Calendar getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Calendar startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getEndDate() {
+	public Calendar getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Calendar endDate) {
 		this.endDate = endDate;
 	}
 
