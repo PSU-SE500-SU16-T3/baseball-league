@@ -8,26 +8,9 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class TwitterController {
+class TwitterController implements ISocialMediaController {
+	 private static twitter4j.Twitter getTwitter(){
 
-	public static void main(String[] args){
-		twitter4j.Twitter twit = getTwitter();
-		ResponseList<Status> statuses;
-		try {
-			statuses = twit.getHomeTimeline();
-
-		for(Status st : statuses){
-			Post();
-			System.out.println("-----"+st.getUser().getName()+"-----"+st.getText());
-		}
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public static twitter4j.Twitter getTwitter(){
-		//Setup with App info from twitter
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 			cb.setDebugEnabled(true)
 			.setOAuthConsumerKey("GSJj2oH3aVrlpygN5ezRyxhKY")
@@ -38,14 +21,28 @@ public class TwitterController {
 		twitter4j.Twitter twit = tf.getInstance();
 		return twit;
 	}
-	//Todo Add More things here
-	public static void Post(){
+	public void PostStatus(String Post){
 		twitter4j.Twitter twit = getTwitter();
 		try {
-			Status Stat = twit.updateStatus("I'm Tweeting from Java!");
+			twit.updateStatus(Post);
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
+	public void getStatuses(int NumberofPreviousStatuses) {
+		twitter4j.Twitter twit = getTwitter();
+		ResponseList<Status> statuses;
+		try {
+			statuses = twit.getHomeTimeline();
+
+		for(Status st : statuses){
+			System.out.println("-----"+st.getUser().getName()+"-----"+st.getText());
+		}
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
 }
