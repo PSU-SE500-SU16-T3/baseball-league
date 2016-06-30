@@ -1,3 +1,167 @@
+
+
+BEGIN
+   EXECUTE IMMEDIATE 'drop table ADDRESS cascade constraints';
+   EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table ADDRESSType cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table Division cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table Field cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table League cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table Payment cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table PAYMENTTYPE cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table Person cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table PHONE cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table PHONETYPE cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table REFEREEPLAYER cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table Season cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table  STATELOOKUP cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table Team cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table UserRole cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+   EXECUTE IMMEDIATE 'Drop Table USERS cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+Drop Sequence ADDRESSID_SEQ;
+Drop Sequence ADDRESSTYPEID_SEQ;
+Drop Sequence DIVISIONID_SEQ;
+Drop Sequence FIELDID_SEQ;
+Drop Sequence PAYMENTID_SEQ;
+Drop Sequence PAYMENTTYPEID_SEQ;
+Drop Sequence PERSONID_SEQ;
+Drop Sequence PHONEID_SEQ;
+Drop Sequence PHONETYPEID_SEQ;
+Drop Sequence REFEREEID_SEQ;
+Drop Sequence ROLEID_SEQ;
+Drop Sequence SEASONID_SEQ;
+Drop Sequence STATEID_SEQ;
+Drop Sequence TEAMID_SEQ;
+Drop Sequence USERID_SEQ;
+
+/
+
 CREATE TABLE Users
 (
   userName VARCHAR(25) NOT NULL,
@@ -7,9 +171,9 @@ CREATE TABLE Users
   userRole INT NOT NULL,
   PRIMARY KEY (userID)
 );
-
+/
 CREATE SEQUENCE userID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER USERID_SEQ_TRIGGER
 BEFORE INSERT ON USERS 
 FOR EACH ROW
@@ -18,7 +182,7 @@ BEGIN
   INTO   :new.userid
   FROM   dual;
 END;
-
+/
 CREATE TABLE Address
 (
   addressID INT NOT NULL,
@@ -27,12 +191,12 @@ CREATE TABLE Address
   city VARCHAR(25) NOT NULL,
   state VARCHAR(2) NOT NULL,
   zip INT NOT NULL,
-  addressType CHAR(1) NOT NULL,
+  addressType INT NOT NULL,
   PRIMARY KEY (addressID)
 );
-
+/
 CREATE SEQUENCE addressID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER addressID_SEQ_TRIGGER
 BEFORE INSERT ON Address 
 FOR EACH ROW
@@ -41,18 +205,18 @@ BEGIN
   INTO   :new.addressID
   FROM   dual;
 END;
-
+/
 
 CREATE TABLE Phone
 (
   phoneID INT NOT NULL,
   phoneNumber INT NOT NULL,
-  phneType CHAR(1) NOT NULL,
+  phneType INT NOT NULL,
   PRIMARY KEY (phoneID)
 );
-
+/
 CREATE SEQUENCE phoneID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER phoneID_SEQ_TRIGGER
 BEFORE INSERT ON Phone 
 FOR EACH ROW
@@ -61,21 +225,21 @@ BEGIN
   INTO   :new.phoneID
   FROM   dual;
 END;
-
+/
 
 CREATE TABLE Payment
 (
   paymentID INT NOT NULL,
-  paymentType CHAR(1) NOT NULL,
+  paymentType INT NOT NULL,
   nameOnCard VARCHAR(50) NOT NULL,
   cardNumber INT NOT NULL,
   expDate DATE NOT NULL,
   crvCode INT NOT NULL,
   PRIMARY KEY (paymentID)
 );
-
+/
 CREATE SEQUENCE paymentID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER paymentID_SEQ_TRIGGER
 BEFORE INSERT ON Payment 
 FOR EACH ROW
@@ -84,7 +248,7 @@ BEGIN
   INTO   :new.paymentID
   FROM   dual;
 END;
-
+/
 CREATE TABLE League
 (
   leagueID INT NOT NULL,
@@ -94,9 +258,9 @@ CREATE TABLE League
   PRIMARY KEY (leagueID),
   FOREIGN KEY (userID) REFERENCES Users(userID)
 );
-
+/
 CREATE SEQUENCE leagueID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER leagueID_SEQ_TRIGGER
 BEFORE INSERT ON League 
 FOR EACH ROW
@@ -105,7 +269,7 @@ BEGIN
   INTO   :new.leagueID
   FROM   dual;
 END;
-
+/
 CREATE TABLE Season
 (
   seasonID INT NOT NULL,
@@ -117,9 +281,9 @@ CREATE TABLE Season
   PRIMARY KEY (seasonID, leagueID),
   FOREIGN KEY (leagueID) REFERENCES League(leagueID)
 );
-
+/
 CREATE SEQUENCE seasonID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER seasonID_SEQ_TRIGGER
 BEFORE INSERT ON Season 
 FOR EACH ROW
@@ -128,7 +292,7 @@ BEGIN
   INTO   :new.seasonID
   FROM   dual;
 END;
-
+/
 CREATE TABLE Division
 (
   divisionID INT NOT NULL,
@@ -141,9 +305,9 @@ CREATE TABLE Division
   PRIMARY KEY (divisionID, seasonID, leagueID),
   FOREIGN KEY (seasonID, leagueID) REFERENCES Season(seasonID, leagueID)
 );
-
+/
 CREATE SEQUENCE divisionID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER divisionID_SEQ_TRIGGER
 BEFORE INSERT ON Division 
 FOR EACH ROW
@@ -152,7 +316,7 @@ BEGIN
   INTO   :new.divisionID
   FROM   dual;
 END;
-
+/
 
 CREATE TABLE Field
 (
@@ -161,9 +325,9 @@ CREATE TABLE Field
   fieldLocation VARCHAR(25) NOT NULL,
   PRIMARY KEY (fieldID)
 );
-
+/
 CREATE SEQUENCE fieldID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER fieldID_SEQ_TRIGGER
 BEFORE INSERT ON Field 
 FOR EACH ROW
@@ -172,16 +336,16 @@ BEGIN
   INTO   :new.fieldID
   FROM   dual;
 END;
-
+/
 CREATE TABLE AddressType
 (
-  addressTypeID CHAR(1) NOT NULL,
+  addressTypeID INT NOT NULL,
   addressType VARCHAR(25) NOT NULL,
   PRIMARY KEY (addressTypeID)
 );
-
+/
 CREATE SEQUENCE addressTypeID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER addressTypeID_SEQ_TRIGGER
 BEFORE INSERT ON AddressType 
 FOR EACH ROW
@@ -190,16 +354,16 @@ BEGIN
   INTO   :new.addressTypeID
   FROM   dual;
 END;
-
+/
 CREATE TABLE PhoneType
 (
-  phoneTypeID VARCHAR(1) NOT NULL,
+  phoneTypeID int NOT NULL,
   phoneType VARCHAR(25) NOT NULL,
   PRIMARY KEY (phoneTypeID)
 );
-
+/
 CREATE SEQUENCE phoneTypeID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER phoneTypeID_SEQ_TRIGGER
 BEFORE INSERT ON PhoneType 
 FOR EACH ROW
@@ -208,16 +372,16 @@ BEGIN
   INTO   :new.phoneTypeID
   FROM   dual;
 END;
-
+/
 CREATE TABLE PaymentType
 (
-  paymentTypeID VARCHAR(1) NOT NULL,
+  paymentTypeID int NOT NULL,
   paymentType VARCHAR(25) NOT NULL,
   PRIMARY KEY (paymentTypeID)
 );
-
+/
 CREATE SEQUENCE paymentTypeID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER paymentTypeID_SEQ_TRIGGER
 BEFORE INSERT ON PaymentType 
 FOR EACH ROW
@@ -226,16 +390,16 @@ BEGIN
   INTO   :new.paymentTypeID
   FROM   dual;
 END;
-
+/
 CREATE TABLE UserRole
 (
-  roleID CHAR(1) NOT NULL,
+  roleID int NOT NULL,
   userRole VARCHAR(25) NOT NULL,
   PRIMARY KEY (roleID)
 );
-
+/
 CREATE SEQUENCE roleID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER roleID_SEQ_TRIGGER
 BEFORE INSERT ON UserRole 
 FOR EACH ROW
@@ -244,16 +408,16 @@ BEGIN
   INTO   :new.roleID
   FROM   dual;
 END;
-
+/
 CREATE TABLE StateLookUp
 (
   stateID CHAR(2) NOT NULL,
   state VARCHAR(25) NOT NULL,
   PRIMARY KEY (stateID)
 );
-
+/
 CREATE SEQUENCE stateID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER stateID_SEQ_TRIGGER
 BEFORE INSERT ON StateLookUp 
 FOR EACH ROW
@@ -262,7 +426,7 @@ BEGIN
   INTO   :new.stateID
   FROM   dual;
 END;
-
+/
 CREATE TABLE Person
 (
   firstName VARCHAR(25) NOT NULL,
@@ -280,9 +444,9 @@ CREATE TABLE Person
   FOREIGN KEY (phoneID) REFERENCES Phone(phoneID),
   FOREIGN KEY (paymentID) REFERENCES Payment(paymentID)
 );
-
+/
 CREATE SEQUENCE personID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER personID_SEQ_TRIGGER
 BEFORE INSERT ON Person 
 FOR EACH ROW
@@ -291,7 +455,7 @@ BEGIN
   INTO   :new.personID
   FROM   dual;
 END;
-
+/
 CREATE TABLE RefereePlayer
 (
   refereeID INT NOT NULL,
@@ -299,9 +463,9 @@ CREATE TABLE RefereePlayer
   PRIMARY KEY (refereeID, personID),
   FOREIGN KEY (personID) REFERENCES Person(personID)
 );
-
+/
 CREATE SEQUENCE refereeID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER refereeID_SEQ_TRIGGER
 BEFORE INSERT ON RefereePlayer 
 FOR EACH ROW
@@ -310,7 +474,7 @@ BEGIN
   INTO   :new.refereeID
   FROM   dual;
 END;
-
+/
 CREATE TABLE Team
 (
   teamID INT NOT NULL,
@@ -327,9 +491,9 @@ CREATE TABLE Team
   FOREIGN KEY (fieldID) REFERENCES Field(fieldID),
   FOREIGN KEY (refereeID, personID) REFERENCES RefereePlayer(refereeID, personID)
 );
-
+/
 CREATE SEQUENCE teamID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-
+/
 CREATE OR REPLACE TRIGGER teamID_SEQ_TRIGGER
 BEFORE INSERT ON Team 
 FOR EACH ROW
@@ -338,3 +502,4 @@ BEGIN
   INTO   :new.teamID
   FROM   dual;
 END;
+/
