@@ -1,7 +1,7 @@
 package com.team3.business.models;
 
 public class League {
-	private int leagueID;
+	private long leagueID;
 	private String leagueName;
 	private String leagueLocation;
 	private int userID;
@@ -9,11 +9,11 @@ public class League {
 	public League() {
 	}
 
-	public int getLeagueID() {
+	public long getLeagueID() {
 		return leagueID;
 	}
 
-	public void setLeagueID(int leagueID) {
+	public void setLeagueID(long leagueID) {
 		this.leagueID = leagueID;
 	}
 
