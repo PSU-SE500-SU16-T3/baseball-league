@@ -155,21 +155,44 @@ Drop Sequence PHONEID_SEQ;
 Drop Sequence PHONETYPEID_SEQ;
 Drop Sequence REFEREEID_SEQ;
 Drop Sequence ROLEID_SEQ;
-Drop Sequence SEASONID_SEQ;
+Drop Sequence LEAGUEID_SEQ;
+Drop Sequence LeagueID_SEQ
 Drop Sequence STATEID_SEQ;
 Drop Sequence TEAMID_SEQ;
 Drop Sequence USERID_SEQ;
 
 /
-
+CREATE TABLE Person
+(
+  firstName VARCHAR(25) NOT NULL,
+  lastName VARCHAR(25) NOT NULL,
+  middleName VARCHAR(25),
+  dob DATE NOT NULL,
+  personID INT NOT NULL,
+  PRIMARY KEY (personID)
+);
+/
+CREATE SEQUENCE personID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
+/
+CREATE OR REPLACE TRIGGER personID_SEQ_TRIGGER
+BEFORE INSERT ON Person 
+FOR EACH ROW
+BEGIN
+  SELECT personID_SEQ.NEXTVAL
+  INTO   :new.personID
+  FROM   dual;
+END;
+/
 CREATE TABLE Users
 (
+  personID int Not Null,
   userName VARCHAR(25) NOT NULL,
   passw VARCHAR(25) NOT NULL,
   email VARCHAR(25) NOT NULL,
   userID INT NOT NULL,
   userRole INT NOT NULL,
-  PRIMARY KEY (userID)
+  PRIMARY KEY (userID),
+    FOREIGN KEY (personID) REFERENCES Person(personID)
 );
 /
 CREATE SEQUENCE userID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
@@ -185,6 +208,7 @@ END;
 /
 CREATE TABLE Address
 (
+  personID int Not Null,
   addressID INT NOT NULL,
   line1 VARCHAR(25) NOT NULL,
   line2 VARCHAR(25),
@@ -192,7 +216,8 @@ CREATE TABLE Address
   state VARCHAR(2) NOT NULL,
   zip INT NOT NULL,
   addressType INT NOT NULL,
-  PRIMARY KEY (addressID)
+  PRIMARY KEY (addressID),
+  FOREIGN KEY (personID) REFERENCES Person(personID)
 );
 /
 CREATE SEQUENCE addressID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
@@ -209,10 +234,12 @@ END;
 
 CREATE TABLE Phone
 (
+  personID int Not Null,
   phoneID INT NOT NULL,
   phoneNumber INT NOT NULL,
   phneType INT NOT NULL,
-  PRIMARY KEY (phoneID)
+  PRIMARY KEY (phoneID),
+    FOREIGN KEY (personID) REFERENCES Person(personID)
 );
 /
 CREATE SEQUENCE phoneID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
@@ -229,13 +256,15 @@ END;
 
 CREATE TABLE Payment
 (
+  personID int Not Null,
   paymentID INT NOT NULL,
   paymentType INT NOT NULL,
   nameOnCard VARCHAR(50) NOT NULL,
   cardNumber INT NOT NULL,
   expDate DATE NOT NULL,
   crvCode INT NOT NULL,
-  PRIMARY KEY (paymentID)
+  PRIMARY KEY (paymentID),
+    FOREIGN KEY (personID) REFERENCES Person(personID)
 );
 /
 CREATE SEQUENCE paymentID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
@@ -427,35 +456,7 @@ BEGIN
   FROM   dual;
 END;
 /
-CREATE TABLE Person
-(
-  firstName VARCHAR(25) NOT NULL,
-  lastName VARCHAR(25) NOT NULL,
-  middleName VARCHAR(25),
-  dob DATE NOT NULL,
-  personID INT NOT NULL,
-  userID INT,
-  addressID INT,
-  phoneID INT,
-  paymentID INT,
-  PRIMARY KEY (personID),
-  FOREIGN KEY (userID) REFERENCES Users(userID),
-  FOREIGN KEY (addressID) REFERENCES Address(addressID),
-  FOREIGN KEY (phoneID) REFERENCES Phone(phoneID),
-  FOREIGN KEY (paymentID) REFERENCES Payment(paymentID)
-);
-/
-CREATE SEQUENCE personID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-/
-CREATE OR REPLACE TRIGGER personID_SEQ_TRIGGER
-BEFORE INSERT ON Person 
-FOR EACH ROW
-BEGIN
-  SELECT personID_SEQ.NEXTVAL
-  INTO   :new.personID
-  FROM   dual;
-END;
-/
+
 CREATE TABLE RefereePlayer
 (
   refereeID INT NOT NULL,
