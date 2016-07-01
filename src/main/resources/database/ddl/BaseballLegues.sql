@@ -156,10 +156,10 @@ Drop Sequence PHONETYPEID_SEQ;
 Drop Sequence REFEREEID_SEQ;
 Drop Sequence ROLEID_SEQ;
 Drop Sequence LEAGUEID_SEQ;
-Drop Sequence LeagueID_SEQ
-Drop Sequence STATEID_SEQ;
+
 Drop Sequence TEAMID_SEQ;
 Drop Sequence USERID_SEQ;
+Drop Sequence seasonID_SEQ;
 
 /
 CREATE TABLE Person
@@ -283,9 +283,7 @@ CREATE TABLE League
   leagueID INT NOT NULL,
   leagueName VARCHAR(50) NOT NULL,
   leagueLocation VARCHAR(50) NOT NULL,
-  userID INT NOT NULL,
-  PRIMARY KEY (leagueID),
-  FOREIGN KEY (userID) REFERENCES Users(userID)
+  PRIMARY KEY (leagueID)
 );
 /
 CREATE SEQUENCE leagueID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
@@ -307,7 +305,7 @@ CREATE TABLE Season
   seasonEndDt DATE NOT NULL,
   seasonNumberOfPlayers INT NOT NULL,
   leagueID INT NOT NULL,
-  PRIMARY KEY (seasonID, leagueID),
+  PRIMARY KEY (seasonID),
   FOREIGN KEY (leagueID) REFERENCES League(leagueID)
 );
 /
@@ -330,9 +328,8 @@ CREATE TABLE Division
   divisionMaxAge INT NOT NULL,
   divisionNumberOfPlayer INT NOT NULL,
   seasonID INT NOT NULL,
-  leagueID INT NOT NULL,
-  PRIMARY KEY (divisionID, seasonID, leagueID),
-  FOREIGN KEY (seasonID, leagueID) REFERENCES Season(seasonID, leagueID)
+  PRIMARY KEY (divisionID),
+  FOREIGN KEY (seasonID) REFERENCES Season(seasonID)
 );
 /
 CREATE SEQUENCE divisionID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
@@ -351,7 +348,7 @@ CREATE TABLE Field
 (
   fieldID INT NOT NULL,
   fieldName VARCHAR(50) NOT NULL,
-  fieldLocation VARCHAR(25) NOT NULL,
+  fieldLocation VARCHAR(200) NOT NULL,
   PRIMARY KEY (fieldID)
 );
 /
@@ -440,21 +437,10 @@ END;
 /
 CREATE TABLE StateLookUp
 (
-  stateID CHAR(2) NOT NULL,
-  state VARCHAR(25) NOT NULL,
+  stateID VarCHAR(10) NOT NULL,
+  state VARCHAR(50) NOT NULL,
   PRIMARY KEY (stateID)
 );
-/
-CREATE SEQUENCE stateID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-/
-CREATE OR REPLACE TRIGGER stateID_SEQ_TRIGGER
-BEFORE INSERT ON StateLookUp 
-FOR EACH ROW
-BEGIN
-  SELECT stateID_SEQ.NEXTVAL
-  INTO   :new.stateID
-  FROM   dual;
-END;
 /
 
 CREATE TABLE RefereePlayer
@@ -482,13 +468,11 @@ CREATE TABLE Team
   teamTitle VARCHAR(50) NOT NULL,
   teamNumberOfPlayers INT NOT NULL,
   divisionID INT NOT NULL,
-  seasonID INT NOT NULL,
-  leagueID INT NOT NULL,
   fieldID INT,
   refereeID INT,
   personID INT,
-  PRIMARY KEY (teamID, divisionID, seasonID, leagueID),
-  FOREIGN KEY (divisionID, seasonID, leagueID) REFERENCES Division(divisionID, seasonID, leagueID),
+  PRIMARY KEY (teamID),
+  FOREIGN KEY (divisionID) REFERENCES Division(divisionID),
   FOREIGN KEY (fieldID) REFERENCES Field(fieldID),
   FOREIGN KEY (refereeID, personID) REFERENCES RefereePlayer(refereeID, personID)
 );
