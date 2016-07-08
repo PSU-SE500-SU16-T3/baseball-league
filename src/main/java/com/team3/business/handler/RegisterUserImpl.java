@@ -11,6 +11,7 @@ import com.team3.business.models.League;
 import com.team3.business.models.Season;
 import com.team3.business.models.User;
 import com.team3.dao.Dao;
+import com.team3.business.models.Player;
 
 @Service("registerUser")
 public class RegisterUserImpl implements RegisterUser{
@@ -18,13 +19,17 @@ public class RegisterUserImpl implements RegisterUser{
 	@Autowired
 	Dao daoImpl;
 
-	public User processUser(Map<String, String> allRequestParams) {
-		User user = new User();
-		user.setUsername(allRequestParams.get("username"));
-		user.setUserPassword(allRequestParams.get("password"));
-		user.setUserEmail(allRequestParams.get("email"));
-		daoImpl.insertUser(user);
-		return user;
+	public Player processUser(Map<String, String> allRequestParams) {
+		//User user = new User();
+		Player player = new Player();
+		//user.setUsername(allRequestParams.get("username"));
+		//user.setUserPassword(allRequestParams.get("password"));
+		//user.setUserEmail(allRequestParams.get("email"));
+		player.setFirstName(allRequestParams.get("username"));
+		player.setMiddleName(allRequestParams.get("password"));
+		player.setLastName(allRequestParams.get("email"));
+		daoImpl.insertPlayer(player);
+		return player;
 	}
 	
 	public List<League> getLeague() {

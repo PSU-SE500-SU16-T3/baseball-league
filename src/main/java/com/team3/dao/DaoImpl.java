@@ -1,6 +1,7 @@
 package com.team3.dao;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,16 +25,16 @@ import com.team3.business.models.User;
 public class DaoImpl extends JdbcDaoSupport implements Dao{
 
 	public void insertUser(User user) {
-		String sql = "INSERT INTO USERS (userName, passw, email, userID, userRole) VALUES (?, ?, ?, userID_SEQ.NEXTVAL, ?);";
+		String sql = "INSERT INTO USERS (userName, passw, email, userRole) VALUES (?, ?, ?, ?)";
 					 
-		getJdbcTemplate().update(sql, new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail(), user.getUserRole()});
+		getJdbcTemplate().update(sql, new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail(), 123});
 		
 	}
 
 	public void insertPlayer(Player player) {
-		String sql = "INSERT INTO PERSON (addressid, dob, firstname, lastname, middlename, paymentid, phoneid, userid, personid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, personid_SEQ.NEXTVAL);";
+		String sql = "INSERT INTO PERSON (dob, firstname, lastname, middlename) VALUES (SYSDATE, ?, ?, ?)";
 		 
-		getJdbcTemplate().update(sql, new Object[] { player.getAddressID(), player.getDateOfBirth(), player.getFirstName(), player.getLastName(), player.getMiddleName(), player.getPaymentID(), player.getPhoneID(), player.getUserID()});
+		getJdbcTemplate().update(sql, new Object[] { player.getFirstName(), player.getLastName(), player.getMiddleName() });
 	}
 
 	public void insertPhone(Phone phone) {

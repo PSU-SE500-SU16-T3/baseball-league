@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.team3.business.handler.RegisterUser;
 import com.team3.business.models.Division;
 import com.team3.business.models.League;
+import com.team3.business.models.Player;
 import com.team3.business.models.Season;
 import com.team3.business.models.User;
 
@@ -24,10 +25,10 @@ public class LeagueController {
 	private RegisterUser registerUser;
 	
 	@RequestMapping(value="/getJson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody User getShopInJSON(@RequestParam Map<String,String> allRequestParams) {
+	public @ResponseBody Player getShopInJSON(@RequestParam Map<String,String> allRequestParams) {
 		System.out.println(allRequestParams);
-		User user = registerUser.processUser(allRequestParams);
-		return user;
+		Player player = registerUser.processUser(allRequestParams);
+		return player;
 
 	}
 	
