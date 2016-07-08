@@ -1,5 +1,10 @@
 package com.team3.dao;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 
@@ -97,6 +102,49 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		String sql = "INSERT INTO address(ADDRESSID, LINE1, LINE2, CITY, STATE, ZIP, ADDRESSTYPE) VALUES (ADDRESSID_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?);";
 		 
 		getJdbcTemplate().update(sql, new Object[] { address.getAddressLine1(), address.getAddressLine2(), address.getCity(), address.getState(), address.getZip(), address.getAddressType()});
+	}
+
+	public List<League> getLeague() {
+		String sql = "SELECT LEAGUEID, LEAGUENAME, LEAGUELOCATION FROM LEAGUE";
+		List<League> leagues = new ArrayList<League>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
+		for (Map<String, Object> row : rows) {
+			League league = new League();
+			league.setLeagueID((BigDecimal)(row.get("LEAGUEID")));
+			league.setLeagueName((String)(row.get("LEAGUENAME")));
+			league.setLeagueLocation((String)(row.get("LEAGUELOCATION")));
+			leagues.add(league);
+		}		
+		return leagues;
+	}
+	
+	public List<Season> getSeasons(String leagueId) {
+		String sql = "SELECT SEASONID, SEASONTITLE FROM SEASON WHERE LEAGUEID = ?";
+		List<Season> seasons = new ArrayList<Season>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, new Object[] { leagueId });
+		for (Map<String, Object> row : rows) {
+			Season season = new Season();
+			season.setSeasonID((BigDecimal)(row.get("SEASONID")));
+			season.setSeasonName((String)(row.get("SEASONTITLE")));
+			seasons.add(season);
+		}		
+		return seasons;
+	}
+
+	public List<Division> getDivisions(String seasonId) {
+		String sql = "SELECT DIVISIONID, DIVISIONTITLE, DIVISIONMINAGE, DIVISIONMAXAGE, DIVISIONNUMBEROFPLAYER FROM DIVISION WHERE SEASONID = ?";
+		List<Division> divisions = new ArrayList<Division>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, new Object[] { seasonId });
+		for (Map<String, Object> row : rows) {
+			Division division = new Division();
+			division.setDivisionID((BigDecimal)(row.get("DIVISIONID")));
+			division.setDivisionTitle((String)(row.get("DIVISIONTITLE")));
+			division.setDivisionMinAge((BigDecimal)(row.get("DIVISIONMINAGE")));
+			division.setDivisionMaxAge((BigDecimal)(row.get("DIVISIONMAXAGE")));
+			division.setDivisionNumPlayers((BigDecimal)(row.get("DIVISIONNUMBEROFPLAYER")));
+			divisions.add(division);
+		}		
+		return divisions;
 	}
 
 }

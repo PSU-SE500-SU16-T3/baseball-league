@@ -1,7 +1,9 @@
 package com.team3.business.models;
 
+import java.math.BigDecimal;
+
 public class League {
-	private long leagueID;
+	private BigDecimal leagueID;
 	private String leagueName;
 	private String leagueLocation;
 	private int userID;
@@ -9,11 +11,11 @@ public class League {
 	public League() {
 	}
 
-	public long getLeagueID() {
+	public BigDecimal getLeagueID() {
 		return leagueID;
 	}
 
-	public void setLeagueID(long leagueID) {
+	public void setLeagueID(BigDecimal leagueID) {
 		this.leagueID = leagueID;
 	}
 

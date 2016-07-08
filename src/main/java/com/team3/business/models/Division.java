@@ -1,18 +1,20 @@
 package com.team3.business.models;
 
+import java.math.BigDecimal;
+
 public class Division {
-	private int divisionID;
+	private BigDecimal divisionID;
 	private int seasonID;
 	private int leagueID;
 	private String divisionTitle;
-	private int divisionMinAge;
-	private int divisionMaxAge;
-	private int divisionNumPlayers;
+	private BigDecimal divisionMinAge;
+	private BigDecimal divisionMaxAge;
+	private BigDecimal divisionNumPlayers;
 	
-	public int getDivisionID() {
+	public BigDecimal getDivisionID() {
 		return divisionID;
 	}
-	public void setDivisionID(int divisionID) {
+	public void setDivisionID(BigDecimal divisionID) {
 		this.divisionID = divisionID;
 	}
 	public int getSeasonID() {
@@ -33,22 +35,22 @@ public class Division {
 	public void setDivisionTitle(String divisionTitle) {
 		this.divisionTitle = divisionTitle;
 	}
-	public int getDivisionMinAge() {
+	public BigDecimal getDivisionMinAge() {
 		return divisionMinAge;
 	}
-	public void setDivisionMinAge(int divisionMinAge) {
+	public void setDivisionMinAge(BigDecimal divisionMinAge) {
 		this.divisionMinAge = divisionMinAge;
 	}
-	public int getDivisionMaxAge() {
+	public BigDecimal getDivisionMaxAge() {
 		return divisionMaxAge;
 	}
-	public void setDivisionMaxAge(int divisionMaxAge) {
+	public void setDivisionMaxAge(BigDecimal divisionMaxAge) {
 		this.divisionMaxAge = divisionMaxAge;
 	}
-	public int getDivisionNumPlayers() {
+	public BigDecimal getDivisionNumPlayers() {
 		return divisionNumPlayers;
 	}
-	public void setDivisionNumPlayers(int divisionNumPlayers) {
+	public void setDivisionNumPlayers(BigDecimal divisionNumPlayers) {
 		this.divisionNumPlayers = divisionNumPlayers;
 	}
 }

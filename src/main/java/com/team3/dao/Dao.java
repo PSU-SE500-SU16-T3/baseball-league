@@ -1,5 +1,7 @@
 package com.team3.dao;
 
+import java.util.List;
+
 import com.team3.business.models.Address;
 import com.team3.business.models.Division;
 import com.team3.business.models.Field;
@@ -27,4 +29,7 @@ public interface Dao {
 	public void insertField(Field field);
 	public void insertRefereePlayer(RefereePlayer refereePlayer);
 	public void insertAddress(Address address);
+	public List<League> getLeague();
+	public List<Season> getSeasons(String leagueId);
+	public List<Division> getDivisions(String seasonId);
 }

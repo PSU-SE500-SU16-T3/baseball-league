@@ -1,9 +1,10 @@
 package com.team3.business.models;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 
 public class Season {
-	private int seasonID;
+	private BigDecimal seasonID;
 	private int leagueID;
 	private String seasonName;
 	private Calendar startDate;
@@ -13,11 +14,11 @@ public class Season {
 	public Season() {
 	}
 
-	public int getSeasonID() {
+	public BigDecimal getSeasonID() {
 		return seasonID;
 	}
 
-	public void setSeasonID(int seasonID) {
+	public void setSeasonID(BigDecimal seasonID) {
 		this.seasonID = seasonID;
 	}
 

@@ -469,14 +469,15 @@ CREATE TABLE Team
   teamNumberOfPlayers INT NOT NULL,
   divisionID INT NOT NULL,
   fieldID INT,
-  refereeID INT,
-  personID INT,
+  --refereeID INT,
+  --personID INT,
   PRIMARY KEY (teamID),
   FOREIGN KEY (divisionID) REFERENCES Division(divisionID),
-  FOREIGN KEY (fieldID) REFERENCES Field(fieldID),
-  FOREIGN KEY (refereeID, personID) REFERENCES RefereePlayer(refereeID, personID)
+  FOREIGN KEY (fieldID) REFERENCES Field(fieldID)
+  --FOREIGN KEY (refereeID, personID) REFERENCES RefereePlayer(refereeID, personID)
 );
 /
+
 CREATE SEQUENCE teamID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
 /
 CREATE OR REPLACE TRIGGER teamID_SEQ_TRIGGER
@@ -487,4 +488,22 @@ BEGIN
   INTO   :new.teamID
   FROM   dual;
 END;
+/
+
+CREATE TABLE TeamAssignment
+(
+  teamID INT NOT NULL,
+  personID int NOT NULL,
+  FOREIGN KEY (teamID) REFERENCES Team(teamID),
+  FOREIGN KEY (personID) REFERENCES Person(personID)
+);
+/
+
+CREATE TABLE PersonRoleAssignment
+(
+  personID int NOT NULL,
+  roleID int NOT NULL,
+  FOREIGN KEY (personID) REFERENCES Person(personID),
+  FOREIGN KEY (roleID) REFERENCES UserRole(roleID)
+);
 /
