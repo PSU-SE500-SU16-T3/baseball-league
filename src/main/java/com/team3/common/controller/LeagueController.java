@@ -52,4 +52,18 @@ public class LeagueController {
 		return divisions;
 
 	}
+	
+	@RequestMapping(value="/getUnassignedPlayers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Player> getUnassignedPlayers() {
+		List<Player> players = registerUser.getUnassignedPlayers();
+		return players;
+
+	}
+	
+	@RequestMapping(value="/getAssignedPlayers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Player> getAssignedPlayers(@RequestParam Map<String,String> allRequestParams) {
+		List<Player> players = registerUser.getAssignedPlayers(allRequestParams);
+		return players;
+
+	}
 }

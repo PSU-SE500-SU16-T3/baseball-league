@@ -1,7 +1,6 @@
 package com.team3.dao;
 
 import java.math.BigDecimal;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -146,6 +145,36 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 			divisions.add(division);
 		}		
 		return divisions;
+	}	
+	
+	public List<Player> getAssignedPlayers(String teamId) {
+		String sql = "SELECT PERSONID, FIRSTNAME, LASTNAME FROM PERSON WHERE PERSONID IN "
+				+ "(SELECT TA.PERSONID from TEAMASSIGNMENT TA, PERSONROLEASSIGNMENT PRA WHERE PRA.ROLEID=10001 AND TA.PERSONID=PRA.PERSONID AND TA.TEAMID = ?) ORDER BY FIRSTNAME ASC";
+		List<Player> players = new ArrayList<Player>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, new Object[] { teamId });
+		for (Map<String, Object> row : rows) {
+			Player player = new Player();
+			player.setPersonID((BigDecimal)(row.get("PERSONID")));
+			player.setFirstName((String)(row.get("FIRSTNAME")));
+			player.setLastName((String)(row.get("LASTNAME")));
+			players.add(player);
+		}		
+		return players;
+	}
+	
+	public List<Player> getUnassignedPlayers() {
+		String sql = "SELECT P.PERSONID, P.FIRSTNAME, P.LASTNAME FROM PERSON P, PERSONROLEASSIGNMENT PRA WHERE P.PERSONID NOT IN "
+				+ "(SELECT PERSONID FROM TEAMASSIGNMENT) AND P.PERSONID=PRA.PERSONID AND PRA.ROLEID = 10001 ORDER BY P.FIRSTNAME ASC";
+		List<Player> players = new ArrayList<Player>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
+		for (Map<String, Object> row : rows) {
+			Player player = new Player();
+			player.setPersonID((BigDecimal)(row.get("PERSONID")));
+			player.setFirstName((String)(row.get("FIRSTNAME")));
+			player.setLastName((String)(row.get("LASTNAME")));
+			players.add(player);
+		}		
+		return players;
 	}
 
 }
