@@ -1,13 +1,14 @@
 package com.team3.business.models;
 
 import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 public class Player {
 	private String firstName;
 	private int personID;
 	private String lastName;
 	private String middleName;
-	private Calendar dateOfBirth;
+	private SimpleDateFormat dateOfBirth;
 	private int userID;
 	private int addressID;
 	private int phoneID;
@@ -38,10 +39,10 @@ public class Player {
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
-	public Calendar getDateOfBirth() {
+	public SimpleDateFormat getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(Calendar dateOfBirth) {
+	public void setDateOfBirth(SimpleDateFormat dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public int getUserID() {

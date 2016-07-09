@@ -32,9 +32,9 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	}
 
 	public void insertPlayer(Player player) {
-		String sql = "INSERT INTO PERSON (dob, firstname, lastname, middlename) VALUES (SYSDATE, ?, ?, ?)";
+		String sql = "INSERT INTO PERSON (dob, firstname, lastname, middlename) VALUES (?, ?, ?, ?)";
 		 
-		getJdbcTemplate().update(sql, new Object[] { player.getFirstName(), player.getLastName(), player.getMiddleName() });
+		getJdbcTemplate().update(sql, new Object[] {player.getDateOfBirth(), player.getFirstName(), player.getLastName(), player.getMiddleName() });
 	}
 
 	public void insertPhone(Phone phone) {
