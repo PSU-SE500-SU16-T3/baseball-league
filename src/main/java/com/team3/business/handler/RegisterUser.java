@@ -16,4 +16,5 @@ public interface RegisterUser {
 	public List<Division> getDivisions(Map<String, String> allRequestParams);
 	public List<Player> getUnassignedPlayers();
 	public List<Player> getAssignedPlayers(Map<String, String> allRequestParams);
+	public boolean modifyPlayers(Map<String, String> allRequestParams);
 }

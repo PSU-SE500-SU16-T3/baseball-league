@@ -66,4 +66,11 @@ public class LeagueController {
 		return players;
 
 	}
+	
+	@RequestMapping(value="/modifyPlayers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean modifyPlayers(@RequestParam Map<String,String> allRequestParams) {
+		boolean status = registerUser.modifyPlayers(allRequestParams);
+		return status;
+
+	}
 }
