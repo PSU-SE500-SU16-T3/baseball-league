@@ -32,4 +32,6 @@ public interface Dao {
 	public List<League> getLeague();
 	public List<Season> getSeasons(String leagueId);
 	public List<Division> getDivisions(String seasonId);
+	public List<Player> getUnassignedPlayers();
+	public List<Player> getAssignedPlayers(String teamId);
 }

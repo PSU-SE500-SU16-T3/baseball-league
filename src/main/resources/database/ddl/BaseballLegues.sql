@@ -18,6 +18,15 @@ EXCEPTION
       END IF;
 END;
 /
+Begin
+EXECUTE IMMEDIATE 'Drop Table Users cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
 BEGIN
    EXECUTE IMMEDIATE 'Drop Table Division cascade constraints';
 EXCEPTION
@@ -136,7 +145,7 @@ EXCEPTION
 END;
 /
 BEGIN
-   EXECUTE IMMEDIATE 'Drop Table USERS cascade constraints';
+   EXECUTE IMMEDIATE 'Drop Table Game cascade constraints';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
@@ -144,6 +153,25 @@ EXCEPTION
       END IF;
 END;
 /
+BEGIN
+EXECUTE IMMEDIATE 'Drop Table TeamAssignment cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+EXECUTE IMMEDIATE 'Drop Table PersonRoleAssignment cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+
 Drop Sequence ADDRESSID_SEQ;
 Drop Sequence ADDRESSTYPEID_SEQ;
 Drop Sequence DIVISIONID_SEQ;
@@ -156,7 +184,7 @@ Drop Sequence PHONETYPEID_SEQ;
 Drop Sequence REFEREEID_SEQ;
 Drop Sequence ROLEID_SEQ;
 Drop Sequence LEAGUEID_SEQ;
-
+Drop Sequence GAME_SEQ; 
 Drop Sequence TEAMID_SEQ;
 Drop Sequence USERID_SEQ;
 Drop Sequence seasonID_SEQ;
@@ -489,7 +517,6 @@ BEGIN
   FROM   dual;
 END;
 /
-
 CREATE TABLE TeamAssignment
 (
   teamID INT NOT NULL,
@@ -498,7 +525,6 @@ CREATE TABLE TeamAssignment
   FOREIGN KEY (personID) REFERENCES Person(personID)
 );
 /
-
 CREATE TABLE PersonRoleAssignment
 (
   personID int NOT NULL,
@@ -506,4 +532,29 @@ CREATE TABLE PersonRoleAssignment
   FOREIGN KEY (personID) REFERENCES Person(personID),
   FOREIGN KEY (roleID) REFERENCES UserRole(roleID)
 );
+/
+CREATE TABLE GAME
+(
+  GameID int NOT NULL,
+  Team1ID int,
+  Team2ID int,
+  RefereeID,
+  FieldID int not null,
+  PRIMARY KEY (GameID),
+  FOREIGN KEY (Team1ID) REFERENCES Team(teamID),
+  FOREIGN KEY (Team2ID) REFERENCES Team(teamID),
+  FOREIGN KEY (RefereeID) REFERENCES Person(personID),
+  FOREIGN KEY (FieldID) REFERENCES Field(FieldID));
+/
+
+CREATE SEQUENCE Game_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
+/
+CREATE OR REPLACE TRIGGER Game_SEQ_TRIGGER
+BEFORE INSERT ON Game 
+FOR EACH ROW
+BEGIN
+  SELECT GameID_SEQ.NEXTVAL
+  INTO   :new.GameID
+  FROM   dual;
+END;
 /

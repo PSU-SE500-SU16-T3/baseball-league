@@ -8,10 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.team3.business.models.Division;
 import com.team3.business.models.League;
-import com.team3.business.models.Season;
-import com.team3.business.models.User;
-import com.team3.dao.Dao;
 import com.team3.business.models.Player;
+import com.team3.business.models.Season;
+import com.team3.dao.Dao;
 
 @Service("registerUser")
 public class RegisterUserImpl implements RegisterUser{
@@ -47,6 +46,17 @@ public class RegisterUserImpl implements RegisterUser{
 		String seasonId = allRequestParams.get("seasonId");
 		List<Division> divisions = daoImpl.getDivisions(seasonId);
 		return divisions;
+	}
+
+	public List<Player> getUnassignedPlayers() {
+		List<Player> players = daoImpl.getUnassignedPlayers();
+		return players;
+	}
+
+	public List<Player> getAssignedPlayers(Map<String, String> allRequestParams) {
+		String teamId = allRequestParams.get("teamId");
+		List<Player> players = daoImpl.getAssignedPlayers(teamId);
+		return players;
 	}
 
 }
