@@ -538,7 +538,7 @@ CREATE TABLE GAME
   GameID int NOT NULL,
   Team1ID int,
   Team2ID int,
-  RefereeID,
+  RefereeID int,
   FieldID int not null,
   PRIMARY KEY (GameID),
   FOREIGN KEY (Team1ID) REFERENCES Team(teamID),

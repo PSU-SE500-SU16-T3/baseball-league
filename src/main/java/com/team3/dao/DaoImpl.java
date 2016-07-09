@@ -26,7 +26,7 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	public void insertUser(User user) {
 		String sql = "INSERT INTO USERS (userName, passw, email, userRole) VALUES (?, ?, ?, ?)";
 					 
-		getJdbcTemplate().update(sql, new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail(), 123});
+		getJdbcTemplate().update(sql, new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail(), user.getUserRole()});
 		
 	}
 
@@ -37,43 +37,43 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	}
 
 	public void insertPhone(Phone phone) {
-		String sql = "INSERT INTO PHONE (phnetype, phoneid, phonenumber) VALUES (?, phoneid_SEQ.NEXTVAL, ?);";
+		String sql = "INSERT INTO PHONE (phnetype,  phonenumber) VALUES (?, ?)";
 		 
 		getJdbcTemplate().update(sql, new Object[] { phone.getPhoneType(), phone.getPhoneNum()});
 	}
 
 	public void insertPayment(Payment payment) {
-		String sql = "INSERT INTO PAYMENT (cardnumber, crvcode, expdate, nameoncard, paymentid, paymenttype) VALUES (?, ?, ?, ?, paymentid_SEQ.NEXTVAL, ?);";
+		String sql = "INSERT INTO PAYMENT (cardnumber, crvcode, expdate, nameoncard, paymenttype) VALUES (?, ?, ?, ?, ?)";
 		 
 		getJdbcTemplate().update(sql, new Object[] { payment.getCardNumber(), payment.getCvvCode(), payment.getExpDate(), payment.getNameOnCard(), payment.getPaymentType()});
 	}
 
 	public void insertLeague(League league) {
-		String sql = "INSERT INTO league( leagueid, leaguelocation, leaguename, userid) VALUES (leagueid_SEQ.NEXTVAL, ?, ?, ?);";
+		String sql = "INSERT INTO league( leaguelocation, leaguename) VALUES ( ?, ?)";
 		 
-		getJdbcTemplate().update(sql, new Object[] {league.getLeagueLocation(), league.getLeagueName(), league.getUserID()});
+		getJdbcTemplate().update(sql, new Object[] {league.getLeagueLocation(), league.getLeagueName()});
 	}
 
 	public void insertSeason(Season season) {
-		String sql = "INSERT INTO season(leagueid, seasonenddt, seasonid, seasonnumberofplayers, seasonstartdt, seasontitle) VALUES (?, ?, seasonid_SEQ.NEXTVAL, ?, ?, ?);";
+		String sql = "INSERT INTO season(leagueid, seasonenddt, seasonid, seasonnumberofplayers, seasonstartdt, seasontitle) VALUES (?, ?, ?, ?, ?)";
 		 
 		getJdbcTemplate().update(sql, new Object[] { season.getLeagueID(), season.getEndDate(), season.getNumPlayer(), season.getStartDate(), season.getSeasonName()});
 	}
 
 	public void dropSeason(Season season) {
-		String sql = "DELETE FROM season WHERE SEASONID= ? ;";
+		String sql = "DELETE FROM season WHERE SEASONID= ? ";
 		 
 		getJdbcTemplate().update(sql, new Object[] { season.getSeasonID()});
 	}
 
 	public void insertDivision(Division division) {
-		String sql = "INSERT INTO division(DIVISIONID, DIVISIONTITLE, DIVISIONMINAGE, DIVISIONMAXAGE, DIVISIONNUMBEROFPLAYER, SEASONID, LEAGUEID) VALUES (DIVISIONID_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO division( DIVISIONTITLE, DIVISIONMINAGE, DIVISIONMAXAGE, DIVISIONNUMBEROFPLAYER, SEASONID) VALUES (?, ?, ?, ?, ?)";
 		 
-		getJdbcTemplate().update(sql, new Object[] { division.getDivisionTitle(), division.getDivisionMinAge(), division.getDivisionMaxAge(), division.getDivisionNumPlayers(), division.getSeasonID(), division.getLeagueID()});
+		getJdbcTemplate().update(sql, new Object[] { division.getDivisionTitle(), division.getDivisionMinAge(), division.getDivisionMaxAge(), division.getDivisionNumPlayers(), division.getSeasonID()});
 	}
 
 	public void dropDivision(Division division) {
-		String sql = "DELETE FROM division WHERE DIVISIONID= ? ;";
+		String sql = "DELETE FROM division WHERE DIVISIONID= ? ";
 		 
 		getJdbcTemplate().update(sql, new Object[] { division.getDivisionID()});
 	
@@ -81,25 +81,25 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	}
 
 	public void insertTeam(Team team) {
-		String sql = "INSERT INTO team(TEAMID, TEAMTITLE, TEAMNUMBEROFPLAYERS, DIVISIONID, SEASONID, LEAGUEID, FIELDID, REFEREEID, PERSONID) VALUES (TEAMID_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO team(TEAMID, TEAMTITLE, TEAMNUMBEROFPLAYERS, DIVISIONID, SEASONID, LEAGUEID, FIELDID, REFEREEID, PERSONID) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 		 
 		getJdbcTemplate().update(sql, new Object[] { team.getTeamTitle(), team.getTeamNumPlayers(), team.getDivisionID(), team.getSeasonID(), team.getLeagueID(), team.getFieldID(), team.getRefereeID(), team.getPersonID()});
 	}
 
 	public void insertField(Field field) {
-		String sql = "INSERT INTO field(FIELDID, FIELDNAME, FIELDLOCATION) VALUES (FIELDID_SEQ.NEXTVAL, ?, ?);";
+		String sql = "INSERT INTO field(FIELDID, FIELDNAME, FIELDLOCATION) VALUES ( ?, ?)";
 		 
 		getJdbcTemplate().update(sql, new Object[] { field.getFieldName(), field.getFieldLocation()});
 	}
 
 	public void insertRefereePlayer(RefereePlayer refereePlayer) {
-		String sql = "INSERT INTO REFEREEPLAYER(REFEREEID, PERSONID) VALUES (REFEREEID_SEQ.NEXTVAL, ?);";
+		String sql = "INSERT INTO REFEREEPLAYER(PERSONID) VALUES (?)";
 		 
 		getJdbcTemplate().update(sql, new Object[] { refereePlayer.getRefereePlayerID()});
 	}
 
 	public void insertAddress(Address address) {
-		String sql = "INSERT INTO address(ADDRESSID, LINE1, LINE2, CITY, STATE, ZIP, ADDRESSTYPE) VALUES (ADDRESSID_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO address(LINE1, LINE2, CITY, STATE, ZIP, ADDRESSTYPE) VALUES ( ?, ?, ?, ?, ?, ?)";
 		 
 		getJdbcTemplate().update(sql, new Object[] { address.getAddressLine1(), address.getAddressLine2(), address.getCity(), address.getState(), address.getZip(), address.getAddressType()});
 	}
