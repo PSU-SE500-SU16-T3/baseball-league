@@ -59,4 +59,9 @@ public class RegisterUserImpl implements RegisterUser{
 		return players;
 	}
 
+	public boolean modifyPlayers(Map<String, String> allRequestParams) {
+		System.out.println(allRequestParams);
+		return false;
+	}
+
 }
