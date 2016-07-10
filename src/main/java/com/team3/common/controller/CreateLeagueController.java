@@ -10,13 +10,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.team3.business.handler.RegisterUser;
-import com.team3.business.models.Team;
-import com.team3.business.models.User;
+
+import com.team3.business.handler.LeagueFactory;
+import com.team3.business.models.League;
+
 
 @Controller
 public class CreateLeagueController {
 	
-	// todo:  this will process the leagueName and leagueLocation.  
-	//  Is LeagueFactoryImpl.SetLeagueParams() intended for this or should I create other class
+	@Autowired
+	private LeagueFactory leagueFactory;
+	
+	@RequestMapping(value="/setLeague", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody League setLeague(@RequestParam Map<String,String> allRequestParams) {
+		System.out.println(allRequestParams);
+		League league = leagueFactory.SetLeagueParams(allRequestParams);
+		return league;
+	}
 }
