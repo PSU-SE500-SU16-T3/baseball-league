@@ -1,10 +1,13 @@
 package com.team3.dao;
 
 import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +21,7 @@ import com.team3.business.models.Player;
 import com.team3.business.models.RefereePlayer;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
+import com.team3.business.models.TeamAssignment;
 import com.team3.business.models.User;
 
 @Component("daoImpl")
@@ -175,6 +179,31 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 			players.add(player);
 		}		
 		return players;
+	}
+
+	public boolean modifyPlayers(List<TeamAssignment> teamAssignments) {
+		insertBatchTeamAssignment(teamAssignments);
+		return false;
+	}
+	
+	//insert batch example
+	private void insertBatchTeamAssignment(final List<TeamAssignment> teamAssignments){
+			
+	  String sql = "INSERT INTO TEAMASSIGNMENT " +
+		"(TEAMID, PERSONID) VALUES (?,?)";
+				
+	  getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
+				
+		public void setValues(PreparedStatement ps, int i) throws SQLException {
+			TeamAssignment teamAssignment = teamAssignments.get(i);
+			ps.setBigDecimal(1, new BigDecimal(teamAssignment.getId()));
+			ps.setString(2, teamAssignment.getName());
+		}
+				
+		public int getBatchSize() {
+			return teamAssignments.size();
+		}
+	  });
 	}
 
 }
