@@ -5,6 +5,6 @@ import com.team3.business.models.League;
 
 public interface LeagueFactory {
 	public League GetLeague(Map<String,String> allRequestParams);
-	public void SetLeagueParams(Map<String,String> allRequestParams);
+	public League SetLeagueParams(Map<String,String> allRequestParams);
 	public League processUser(Map<String,String> allRequestParams);
 }

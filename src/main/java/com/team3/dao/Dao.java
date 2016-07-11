@@ -12,6 +12,7 @@ import com.team3.business.models.Player;
 import com.team3.business.models.RefereePlayer;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
+import com.team3.business.models.TeamAssignment;
 import com.team3.business.models.User;
 
 public interface Dao {
@@ -34,4 +35,5 @@ public interface Dao {
 	public List<Division> getDivisions(String seasonId);
 	public List<Player> getUnassignedPlayers();
 	public List<Player> getAssignedPlayers(String teamId);
+	public boolean modifyPlayers(List<TeamAssignment> teamAssignments);
 }

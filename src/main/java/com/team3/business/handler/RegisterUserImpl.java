@@ -10,6 +10,7 @@ import com.team3.business.models.Division;
 import com.team3.business.models.League;
 import com.team3.business.models.Player;
 import com.team3.business.models.Season;
+import com.team3.business.models.TeamAssignment;
 import com.team3.dao.Dao;
 
 @Service("registerUser")
@@ -59,9 +60,9 @@ public class RegisterUserImpl implements RegisterUser{
 		return players;
 	}
 
-	public boolean modifyPlayers(Map<String, String> allRequestParams) {
-		System.out.println(allRequestParams);
-		return false;
+	public boolean modifyPlayers(List<TeamAssignment> teamAssignments) {
+		boolean status = daoImpl.modifyPlayers(teamAssignments);
+		return status;
 	}
 
 }
