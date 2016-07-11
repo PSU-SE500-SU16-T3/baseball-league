@@ -162,11 +162,11 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <plugin>
-    			<groupId>com.google.appengine</groupId>
-    			<artifactId>appengine-maven-plugin</artifactId>
-    			<version>1.9.38</version>
-			</plugin>
+    		<plugin>
+         		<groupId>com.google.appengine</groupId>
+         		<artifactId>appengine-maven-plugin</artifactId>
+         		<version>1.9.34</version>
+    		</plugin>
 		</plugins>
 
 		<finalName>baseball-league</finalName>
