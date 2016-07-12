@@ -22,6 +22,7 @@ import com.team3.business.models.League;
 import com.team3.business.models.Player;
 import com.team3.business.models.Season;
 import com.team3.business.models.TeamAssignment;
+import com.team3.business.models.TeamAssignments;
 
 @Controller
 public class LeagueController {
@@ -76,8 +77,11 @@ public class LeagueController {
 	
 	@RequestMapping(value="/modifyPlayers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody boolean modifyPlayers(@RequestParam Map<String,String> allRequestParams) throws JsonParseException, JsonMappingException, IOException {
-		List<TeamAssignment> teamAssignments = Arrays.asList(mapper.readValue(allRequestParams.get("assignedPlayers").toString(),TeamAssignment[].class));
-		boolean status = registerUser.modifyPlayers(teamAssignments);
+		List<TeamAssignment> teamAssignmentList = Arrays.asList(mapper.readValue(allRequestParams.get("assignedPlayers").toString(),TeamAssignment[].class));
+		TeamAssignments teamAssignment = new TeamAssignments();
+		teamAssignment.setTeamAssignments(teamAssignmentList);
+		teamAssignment.setTeamId(allRequestParams.get("teamId"));
+		boolean status = registerUser.modifyPlayers(teamAssignment);
 		return status;
 
 	}

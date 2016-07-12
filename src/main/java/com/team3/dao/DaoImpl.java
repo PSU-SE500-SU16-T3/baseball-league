@@ -22,6 +22,7 @@ import com.team3.business.models.RefereePlayer;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignment;
+import com.team3.business.models.TeamAssignments;
 import com.team3.business.models.User;
 
 @Component("daoImpl")
@@ -181,13 +182,19 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		return players;
 	}
 
-	public boolean modifyPlayers(List<TeamAssignment> teamAssignments) {
-		insertBatchTeamAssignment(teamAssignments);
+	public boolean modifyPlayers(TeamAssignments teamAssignments) {
+		deletePlayersFromTeam(teamAssignments.getTeamId());
+		insertBatchTeamAssignment(teamAssignments.getTeamAssignments(), teamAssignments.getTeamId());
 		return false;
 	}
 	
+	private void deletePlayersFromTeam(String teamId) {
+		String sql = "DELETE FROM TEAMASSIGNMENT WHERE TEAMID = ?";
+		getJdbcTemplate().update(sql, new Object[] { teamId });
+	}
+
 	//insert batch example
-	private void insertBatchTeamAssignment(final List<TeamAssignment> teamAssignments){
+	private void insertBatchTeamAssignment(final List<TeamAssignment> teamAssignments, final String teamId){
 			
 	  String sql = "INSERT INTO TEAMASSIGNMENT " +
 		"(TEAMID, PERSONID) VALUES (?,?)";
@@ -196,8 +203,8 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 				
 		public void setValues(PreparedStatement ps, int i) throws SQLException {
 			TeamAssignment teamAssignment = teamAssignments.get(i);
-			ps.setBigDecimal(1, new BigDecimal(teamAssignment.getId()));
-			ps.setString(2, teamAssignment.getName());
+			ps.setLong(1, new Long(teamId));
+			ps.setLong(2, new Long(teamAssignment.getId()));			
 		}
 				
 		public int getBatchSize() {
