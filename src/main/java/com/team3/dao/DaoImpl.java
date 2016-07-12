@@ -185,7 +185,7 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	public boolean modifyPlayers(TeamAssignments teamAssignments) {
 		deletePlayersFromTeam(teamAssignments.getTeamId());
 		insertBatchTeamAssignment(teamAssignments.getTeamAssignments(), teamAssignments.getTeamId());
-		return false;
+		return true;
 	}
 	
 	private void deletePlayersFromTeam(String teamId) {
