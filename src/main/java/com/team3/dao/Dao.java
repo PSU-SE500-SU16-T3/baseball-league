@@ -5,6 +5,7 @@ import java.util.List;
 import com.team3.business.models.Address;
 import com.team3.business.models.Division;
 import com.team3.business.models.Field;
+import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.Payment;
 import com.team3.business.models.Phone;
@@ -30,6 +31,7 @@ public interface Dao {
 	public void insertRefereePlayer(RefereePlayer refereePlayer);
 	public void insertAddress(Address address);
 	public List<League> getLeague();
+	public List<Game> getGame();
 	public List<Season> getSeasons(String leagueId);
 	public List<Division> getDivisions(String seasonId);
 	public List<Player> getUnassignedPlayers();

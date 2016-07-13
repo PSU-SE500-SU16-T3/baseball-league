@@ -9,8 +9,8 @@ import com.team3.business.exception.ExceptionMessages;
 
 public class EmailController {
 
-	private String userName;
-	private String password;
+	private String userName; //baseballeagie1234@gmail.com
+	private String password; //hihihihihi
 	private Email email = new SimpleEmail();
 	
 	private final String SUBJECT = "DO NOT REPLY: Baseball League Notification Mail.";
@@ -39,7 +39,7 @@ public class EmailController {
 		}
 	}
 	
-	public void sendEmail(String toLine, String message)throws BaseballLeagueException {
+	public void sendEmail(String toLine, String message) throws BaseballLeagueException {
 		this.sendEmail(toLine, this.SUBJECT, message);
 	}
 }

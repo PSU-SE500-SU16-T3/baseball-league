@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.team3.business.models.Address;
 import com.team3.business.models.Division;
 import com.team3.business.models.Field;
+import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.Payment;
 import com.team3.business.models.Phone;
@@ -79,6 +80,12 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	
 		
 	}
+	
+	public void insertGame(Game game) {
+		String sql = "INSERT INTO game(Team1ID, Team2ID, gameScore, RefereeID, FieldID) VALUES ( ?, ?, ?, ?, ?)";
+		 
+		getJdbcTemplate().update(sql, new Object[] { game.getTeam1ID(), game.getTeam2ID(), game.getTeamScore(), game.getRefereeID(), game.getFieldID()});
+	}
 
 	public void insertTeam(Team team) {
 		String sql = "INSERT INTO team(TEAMID, TEAMTITLE, TEAMNUMBEROFPLAYERS, DIVISIONID, SEASONID, LEAGUEID, FIELDID, REFEREEID, PERSONID) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -116,6 +123,23 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 			leagues.add(league);
 		}		
 		return leagues;
+	}
+	
+	public List<Game> getGame() {
+		String sql = "SELECT GameID, Team1ID, Team2ID, gameScore, RefereeID, FieldID FROM GAME";
+		List<Game> games = new ArrayList<Game>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
+		for (Map<String, Object> row : rows) {
+			Game game = new Game();
+			game.setGameID((BigDecimal)row.get("GameID"));
+			game.setTeam1ID((BigDecimal)row.get("Team1ID"));
+			game.setTeam2ID((BigDecimal) row.get("Team2ID"));
+			game.setGameScore((String) row.get("gameScore"));
+			game.setRefereeID((BigDecimal) row.get("RefereeID"));
+			game.setFieldID((BigDecimal) row.get("FieldID"));
+			games.add(game);
+		}		
+		return games;
 	}
 	
 	public List<Season> getSeasons(String leagueId) {

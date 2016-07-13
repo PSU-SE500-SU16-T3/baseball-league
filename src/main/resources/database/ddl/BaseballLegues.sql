@@ -538,6 +538,7 @@ CREATE TABLE GAME
   GameID int NOT NULL,
   Team1ID int,
   Team2ID int,
+  gameScore varchar(25),
   RefereeID int,
   FieldID int not null,
   PRIMARY KEY (GameID),
