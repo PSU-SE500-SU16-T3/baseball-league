@@ -20,7 +20,11 @@
 	<context:component-scan base-package="com.team3.common.controller" />	
 	<context:component-scan base-package="com.team3.business" />	
 	<context:component-scan base-package="com.team3.dao" />	
+	
+	<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+	<mvc:annotation-driven></mvc:annotation-driven>
 	<mvc:annotation-driven />
+	
 	 <security:http auto-config="true" use-expressions="true" entry-point-ref="gaeEntryPoint">
         <security:intercept-url pattern="/**" access="permitAll" />
     </security:http>

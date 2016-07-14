@@ -173,7 +173,7 @@ END;
 /
 
 Drop Sequence ADDRESSID_SEQ;
-Drop Sequence ADDRESSTYPEID_SEQ;
+
 Drop Sequence DIVISIONID_SEQ;
 Drop Sequence FIELDID_SEQ;
 Drop Sequence PAYMENTID_SEQ;
@@ -238,12 +238,10 @@ CREATE TABLE Address
 (
   personID int Not Null,
   addressID INT NOT NULL,
-  line1 VARCHAR(25) NOT NULL,
-  line2 VARCHAR(25),
+  address VARCHAR(50) NOT NULL,
   city VARCHAR(25) NOT NULL,
   state VARCHAR(2) NOT NULL,
   zip INT NOT NULL,
-  addressType INT NOT NULL,
   PRIMARY KEY (addressID),
   FOREIGN KEY (personID) REFERENCES Person(personID)
 );
@@ -391,24 +389,7 @@ BEGIN
   FROM   dual;
 END;
 /
-CREATE TABLE AddressType
-(
-  addressTypeID INT NOT NULL,
-  addressType VARCHAR(25) NOT NULL,
-  PRIMARY KEY (addressTypeID)
-);
-/
-CREATE SEQUENCE addressTypeID_SEQ START WITH 10000 INCREMENT BY 1 MINVALUE 10000;
-/
-CREATE OR REPLACE TRIGGER addressTypeID_SEQ_TRIGGER
-BEFORE INSERT ON AddressType 
-FOR EACH ROW
-BEGIN
-  SELECT addressTypeID_SEQ.NEXTVAL
-  INTO   :new.addressTypeID
-  FROM   dual;
-END;
-/
+
 CREATE TABLE PhoneType
 (
   phoneTypeID int NOT NULL,
