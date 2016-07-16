@@ -236,7 +236,7 @@ END;
 /
 CREATE TABLE Address
 (
-  personID int Not Null,
+  personID int NOT NULL,
   addressID INT NOT NULL,
   address VARCHAR(50) NOT NULL,
   city VARCHAR(25) NOT NULL,

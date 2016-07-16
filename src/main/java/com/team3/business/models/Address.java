@@ -3,35 +3,29 @@ package com.team3.business.models;
 public class Address {
 	//test2
 	private int addressID;
-	private String addressType;
-	private String addressLine1;
-	private String addressLine2;
+	private int personID;
+	private String address;
 	private String city;
 	private String state;
 	private String zip;
+	
 	public int getAddressID() {
 		return addressID;
 	}
 	public void setAddressID(int addressID) {
 		this.addressID = addressID;
 	}
-	public String getAddressType() {
-		return addressType;
+	public String getAddress() {
+		return address;
 	}
-	public void setAddressType(String addressType) {
-		this.addressType = addressType;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	public String getAddressLine1() {
-		return addressLine1;
+	public int getPersonID() {
+		return this.personID;
 	}
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
-	}
-	public String getAddressLine2() {
-		return addressLine2;
-	}
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
+	public void setPersonID(int personID) {
+		this.personID = personID;
 	}
 	public String getCity() {
 		return city;

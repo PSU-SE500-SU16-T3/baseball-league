@@ -71,7 +71,7 @@ public class BaseballLegueHandler
 	}
 	
 	public void isValidAddress(Address address) throws BaseballLeagueException {
-		if(address.getAddressLine1().length() > 25 || address.getAddressLine1().isEmpty() || address.getAddressLine2().length() > 25 || address.getAddressLine2().isEmpty() || address.getCity().length() > 25 || address.getCity().isEmpty() || address.getState().length() > 2 || address.getState().isEmpty() || address.getZip().isEmpty()) {
+		if(address.getAddressID() == 0 || address.getPersonID() == 0 || address.getAddress().length() > 50 || address.getAddress().isEmpty() ||  address.getCity().length() > 25 || address.getCity().isEmpty() || address.getState().length() > 2 || address.getState().isEmpty() || address.getZip().isEmpty()) {
 			throw new BaseballLeagueException(ExceptionMessages.VALIDATION_EXCEPTION_MESSAGE, ExceptionMessages.VALIDATION_EXCEPTION_TITLE);
 		}
 	}

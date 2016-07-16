@@ -113,9 +113,9 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	}
 
 	public void insertAddress(Address address) {
-		String sql = "INSERT INTO address(LINE1, LINE2, CITY, STATE, ZIP, ADDRESSTYPE) VALUES ( ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO address(personID, address, city, state, zip) VALUES ( ?, ?, ?, ?, ?)";
 		 
-		getJdbcTemplate().update(sql, new Object[] { address.getAddressLine1(), address.getAddressLine2(), address.getCity(), address.getState(), address.getZip(), address.getAddressType()});
+		getJdbcTemplate().update(sql, new Object[] { address.getPersonID(), address.getAddress(), address.getCity(), address.getState(), address.getZip()});
 	}
 
 	public List<League> getLeague() {
