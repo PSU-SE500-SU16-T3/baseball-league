@@ -20,10 +20,45 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.6</version>
+                <exclusions>
+        <exclusion>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+        </exclusion>
+    </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+		
+		<dependency>
+    		<groupId>javax.servlet</groupId>
+    		<artifactId>javax.servlet-api</artifactId>
+    		<version>3.0.1</version>
+    		<scope>provided</scope>
+		</dependency>
 		 <!-- Spring 3 dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-aop</artifactId>
+    		<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
@@ -41,6 +76,23 @@
     		<artifactId>mail</artifactId>
     		<version>1.4</version>
 		</dependency>
+		<dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-config</artifactId>
+        	<version>4.1.1.RELEASE</version>
+    	</dependency>
+    	<dependency>
+  			<groupId>org.springframework.security</groupId>
+  	 		<artifactId>spring-security-core</artifactId>
+    		<version>4.1.1.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-web</artifactId>
+        	<version>4.1.1.RELEASE</version>
+    	</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -78,7 +130,17 @@
 		    <artifactId>spring-jdbc</artifactId>
 		    <version>${spring.version}</version>
 		</dependency>
-			
+		 <dependency>
+        	<groupId>com.google.appengine</groupId>
+        	<artifactId>appengine-api-1.0-sdk</artifactId>
+        	<version>1.9.25</version>
+    	</dependency>	
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency>
 		
 	</dependencies>
 	<build>
@@ -118,6 +180,29 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+    		<plugin>
+         		<groupId>com.google.appengine</groupId>
+         		<artifactId>appengine-maven-plugin</artifactId>
+         		<version>1.9.34</version>
+    		</plugin>
+    		 <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <executions>
+      <execution>
+        <id>copy-dependencies</id>
+        <phase>package</phase>
+        <goals>
+          <goal>copy-dependencies</goal>
+        </goals>
+        <configuration>
+          <outputDirectory>${project.build.directory}</outputDirectory>
+          <overWriteReleases>false</overWriteReleases>
+          <overWriteSnapshots>true</overWriteSnapshots>
+        </configuration>
+      </execution>
+    </executions>
+  </plugin>
 		</plugins>
 
 		<finalName>baseball-league</finalName>

@@ -35,5 +35,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Brian/Downloads/twitter4j-4.0.4.zip"/>
 	<classpathentry kind="lib" path="C:/Users/Brian/Downloads/facebook4j-core-2.4.4.jar"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

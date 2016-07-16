@@ -1,10 +1,13 @@
 package com.team3.dao;
 
 import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +19,14 @@ import com.team3.business.models.League;
 import com.team3.business.models.Payment;
 import com.team3.business.models.Phone;
 import com.team3.business.models.Player;
+import com.team3.business.models.PlayerRole;
 import com.team3.business.models.RefereePlayer;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
+import com.team3.business.models.TeamAssignment;
+import com.team3.business.models.TeamAssignments;
 import com.team3.business.models.User;
+import com.team3.dao.mapper.PlayerRoleMapper;
 
 @Component("daoImpl")
 public class DaoImpl extends JdbcDaoSupport implements Dao{
@@ -199,6 +206,43 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 			players.add(player);
 		}		
 		return players;
+	}
+
+	public boolean modifyPlayers(TeamAssignments teamAssignments) {
+		deletePlayersFromTeam(teamAssignments.getTeamId());
+		insertBatchTeamAssignment(teamAssignments.getTeamAssignments(), teamAssignments.getTeamId());
+		return true;
+	}
+	
+	private void deletePlayersFromTeam(String teamId) {
+		String sql = "DELETE FROM TEAMASSIGNMENT WHERE TEAMID = ?";
+		getJdbcTemplate().update(sql, new Object[] { teamId });
+	}
+
+	//insert batch example
+	private void insertBatchTeamAssignment(final List<TeamAssignment> teamAssignments, final String teamId){
+			
+	  String sql = "INSERT INTO TEAMASSIGNMENT " +
+		"(TEAMID, PERSONID) VALUES (?,?)";
+				
+	  getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
+				
+		public void setValues(PreparedStatement ps, int i) throws SQLException {
+			TeamAssignment teamAssignment = teamAssignments.get(i);
+			ps.setLong(1, new Long(teamId));
+			ps.setLong(2, new Long(teamAssignment.getId()));			
+		}
+				
+		public int getBatchSize() {
+			return teamAssignments.size();
+		}
+	  });
+	}
+
+	public PlayerRole getUserDetails(String username) {
+		String sql = "SELECT U.PERSONID, P.FIRSTNAME, P.LASTNAME, PRA.ROLEID FROM USERS U, PERSON P, PERSONROLEASSIGNMENT PRA WHERE U.USERNAME = ? AND U.PERSONID = P.PERSONID AND U.PERSONID=PRA.PERSONID";
+		PlayerRole playerRole = (PlayerRole)getJdbcTemplate().queryForObject(sql, new Object[] { username }, new PlayerRoleMapper());
+		return playerRole;
 	}
 
 }
