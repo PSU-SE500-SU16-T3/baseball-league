@@ -6,8 +6,8 @@ import java.util.Map;
 import com.team3.business.models.Division;
 import com.team3.business.models.League;
 import com.team3.business.models.Player;
+import com.team3.business.models.PlayerRole;
 import com.team3.business.models.Season;
-import com.team3.business.models.TeamAssignment;
 import com.team3.business.models.TeamAssignments;
 
 
@@ -19,4 +19,5 @@ public interface RegisterUser {
 	public List<Player> getUnassignedPlayers();
 	public List<Player> getAssignedPlayers(Map<String, String> allRequestParams);
 	public boolean modifyPlayers(TeamAssignments teamAssignment);
+	public PlayerRole getUserDetails(Map<String, String> allRequestParams);
 }

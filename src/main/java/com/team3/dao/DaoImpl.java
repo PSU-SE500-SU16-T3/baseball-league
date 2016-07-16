@@ -18,12 +18,14 @@ import com.team3.business.models.League;
 import com.team3.business.models.Payment;
 import com.team3.business.models.Phone;
 import com.team3.business.models.Player;
+import com.team3.business.models.PlayerRole;
 import com.team3.business.models.RefereePlayer;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignment;
 import com.team3.business.models.TeamAssignments;
 import com.team3.business.models.User;
+import com.team3.dao.mapper.PlayerRoleMapper;
 
 @Component("daoImpl")
 public class DaoImpl extends JdbcDaoSupport implements Dao{
@@ -211,6 +213,12 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 			return teamAssignments.size();
 		}
 	  });
+	}
+
+	public PlayerRole getUserDetails(String username) {
+		String sql = "SELECT U.PERSONID, P.FIRSTNAME, P.LASTNAME, PRA.ROLEID FROM USERS U, PERSON P, PERSONROLEASSIGNMENT PRA WHERE U.USERNAME = ? AND U.PERSONID = P.PERSONID AND U.PERSONID=PRA.PERSONID";
+		PlayerRole playerRole = (PlayerRole)getJdbcTemplate().queryForObject(sql, new Object[] { username }, new PlayerRoleMapper());
+		return playerRole;
 	}
 
 }
