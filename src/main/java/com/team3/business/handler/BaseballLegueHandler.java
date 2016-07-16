@@ -23,7 +23,7 @@ public class BaseballLegueHandler
 	}
 	
 	public void isValidTeam(Team team) throws BaseballLeagueException {
-		if(team.getTeamTitle().length() > 50 || team.getTeamNumPlayers() == 0 || team.getTeamTitle().isEmpty()) {
+		if(team.getTeamTitle().length() > 50 || team.getTeamNumPlayers().intValue() == 0 || team.getTeamTitle().isEmpty()) {
 			throw new BaseballLeagueException(ExceptionMessages.VALIDATION_EXCEPTION_MESSAGE, ExceptionMessages.VALIDATION_EXCEPTION_TITLE);
 		}
 	}

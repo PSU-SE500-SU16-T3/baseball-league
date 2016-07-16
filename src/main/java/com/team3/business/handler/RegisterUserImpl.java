@@ -15,6 +15,7 @@ import com.team3.business.models.League;
 import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
 import com.team3.business.models.Season;
+import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignments;
 import com.team3.dao.Dao;
 
@@ -52,6 +53,12 @@ public class RegisterUserImpl implements RegisterUser{
 		String seasonId = allRequestParams.get("seasonId");
 		List<Division> divisions = daoImpl.getDivisions(seasonId);
 		return divisions;
+	}
+	
+	public List<Team> getTeams(Map<String, String> allRequestParams) {
+		String divisionId = allRequestParams.get("divisionId");
+		List<Team> teams = daoImpl.getTeams(divisionId);
+		return teams;
 	}
 
 	public List<Player> getUnassignedPlayers() {

@@ -1,17 +1,19 @@
 package com.team3.business.models;
 
+import java.math.BigDecimal;
+
 public class Team {
-	private int teamID;
+	private BigDecimal teamID;
 	private String teamTitle;
-	private int teamNumPlayers;
-	private int divisionID;
-	private int seasonID;
-	private int fieldID;
-	private int leagueID;
-	private int refereeID;
-	private int personID;
+	private BigDecimal teamNumPlayers;
+	private BigDecimal divisionID;
+	private BigDecimal seasonID;
+	private BigDecimal fieldID;
+	private BigDecimal leagueID;
+	private BigDecimal refereeID;
+	private BigDecimal personID;
 	
-	public int getTeamID() {
+	public BigDecimal getTeamID() {
 		return this.teamID;
 	}
 	
@@ -19,35 +21,35 @@ public class Team {
 		return this.teamTitle;
 	}
 	
-	public int getTeamNumPlayers(){
+	public BigDecimal getTeamNumPlayers(){
 		return this.teamNumPlayers;
 	}
 	
-	public int getDivisionID(){
+	public BigDecimal getDivisionID(){
 		return this.divisionID;
 	}
 	
-	public int getSeasonID(){
+	public BigDecimal getSeasonID(){
 		return this.seasonID;
 	}
 	
-	public int getFieldID() {
+	public BigDecimal getFieldID() {
 		return this.fieldID;
 	}
 	
-	public int getLeagueID() {
+	public BigDecimal getLeagueID() {
 		return this.leagueID;
 	}
 	
-	public int getRefereeID() {
+	public BigDecimal getRefereeID() {
 		return this.refereeID;
 	}
 	
-	public int getPersonID() {
+	public BigDecimal getPersonID() {
 		return this.personID;
 	}
 	
-	public void setTeamID(int teamID) {
+	public void setTeamID(BigDecimal teamID) {
 		this.teamID = teamID;
 	}
 	
@@ -55,31 +57,31 @@ public class Team {
 		this.teamTitle = teamTitle;
 	}
 	
-	public void setTeamNumPlayers(int teamNumPlayers) {
+	public void setTeamNumPlayers(BigDecimal teamNumPlayers) {
 		this.teamNumPlayers = teamNumPlayers;
 	}
 	
-	public void setDivisionID(int divisonID) {
+	public void setDivisionID(BigDecimal divisonID) {
 		this.divisionID = divisonID;
 	}
 	
-	public void setSeasonID(int seasonID) {
+	public void setSeasonID(BigDecimal seasonID) {
 		this.seasonID = seasonID;
 	}
 	
-	public void setLeagueID(int leagueID) {
+	public void setLeagueID(BigDecimal leagueID) {
 		this.leagueID = leagueID;
 	}
 	
-	public void setFieldID(int fieldID) {
+	public void setFieldID(BigDecimal fieldID) {
 		this.fieldID = fieldID;
 	}
 	
-	public void setRefereeID(int refereeID) {
+	public void setRefereeID(BigDecimal refereeID) {
 		this.refereeID = refereeID;
 	}
 	
-	public void setPersonID(int personID) {
+	public void setPersonID(BigDecimal personID) {
 		this.personID = personID;
 	}
 	

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.team3.business.models.Address;
@@ -91,7 +92,7 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	public void insertGame(Game game) {
 		String sql = "INSERT INTO game(Team1ID, Team2ID, gameScore, RefereeID, FieldID) VALUES ( ?, ?, ?, ?, ?)";
 		 
-		getJdbcTemplate().update(sql, new Object[] { game.getTeam1ID(), game.getTeam2ID(), game.getTeamScore(), game.getRefereeID(), game.getFieldID()});
+		getJdbcTemplate().update(sql, new Object[] { game.getTeam1Id(), game.getTeam2Id(), game.getGameScore(), game.getRefereeId(), game.getFieldId()});
 	}
 
 	public void insertTeam(Team team) {
@@ -132,18 +133,18 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		return leagues;
 	}
 	
-	public List<Game> getGame() {
+	public List<com.team3.business.models.Game> getGame() {
 		String sql = "SELECT GameID, Team1ID, Team2ID, gameScore, RefereeID, FieldID FROM GAME";
 		List<Game> games = new ArrayList<Game>();
 		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
 		for (Map<String, Object> row : rows) {
 			Game game = new Game();
-			game.setGameID((BigDecimal)row.get("GameID"));
-			game.setTeam1ID((BigDecimal)row.get("Team1ID"));
-			game.setTeam2ID((BigDecimal) row.get("Team2ID"));
+			game.setGameId((BigDecimal)row.get("GameID"));
+			game.setTeam1Id((BigDecimal)row.get("Team1ID"));
+			game.setTeam2Id((BigDecimal) row.get("Team2ID"));
 			game.setGameScore((String) row.get("gameScore"));
-			game.setRefereeID((BigDecimal) row.get("RefereeID"));
-			game.setFieldID((BigDecimal) row.get("FieldID"));
+			game.setRefereeId((BigDecimal) row.get("RefereeID"));
+			game.setFieldId((BigDecimal) row.get("FieldID"));
 			games.add(game);
 		}		
 		return games;
@@ -177,6 +178,21 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		}		
 		return divisions;
 	}	
+	
+	public List<Team> getTeams(String divisionId) {
+		String sql = "SELECT TEAMID, TEAMTITLE, TEAMNUMBEROFPLAYERS, FIELDID FROM TEAM WHERE DIVISIONID = ?";
+		List<Team> teams = new ArrayList<Team>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, new Object[] { divisionId });
+		for (Map<String, Object> row : rows) {
+			Team team = new Team();
+			team.setTeamID((BigDecimal)(row.get("TEAMID")));
+			team.setTeamTitle((String)(row.get("TEAMTITLE")));
+			team.setTeamNumPlayers((BigDecimal)(row.get("TEAMNUMBEROFPLAYERS")));
+			team.setFieldID((BigDecimal)(row.get("FIELDID")));
+			teams.add(team);
+		}		
+		return teams;
+	}
 	
 	public List<Player> getAssignedPlayers(String teamId) {
 		String sql = "SELECT PERSONID, FIRSTNAME, LASTNAME FROM PERSON WHERE PERSONID IN "
@@ -242,6 +258,20 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	public PlayerRole getUserDetails(String username) {
 		String sql = "SELECT U.PERSONID, P.FIRSTNAME, P.LASTNAME, PRA.ROLEID FROM USERS U, PERSON P, PERSONROLEASSIGNMENT PRA WHERE U.USERNAME = ? AND U.PERSONID = P.PERSONID AND U.PERSONID=PRA.PERSONID";
 		PlayerRole playerRole = (PlayerRole)getJdbcTemplate().queryForObject(sql, new Object[] { username }, new PlayerRoleMapper());
+		if(playerRole.getRoleId().equals("10000")){
+			String getLeagueSql = "SELECT LEAGUEID, LEAGUENAME FROM LEAGUE WHERE PERSONID = "+playerRole.getPlayer().getPersonID();
+			SqlRowSet rs = (SqlRowSet)getJdbcTemplate().queryForRowSet(getLeagueSql);
+			try {
+				while(rs.next()){
+					playerRole.setLeagueId(rs.getBigDecimal("LEAGUEID"));
+					playerRole.setLeagueName(rs.getString("LEAGUENAME"));
+				}				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		return playerRole;
 	}
 

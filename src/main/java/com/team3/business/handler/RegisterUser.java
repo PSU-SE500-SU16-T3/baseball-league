@@ -8,6 +8,7 @@ import com.team3.business.models.League;
 import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
 import com.team3.business.models.Season;
+import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignments;
 
 
@@ -20,4 +21,5 @@ public interface RegisterUser {
 	public List<Player> getAssignedPlayers(Map<String, String> allRequestParams);
 	public boolean modifyPlayers(TeamAssignments teamAssignment);
 	public PlayerRole getUserDetails(Map<String, String> allRequestParams);
+	public List<Team> getTeams(Map<String, String> allRequestParams);
 }
