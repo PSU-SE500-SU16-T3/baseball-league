@@ -22,11 +22,11 @@ public class AuthController {
 	private RegisterUser registerUser;	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Response<Player> login(@RequestParam Map<String,String> allRequestParams) {
+	public @ResponseBody Response<PlayerRole> login(@RequestParam Map<String,String> allRequestParams) {
 		PlayerRole playerRole = registerUser.getUserDetails(allRequestParams);
-		Response<Player> response = new Response<Player>();
+		Response<PlayerRole> response = new Response<PlayerRole>();
 		if(playerRole.getRoleId().equals("10000")){
-			response.setBody(playerRole.getPlayer());
+			response.setBody(playerRole);
 			response.setRedirectTo("/admin/home");
 			response.setStatus("success");
 		}

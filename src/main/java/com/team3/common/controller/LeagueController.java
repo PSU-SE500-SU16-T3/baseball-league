@@ -21,6 +21,7 @@ import com.team3.business.models.Division;
 import com.team3.business.models.League;
 import com.team3.business.models.Player;
 import com.team3.business.models.Season;
+import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignment;
 import com.team3.business.models.TeamAssignments;
 
@@ -58,6 +59,13 @@ public class LeagueController {
 	public @ResponseBody List<Division> getDivisions(@RequestParam Map<String,String> allRequestParams) {
 		List<Division> divisions = registerUser.getDivisions(allRequestParams);
 		return divisions;
+
+	}
+	
+	@RequestMapping(value="/getTeams", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Team> getTeams(@RequestParam Map<String,String> allRequestParams) {
+		List<Team> teams = registerUser.getTeams(allRequestParams);
+		return teams;
 
 	}
 	
