@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 public class Season {
 	private BigDecimal seasonID;
-	private int leagueID;
+	private BigDecimal leagueID;
 	private String seasonName;
 	private Calendar startDate;
 	private Calendar endDate;
@@ -22,11 +22,11 @@ public class Season {
 		this.seasonID = seasonID;
 	}
 
-	public int getLeagueID() {
+	public BigDecimal getLeagueID() {
 		return leagueID;
 	}
 
-	public void setLeagueID(int leagueID) {
+	public void setLeagueID(BigDecimal leagueID) {
 		this.leagueID = leagueID;
 	}
 

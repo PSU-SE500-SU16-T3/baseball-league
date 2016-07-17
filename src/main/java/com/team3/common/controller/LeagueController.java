@@ -20,6 +20,8 @@ import com.team3.business.handler.RegisterUser;
 import com.team3.business.models.Division;
 import com.team3.business.models.League;
 import com.team3.business.models.Player;
+import com.team3.business.models.PlayerRole;
+import com.team3.business.models.Response;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignment;
@@ -91,6 +93,18 @@ public class LeagueController {
 		teamAssignment.setTeamId(allRequestParams.get("teamId"));
 		boolean status = registerUser.modifyPlayers(teamAssignment);
 		return status;
+
+	}
+	
+	@RequestMapping(value="/registerSeason", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Response<String> registerSeason(@RequestParam Map<String,String> allRequestParams) {
+		boolean status = registerUser.registerSeason(allRequestParams);
+		Response<String> response = new Response<String>();
+		if(status){
+			response.setStatus("success");
+			response.setBody("Season created successfully.");
+		}
+		return response;
 
 	}
 }
