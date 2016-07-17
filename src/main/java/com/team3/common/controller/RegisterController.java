@@ -34,7 +34,7 @@ package com.team3.common.controller;
 		ObjectMapper mapper = new ObjectMapper();
 		
 		@RequestMapping(value="/register", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public @ResponseBody Player getShopInJSON(@RequestParam Map<String,String> allRequestParams) {
+		public @ResponseBody Player addPerson(@RequestParam Map<String,String> allRequestParams) {
 			System.out.println(allRequestParams);
 			Player player = registerUser.processUser(allRequestParams);
 			return player;
