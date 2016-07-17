@@ -41,4 +41,5 @@ public interface Dao {
 	public boolean modifyPlayers(TeamAssignments teamAssignments);
 	public PlayerRole getUserDetails(String username);
 	public List<Team> getTeams(String divisionId);
+	public boolean registerSeason(Season season);
 }

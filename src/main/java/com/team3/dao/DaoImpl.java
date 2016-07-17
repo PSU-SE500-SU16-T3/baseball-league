@@ -275,4 +275,13 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		return playerRole;
 	}
 
+	public boolean registerSeason(Season season) {
+		String sql = "INSERT INTO SEASON  (SEASONTITLE,SEASONSTARTDT,SEASONENDDT,SEASONNUMBEROFPLAYERS,LEAGUEID  ) VALUES (?, ?, ?,20, ?)";
+		int count = getJdbcTemplate().update(sql, new Object[] {season.getSeasonName(), season.getStartDate().getTime(), season.getEndDate().getTime(), season.getLeagueID()});
+		if(count > 0)
+			return true;
+		else
+			return false;
+	}
+
 }

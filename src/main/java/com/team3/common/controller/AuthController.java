@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team3.business.handler.RegisterUser;
-import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
 import com.team3.business.models.Response;
 

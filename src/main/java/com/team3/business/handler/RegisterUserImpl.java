@@ -3,6 +3,10 @@ package com.team3.business.handler;
 
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -89,6 +93,24 @@ public class RegisterUserImpl implements RegisterUser{
 		String[] userDetails = authParams.split(":"); 
 		PlayerRole playerRole = daoImpl.getUserDetails(userDetails[0]);
 		return playerRole;
+	}
+
+	public boolean registerSeason(Map<String, String> allRequestParams) {
+		SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+		Season season = new Season();
+		season.setSeasonName(allRequestParams.get("seasonName"));
+		try {
+			season.setStartDate(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("seasonStartDate")));
+			season.setEndDate(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("seasonEndDate")));
+			/*season.setStartDate(new Date(sdf1.parse(allRequestParams.get("seasonStartDate")).getTime()));
+			season.setEndDate(new Date(sdf1.parse(allRequestParams.get("seasonEndDate")).getTime()));*/
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		season.setLeagueID(new BigDecimal(allRequestParams.get("leagueId")));
+		boolean status = daoImpl.registerSeason(season);
+		return status;
 	}
 
 }

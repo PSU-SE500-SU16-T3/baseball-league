@@ -22,4 +22,5 @@ public interface RegisterUser {
 	public boolean modifyPlayers(TeamAssignments teamAssignment);
 	public PlayerRole getUserDetails(Map<String, String> allRequestParams);
 	public List<Team> getTeams(Map<String, String> allRequestParams);
+	public boolean registerSeason(Map<String, String> allRequestParams);
 }
