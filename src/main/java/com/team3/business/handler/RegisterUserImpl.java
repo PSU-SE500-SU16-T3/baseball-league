@@ -8,12 +8,15 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Spring;
+
 import org.apache.geronimo.mail.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team3.business.models.Address;
 import com.team3.business.models.Division;
+import com.team3.business.models.User;
 import com.team3.business.models.League;
 import com.team3.business.models.Payment;
 import com.team3.business.models.Phone;
@@ -24,6 +27,7 @@ import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignments;
 import com.team3.business.models.User;
 import com.team3.dao.Dao;
+import com.team3.dao.mapper.PlayerRoleMapper;
 
 @Service("registerUser")
 public class RegisterUserImpl implements RegisterUser{
@@ -45,6 +49,7 @@ public class RegisterUserImpl implements RegisterUser{
 		player.setFirstName(allRequestParams.get("firstname"));
 		player.setMiddleName(allRequestParams.get("middlename"));
 		player.setLastName(allRequestParams.get("lastname"));
+<<<<<<< HEAD
 		/*java.util.Date dob = null;
 		try {
 			dob = new SimpleDateFormat("MM/dd/yyyy").parse(allRequestParams.get("dob"));
@@ -53,6 +58,16 @@ public class RegisterUserImpl implements RegisterUser{
 			e.printStackTrace();
 		}*/
 		player.setDateOfBirth(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("dob")));
+=======
+		java.util.Date dob = null;
+		try {
+			dob = new SimpleDateFormat("MM/dd/yyyy").parse(allRequestParams.get("dob"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		player.setDateOfBirth(dob);
+>>>>>>> branch 'master' of https://github.com/PSU-SE500-SU16-T3/baseball-league.git
 		user.setUsername(allRequestParams.get("username"));
 		user.setUserPassword(allRequestParams.get("password"));
 		String role = allRequestParams.get("role");
