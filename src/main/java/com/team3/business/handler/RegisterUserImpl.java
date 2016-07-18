@@ -136,4 +136,21 @@ public class RegisterUserImpl implements RegisterUser{
 		return status;
 	}
 
+	public void addperson(Map<String, String> allRequestParams) {
+		Player player = new Player();
+		User user= new User();
+		player.setFirstName(allRequestParams.get("firstname"));
+		player.setMiddleName(allRequestParams.get("middlename"));
+		player.setLastName(allRequestParams.get("lastname"));
+		player.setDateOfBirth(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("dob")));
+		user.setUsername(allRequestParams.get("username"));
+		user.setUserPassword(allRequestParams.get("password"));
+		user.setUserEmail(allRequestParams.get("email"));
+		user.setUserRole(10000);
+		daoImpl.insertPlayer(player);
+		
+		daoImpl.insertUser(user);
+		
+	}
+
 }

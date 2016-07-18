@@ -33,8 +33,21 @@ package com.team3.common.controller;
 		
 		ObjectMapper mapper = new ObjectMapper();
 		
-		@RequestMapping(value="/register", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public @ResponseBody Player addPerson(@RequestParam Map<String,String> allRequestParams) {
+		@RequestMapping(value="/addperson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public @ResponseBody void addperson(@RequestParam Map<String,String> allRequestParams) {
+			System.out.println(allRequestParams);
+			registerUser.addperson(allRequestParams);
+
+		}
+		@RequestMapping(value="/addaddress", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public @ResponseBody Player addaddress(@RequestParam Map<String,String> allRequestParams) {
+			System.out.println(allRequestParams);
+			Player player = registerUser.processUser(allRequestParams);
+			return player;
+
+		}
+		@RequestMapping(value="/addpayment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public @ResponseBody Player addpayment(@RequestParam Map<String,String> allRequestParams) {
 			System.out.println(allRequestParams);
 			Player player = registerUser.processUser(allRequestParams);
 			return player;
