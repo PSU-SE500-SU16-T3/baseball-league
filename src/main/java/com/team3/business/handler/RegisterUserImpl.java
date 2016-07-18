@@ -12,6 +12,7 @@ import org.apache.geronimo.mail.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.team3.business.models.Address;
 import com.team3.business.models.Division;
 import com.team3.business.models.League;
