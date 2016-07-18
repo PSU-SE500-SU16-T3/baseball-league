@@ -107,4 +107,16 @@ public class LeagueController {
 		return response;
 
 	}
+	
+	@RequestMapping(value="/registerDivision", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Response<String> registerDivision(@RequestParam Map<String,String> allRequestParams) {
+		boolean status = registerUser.registerDivision(allRequestParams);
+		Response<String> response = new Response<String>();
+		if(status){
+			response.setStatus("success");
+			response.setBody("Division created successfully.");
+		}
+		return response;
+
+	}
 }

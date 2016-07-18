@@ -284,4 +284,15 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 			return false;
 	}
 
+	public boolean registerDivision(Division division) {
+		String sql = "INSERT INTO DIVISION(DIVISIONTITLE,DIVISIONMINAGE,DIVISIONMAXAGE,DIVISIONNUMBEROFPLAYER,SEASONID) VALUES (?, ?, ?, ?, ?)";
+		int count = getJdbcTemplate().update(sql, new Object[] {division.getDivisionTitle(), division.getDivisionMinAge(), division.getDivisionMaxAge(), division.getDivisionNumPlayers(), division.getSeasonID()});
+		if(count > 0)
+			return true;
+		else
+			return false;
+	}
+	
+	
+
 }

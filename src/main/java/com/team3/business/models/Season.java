@@ -11,6 +11,7 @@ public class Season {
 	private Calendar endDate;
 	private int numPlayer;
 	
+	
 	public Season() {
 	}
 

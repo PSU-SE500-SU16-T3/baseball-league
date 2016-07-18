@@ -4,8 +4,6 @@ package com.team3.business.handler;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
@@ -14,13 +12,17 @@ import org.apache.geronimo.mail.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.team3.business.models.Address;
 import com.team3.business.models.Division;
 import com.team3.business.models.League;
+import com.team3.business.models.Payment;
+import com.team3.business.models.Phone;
 import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignments;
+import com.team3.business.models.User;
 import com.team3.dao.Dao;
 
 @Service("registerUser")
@@ -32,13 +34,34 @@ public class RegisterUserImpl implements RegisterUser{
 	public Player processUser(Map<String, String> allRequestParams) {
 		//User user = new User();
 		Player player = new Player();
+		User user= new User();
+		Address address= new Address();
+		Phone mobilephone =new Phone();
+		Phone homephone =new Phone();
+		Payment payment = new Payment();
 		//user.setUsername(allRequestParams.get("username"));
 		//user.setUserPassword(allRequestParams.get("password"));
 		//user.setUserEmail(allRequestParams.get("email"));
-		player.setFirstName(allRequestParams.get("username"));
-		player.setMiddleName(allRequestParams.get("password"));
-		player.setLastName(allRequestParams.get("email"));
+		player.setFirstName(allRequestParams.get("firstname"));
+		player.setMiddleName(allRequestParams.get("middlename"));
+		player.setLastName(allRequestParams.get("lastname"));
+		/*java.util.Date dob = null;
+		try {
+			dob = new SimpleDateFormat("MM/dd/yyyy").parse(allRequestParams.get("dob"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		player.setDateOfBirth(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("dob")));
+		user.setUsername(allRequestParams.get("username"));
+		user.setUserPassword(allRequestParams.get("password"));
+		String role = allRequestParams.get("role");
+		
+		daoImpl.insertPhone(mobilephone);
+		daoImpl.insertPhone(homephone);
 		daoImpl.insertPlayer(player);
+		daoImpl.insertAddress(address);
+		daoImpl.insertPayment(payment);
 		return player;
 	}
 	
@@ -110,6 +133,17 @@ public class RegisterUserImpl implements RegisterUser{
 		}
 		season.setLeagueID(new BigDecimal(allRequestParams.get("leagueId")));
 		boolean status = daoImpl.registerSeason(season);
+		return status;
+	}
+
+	public boolean registerDivision(Map<String, String> allRequestParams) {
+		Division division = new Division();
+		division.setDivisionTitle(allRequestParams.get("divisionName"));
+		division.setDivisionMinAge(new BigDecimal(allRequestParams.get("minAge")));
+		division.setDivisionMaxAge(new BigDecimal(allRequestParams.get("maxAge")));
+		division.setDivisionNumPlayers(new BigDecimal(allRequestParams.get("maxNoOfPlayers")));
+		division.setSeasonID(new BigDecimal(allRequestParams.get("seasonId")));
+		boolean status = daoImpl.registerDivision(division);
 		return status;
 	}
 

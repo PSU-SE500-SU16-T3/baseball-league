@@ -4,12 +4,13 @@ import java.math.BigDecimal;
 
 public class Division {
 	private BigDecimal divisionID;
-	private int seasonID;
+	private BigDecimal seasonID;
 	private int leagueID;
 	private String divisionTitle;
 	private BigDecimal divisionMinAge;
 	private BigDecimal divisionMaxAge;
 	private BigDecimal divisionNumPlayers;
+	
 	
 	public BigDecimal getDivisionID() {
 		return divisionID;
@@ -17,10 +18,10 @@ public class Division {
 	public void setDivisionID(BigDecimal divisionID) {
 		this.divisionID = divisionID;
 	}
-	public int getSeasonID() {
+	public BigDecimal getSeasonID() {
 		return seasonID;
 	}
-	public void setSeasonID(int seasonID) {
+	public void setSeasonID(BigDecimal seasonID) {
 		this.seasonID = seasonID;
 	}
 	public int getLeagueID() {
