@@ -49,7 +49,6 @@ public class RegisterUserImpl implements RegisterUser{
 		player.setFirstName(allRequestParams.get("firstname"));
 		player.setMiddleName(allRequestParams.get("middlename"));
 		player.setLastName(allRequestParams.get("lastname"));
-<<<<<<< HEAD
 		/*java.util.Date dob = null;
 		try {
 			dob = new SimpleDateFormat("MM/dd/yyyy").parse(allRequestParams.get("dob"));
@@ -58,16 +57,6 @@ public class RegisterUserImpl implements RegisterUser{
 			e.printStackTrace();
 		}*/
 		player.setDateOfBirth(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("dob")));
-=======
-		java.util.Date dob = null;
-		try {
-			dob = new SimpleDateFormat("MM/dd/yyyy").parse(allRequestParams.get("dob"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		player.setDateOfBirth(dob);
->>>>>>> branch 'master' of https://github.com/PSU-SE500-SU16-T3/baseball-league.git
 		user.setUsername(allRequestParams.get("username"));
 		user.setUserPassword(allRequestParams.get("password"));
 		String role = allRequestParams.get("role");
