@@ -8,15 +8,13 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.Spring;
-
 import org.apache.geronimo.mail.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.team3.business.models.Address;
 import com.team3.business.models.Division;
-import com.team3.business.models.User;
 import com.team3.business.models.League;
 import com.team3.business.models.Payment;
 import com.team3.business.models.Phone;
@@ -27,7 +25,6 @@ import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignments;
 import com.team3.business.models.User;
 import com.team3.dao.Dao;
-import com.team3.dao.mapper.PlayerRoleMapper;
 
 @Service("registerUser")
 public class RegisterUserImpl implements RegisterUser{
@@ -43,19 +40,9 @@ public class RegisterUserImpl implements RegisterUser{
 		Phone mobilephone =new Phone();
 		Phone homephone =new Phone();
 		Payment payment = new Payment();
-		//user.setUsername(allRequestParams.get("username"));
-		//user.setUserPassword(allRequestParams.get("password"));
-		//user.setUserEmail(allRequestParams.get("email"));
 		player.setFirstName(allRequestParams.get("firstname"));
 		player.setMiddleName(allRequestParams.get("middlename"));
 		player.setLastName(allRequestParams.get("lastname"));
-		/*java.util.Date dob = null;
-		try {
-			dob = new SimpleDateFormat("MM/dd/yyyy").parse(allRequestParams.get("dob"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		player.setDateOfBirth(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("dob")));
 		user.setUsername(allRequestParams.get("username"));
 		user.setUserPassword(allRequestParams.get("password"));
@@ -129,8 +116,6 @@ public class RegisterUserImpl implements RegisterUser{
 		try {
 			season.setStartDate(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("seasonStartDate")));
 			season.setEndDate(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("seasonEndDate")));
-			/*season.setStartDate(new Date(sdf1.parse(allRequestParams.get("seasonStartDate")).getTime()));
-			season.setEndDate(new Date(sdf1.parse(allRequestParams.get("seasonEndDate")).getTime()));*/
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

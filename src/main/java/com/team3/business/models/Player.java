@@ -1,18 +1,25 @@
 package com.team3.business.models;
 
+
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
+import java.math.BigDecimal;
+import java.util.Calendar;
+
+
 public class Player {
 	private BigDecimal personID;
 	private String firstName;	
 	private String lastName;
+
 	private String middleName;
 
 	private Calendar dateOfBirth;
+
 
 	public BigDecimal getPersonID() {
 		return personID;
@@ -38,6 +45,7 @@ public class Player {
 	}
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
+
 	}
 
 	public Calendar getDateOfBirth() {
