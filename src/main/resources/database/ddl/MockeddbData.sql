@@ -1,8 +1,11 @@
 INSERT INTO USERROLE ( USERROLE) values ('Manager');
 INSERT INTO USERROLE ( USERROLE) values ('Player');
+INSERT INTO USERROLE ( USERROLE) values ('Referee');
 /
 INSERT INTO PaymentType ( PaymentType) values ('Visa');
 INSERT INTO PaymentType ( PaymentType) values ('Discover');
+INSERT INTO PaymentType ( PaymentType) values ('Amex');
+INSERT INTO PaymentType ( PaymentType) values ('Mastercard');
 /
 INSERT INTO PhoneType ( PhoneType) values ('Mobile');
 INSERT INTO PhoneType ( PhoneType) values ('Work');

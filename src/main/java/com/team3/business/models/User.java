@@ -6,6 +6,7 @@ public class User {
 	private String userPassword;
 	private String userEmail;
 	private int userRole;
+	private int personID;
 	
 	public User() {
 	}
@@ -49,7 +50,13 @@ public class User {
 	public void setUserRole(int userRole) {
 		this.userRole = userRole;
 	}
-	
+	public int getPersonID() {
+		return personID;
+	}
+
+	public void setPersonID(int PersonID) {
+		this.personID = PersonID;
+	}
 	@Override
 	public String toString() {
 		return "User [userID=" + userID + ", username=" + username + ", userPassword=" + userPassword + ", userEmail="

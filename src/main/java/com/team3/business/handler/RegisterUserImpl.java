@@ -31,7 +31,7 @@ public class RegisterUserImpl implements RegisterUser{
 	
 	@Autowired
 	Dao daoImpl;
-
+	private int _personID;
 	public Player processUser(Map<String, String> allRequestParams) {
 		//User user = new User();
 		Player player = new Player();
@@ -146,10 +146,35 @@ public class RegisterUserImpl implements RegisterUser{
 		user.setUsername(allRequestParams.get("username"));
 		user.setUserPassword(allRequestParams.get("password"));
 		user.setUserEmail(allRequestParams.get("email"));
-		user.setUserRole(10000);
-		daoImpl.insertPlayer(player);
-		
+		user.setUserRole(daoImpl.getRoleID(allRequestParams.get("role")));
+		_personID  = daoImpl.insertPlayer(player);
+		user.setPersonID(_personID);
 		daoImpl.insertUser(user);
+		
+	}
+
+	public void addpayment(Map<String, String> allRequestParams) {
+		Address address= new Address();
+		Phone mobilephone =new Phone();
+		Phone homephone =new Phone();
+		address.setAddress(allRequestParams.get("address"));
+		address.setCity(allRequestParams.get("city"));
+		address.setState(allRequestParams.get("state"));
+		address.setZip(allRequestParams.get("zip"));
+		address.setPersonID((_personID));
+		mobilephone.setPhoneNum(allRequestParams.get("mobilephone"));
+		mobilephone.setPersonID(_personID);
+		mobilephone.setPhoneType(daoImpl.getPhoneTypeID("Mobile"));
+		homephone.setPhoneNum(allRequestParams.get("homephone"));
+		homephone.setPersonID(_personID);
+		homephone.setPhoneType(daoImpl.getPhoneTypeID("Home"));
+		daoImpl.insertPhone(mobilephone);
+		daoImpl.insertPhone(homephone);
+		daoImpl.insertAddress(address);
+	}
+
+	public void addaddress(Map<String, String> allRequestParams) {
+		Payment payment = new Payment();
 		
 	}
 

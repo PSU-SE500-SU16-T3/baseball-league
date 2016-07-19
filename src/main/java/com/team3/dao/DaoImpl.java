@@ -32,23 +32,34 @@ import com.team3.dao.mapper.PlayerRoleMapper;
 @Component("daoImpl")
 public class DaoImpl extends JdbcDaoSupport implements Dao{
 
-	public void insertUser(User user) {
-		String sql = "INSERT INTO USERS (userName, passw, email, userRole) VALUES (?, ?, ?, ?)";
+	public int insertUser(User user) {
+		String sql = "INSERT INTO USERS (userName, passw, email, userRole, PersonID) VALUES (?, ?, ?, ?,?)";
 					 
-		getJdbcTemplate().update(sql, new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail(), user.getUserRole()});
+		getJdbcTemplate().update(sql, new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail(), user.getUserRole(), user.getPersonID()});
+		
+		String UserIDsql = "Select UserID from USERS where userName=?";
+		
+		int UserID=(int)getJdbcTemplate().queryForObject(
+				UserIDsql, new Object[] { user.getUserName() }, int.class);
+		return UserID;		
 		
 	}
 
-	public void insertPlayer(Player player) {
+	public int insertPlayer(Player player) {
 		String sql = "INSERT INTO PERSON (dob, firstname, lastname, middlename) VALUES (?, ?, ?, ?)";
 		 
-		getJdbcTemplate().update(sql, new Object[] {player.getDateOfBirth(), player.getFirstName(), player.getLastName(), player.getMiddleName() });
+		 getJdbcTemplate().update(sql, new Object[] {player.getDateOfBirth(), player.getFirstName(), player.getLastName(), player.getMiddleName() });
+		String PersonIDsql = "Select PersonID from Person where firstname=? and lastname=? and middlename=? and dob=?";
+		
+		int PersonID=(int)getJdbcTemplate().queryForObject(
+				PersonIDsql, new Object[] { player.getFirstName(), player.getLastName(), player.getMiddleName(), player.getDateOfBirth() }, int.class);
+		return PersonID;	
 	}
 
 	public void insertPhone(Phone phone) {
-		String sql = "INSERT INTO PHONE (phnetype,  phonenumber) VALUES (?, ?)";
+		String sql = "INSERT INTO PHONE (personID, phnetype,  phonenumber) VALUES (?, ?, ?)";
 		 
-		getJdbcTemplate().update(sql, new Object[] { phone.getPhoneType(), phone.getPhoneNum()});
+		getJdbcTemplate().update(sql, new Object[] { phone.getPersonID(), phone.getPhoneType(), phone.getPhoneNum()});
 	}
 
 	public void insertPayment(Payment payment) {
@@ -291,6 +302,30 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 			return true;
 		else
 			return false;
+	}
+
+	public int getRoleID(String role) {
+		String RoleIDsql = "Select RoleID from UserRole where UserRole =?";
+		
+		int RoleID=(int)getJdbcTemplate().queryForObject(
+				RoleIDsql, new Object[] { role }, int.class);
+		return RoleID;	
+	}
+
+	public int getPhoneTypeID(String PhoneType) {
+		String PhoneIDsql = "Select PhoneTypeID from PhoneType where PhoneType =?";
+		
+		int PhoneTypeID=(int)getJdbcTemplate().queryForObject(
+				PhoneIDsql, new Object[] { PhoneType }, int.class);
+		return PhoneTypeID;	
+	}
+
+	public int getPaymentTypeID(String PaymentType) {
+		String PaymentIDsql = "Select PaymentTypeID from PaymentType where PaymentTypeID =?";
+		
+		int PaymentTypeID=(int)getJdbcTemplate().queryForObject(
+				PaymentIDsql, new Object[] { PaymentType }, int.class);
+		return PaymentTypeID;	
 	}
 	
 	

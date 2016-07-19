@@ -19,8 +19,11 @@ import com.team3.business.models.User;
 
 public interface Dao {
 	
-	public void insertUser(User user);
-	public void insertPlayer(Player player);
+	public int insertUser(User user);
+	public int insertPlayer(Player player);
+	public int getRoleID(String role);
+	public int getPhoneTypeID(String PhoneType);
+	public int getPaymentTypeID(String PaymentType);
 	public void insertPhone(Phone phone);
 	public void insertPayment(Payment payment);
 	public void insertLeague(League league);

@@ -15,6 +15,8 @@ import com.team3.business.models.TeamAssignments;
 public interface RegisterUser {
 	public Player processUser(Map<String,String> allRequestParams);
 	public void addperson(Map<String,String> allRequestParams);
+	public void addpayment(Map<String,String> allRequestParams);
+	public void addaddress(Map<String,String> allRequestParams);
 	public List<League> getLeague();
 	public List<Season> getSeasons(Map<String, String> allRequestParams);
 	public List<Division> getDivisions(Map<String, String> allRequestParams);

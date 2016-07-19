@@ -40,18 +40,16 @@ package com.team3.common.controller;
 
 		}
 		@RequestMapping(value="/addaddress", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public @ResponseBody Player addaddress(@RequestParam Map<String,String> allRequestParams) {
+		public @ResponseBody void addaddress(@RequestParam Map<String,String> allRequestParams) {
 			System.out.println(allRequestParams);
-			Player player = registerUser.processUser(allRequestParams);
-			return player;
+			registerUser.addaddress(allRequestParams);
+			
 
 		}
 		@RequestMapping(value="/addpayment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public @ResponseBody Player addpayment(@RequestParam Map<String,String> allRequestParams) {
+		public @ResponseBody void addpayment(@RequestParam Map<String,String> allRequestParams) {
 			System.out.println(allRequestParams);
-			Player player = registerUser.processUser(allRequestParams);
-			return player;
-
+			registerUser.addpayment(allRequestParams);
 		}
 	}
 
