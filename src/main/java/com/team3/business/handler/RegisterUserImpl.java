@@ -5,6 +5,7 @@ package com.team3.business.handler;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class RegisterUserImpl implements RegisterUser{
 	
 	@Autowired
 	Dao daoImpl;
-	private int _personID;
+	private static int _personID;
 	public Player processUser(Map<String, String> allRequestParams) {
 		//User user = new User();
 		Player player = new Player();
@@ -150,10 +151,9 @@ public class RegisterUserImpl implements RegisterUser{
 		_personID  = daoImpl.insertPlayer(player);
 		user.setPersonID(_personID);
 		daoImpl.insertUser(user);
-		
 	}
 
-	public void addpayment(Map<String, String> allRequestParams) {
+	public void addaddress(Map<String, String> allRequestParams) {
 		Address address= new Address();
 		Phone mobilephone =new Phone();
 		Phone homephone =new Phone();
@@ -173,9 +173,19 @@ public class RegisterUserImpl implements RegisterUser{
 		daoImpl.insertAddress(address);
 	}
 
-	public void addaddress(Map<String, String> allRequestParams) {
+	public void addpayment(Map<String, String> allRequestParams) {
 		Payment payment = new Payment();
-		
+		payment.setNameOnCard(daoImpl.getfullname(_personID));
+		payment.setCardNumber(allRequestParams.get("cardnumber"));
+		payment.setCvvCode(allRequestParams.get("cvc"));
+		Calendar calendar = Calendar.getInstance();
+		calendar.clear();
+		calendar.set(Calendar.MONTH, Integer.parseInt(allRequestParams.get("experation").substring(0,2)));
+		calendar.set(Calendar.YEAR, Integer.parseInt(allRequestParams.get("experation").substring(3,5)));
+		payment.setExpDate(calendar);
+		payment.setPersonID(_personID);
+		payment.setPaymentType(daoImpl.getPaymentTypeID(allRequestParams.get("paymenttype")));
+		daoImpl.insertPayment(payment);
 	}
 
 }

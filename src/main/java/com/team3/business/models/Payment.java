@@ -4,23 +4,23 @@ import java.util.Calendar;
 
 public class Payment {
 	private int paymentID;
-	private String paymentType;
+	private int paymentType;
 	private String nameOnCard;
 	private String cardNumber;
 	private Calendar expDate;
 	private String cvvCode;
-	
+	private int personID;
 	public int getPaymentID() {
 		return paymentID;
 	}
 	public void setPaymentID(int paymentID) {
 		this.paymentID = paymentID;
 	}
-	public String getPaymentType() {
+	public int getPaymentType() {
 		return paymentType;
 	}
-	public void setPaymentType(String paymentType) {
-		this.paymentType = paymentType;
+	public void setPaymentType(int i) {
+		this.paymentType = i;
 	}
 	public String getNameOnCard() {
 		return nameOnCard;
@@ -31,19 +31,25 @@ public class Payment {
 	public String getCardNumber() {
 		return cardNumber;
 	}
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
+	public void setCardNumber(String string) {
+		this.cardNumber = string;
 	}
 	public Calendar getExpDate() {
 		return expDate;
 	}
-	public void setExpDate(Calendar expDate) {
-		this.expDate = expDate;
+	public void setExpDate(Calendar string) {
+		this.expDate = string;
 	}
 	public String getCvvCode() {
 		return cvvCode;
 	}
 	public void setCvvCode(String cvvCode) {
 		this.cvvCode = cvvCode;
+	}
+	public int getPersonID() {
+		return personID;
+	}
+	public void setPersonID(int personID) {
+		this.personID = personID;
 	}
 }

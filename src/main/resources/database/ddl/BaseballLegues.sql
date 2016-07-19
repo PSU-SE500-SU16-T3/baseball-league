@@ -286,9 +286,9 @@ CREATE TABLE Payment
   paymentID INT NOT NULL,
   paymentType INT NOT NULL,
   nameOnCard VARCHAR(50) NOT NULL,
-  cardNumber INT NOT NULL,
+  cardNumber VARCHAR(20) NOT NULL,
   expDate DATE NOT NULL,
-  crvCode INT NOT NULL,
+  crvCode VARCHAR(5) NOT NULL,
   PRIMARY KEY (paymentID),
     FOREIGN KEY (personID) REFERENCES Person(personID)
 );

@@ -63,9 +63,9 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	}
 
 	public void insertPayment(Payment payment) {
-		String sql = "INSERT INTO PAYMENT (cardnumber, crvcode, expdate, nameoncard, paymenttype) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO PAYMENT (personID, cardnumber, crvcode, expdate, nameoncard, paymenttype) VALUES (?, ?,?,?,?,?)";
 		 
-		getJdbcTemplate().update(sql, new Object[] { payment.getCardNumber(), payment.getCvvCode(), payment.getExpDate(), payment.getNameOnCard(), payment.getPaymentType()});
+		getJdbcTemplate().update(sql, new Object[] {payment.getPersonID(), payment.getCardNumber(), payment.getCvvCode(), payment.getExpDate(), payment.getNameOnCard(), payment.getPaymentType()});
 	}
 
 	public void insertLeague(League league) {
@@ -321,11 +321,19 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	}
 
 	public int getPaymentTypeID(String PaymentType) {
-		String PaymentIDsql = "Select PaymentTypeID from PaymentType where PaymentTypeID =?";
+		String PaymentIDsql = "Select PaymentTypeID from PaymentType where PaymentType =?";
 		
 		int PaymentTypeID=(int)getJdbcTemplate().queryForObject(
 				PaymentIDsql, new Object[] { PaymentType }, int.class);
 		return PaymentTypeID;	
+	}
+
+	public String getfullname(int PersonID) {
+		String FullnameSql = "Select FirstName || ' '|| LastName from Person where PersonID =?";
+		
+		String Fullname=(String)getJdbcTemplate().queryForObject(
+				FullnameSql, new Object[] { PersonID }, String.class);
+		return Fullname;	
 	}
 	
 	

@@ -24,6 +24,7 @@ public interface Dao {
 	public int getRoleID(String role);
 	public int getPhoneTypeID(String PhoneType);
 	public int getPaymentTypeID(String PaymentType);
+	public String getfullname(int PersonID);
 	public void insertPhone(Phone phone);
 	public void insertPayment(Payment payment);
 	public void insertLeague(League league);

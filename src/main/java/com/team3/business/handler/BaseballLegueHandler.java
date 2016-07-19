@@ -46,11 +46,6 @@ public class BaseballLegueHandler
 		}
 	}
 	
-	public void isValidPayment(Payment payment) throws BaseballLeagueException {
-		if(payment.getCardNumber().length() > 50 || payment.getCardNumber().isEmpty() || payment.getCardNumber().isEmpty() || payment.getExpDate() == null || payment.getCvvCode().isEmpty()) {
-			throw new BaseballLeagueException(ExceptionMessages.VALIDATION_EXCEPTION_MESSAGE, ExceptionMessages.VALIDATION_EXCEPTION_TITLE);
-		}
-	}
 	
 	public void isValidLegue(League league) throws BaseballLeagueException {
 		if(league.getLeagueName().length() > 50 || league.getLeagueName().isEmpty() || league.getLeagueLocation().isEmpty() || league.getLeagueLocation().length() > 50) {
