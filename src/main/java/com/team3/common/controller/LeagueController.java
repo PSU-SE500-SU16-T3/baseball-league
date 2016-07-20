@@ -36,7 +36,6 @@ public class LeagueController {
 	
 	@RequestMapping(value="/getJson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Player getShopInJSON(@RequestParam Map<String,String> allRequestParams) {
-		System.out.println(allRequestParams);
 		Player player = registerUser.processUser(allRequestParams);
 		return player;
 
