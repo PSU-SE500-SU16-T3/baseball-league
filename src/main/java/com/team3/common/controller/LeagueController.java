@@ -118,6 +118,18 @@ public class LeagueController {
 
 	}
 	
+	@RequestMapping(value="/registerTeam", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Response<String> registerTeam(@RequestParam Map<String,String> allRequestParams) {
+		boolean status = registerUser.registerTeam(allRequestParams);
+		Response<String> response = new Response<String>();
+		if(status){
+			response.setStatus("success");
+			response.setBody("Team created successfully.");
+		}
+		return response;
+
+	}
+	
 	@RequestMapping(value="/getSeasonDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Season getSeasonDetail(@RequestParam Map<String,String> allRequestParams) {
 		Season season = registerUser.getSeasonDetail(allRequestParams);

@@ -307,10 +307,18 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 			return false;
 	}
 	
+	public boolean registerTeam(Team team) {
+		String sql = "INSERT INTO TEAM(TEAMTITLE, TEAMNUMBEROFPLAYERS, DIVISIONID) VALUES (?, ?, ?)";
+		int count = getJdbcTemplate().update(sql, new Object[] {team.getTeamTitle(), team.getTeamNumPlayers(), team.getDivisionID()});
+		if(count > 0)
+			return true;
+		else
+			return false;
+	}
+	
 	public Season getSeasonDetail(String seasonId) {
   		String sql = "SELECT SEASONID, SEASONTITLE, SEASONSTARTDT, SEASONENDDT, SEASONNUMBEROFPLAYERS, LEAGUEID FROM SEASON WHERE SEASONID = "+seasonId;
 		Season season = new Season();
-		//DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		SqlRowSet rs = (SqlRowSet)getJdbcTemplate().queryForRowSet(sql);
 		try {
@@ -329,6 +337,8 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		}
 		return season;
 	}
+
+	
 
 	public boolean updateSeason(Season season) {
 		String sql = "UPDATE SEASON SET SEASONTITLE = ?, SEASONSTARTDT = ?, SEASONENDDT = ? WHERE SEASONID = ?";

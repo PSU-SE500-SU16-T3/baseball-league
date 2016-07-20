@@ -127,6 +127,15 @@ public class RegisterUserImpl implements RegisterUser{
 		return status;
 	}
 	
+	public boolean registerTeam(Map<String, String> allRequestParams) {
+		Team team = new Team();
+		team.setTeamTitle(allRequestParams.get("teamName"));
+		team.setTeamNumPlayers(new BigDecimal(allRequestParams.get("noOfPlayers")));
+		team.setDivisionID(new BigDecimal(allRequestParams.get("divisionId")));
+		boolean status = daoImpl.registerTeam(team);
+		return status;
+	}
+	
 	public Season getSeasonDetail(Map<String, String> allRequestParams) {
 		String seasonId = allRequestParams.get("seasonId");
 		Season season = daoImpl.getSeasonDetail(seasonId);
@@ -209,5 +218,7 @@ public class RegisterUserImpl implements RegisterUser{
 		payment.setPaymentType(daoImpl.getPaymentTypeID(allRequestParams.get("paymenttype")));
 		daoImpl.insertPayment(payment);
 	}
+
+	
 
 }

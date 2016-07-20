@@ -49,4 +49,5 @@ public interface Dao {
 	public boolean registerDivision(Division division);
 	public Season getSeasonDetail(String seasonId);
 	public boolean updateSeason(Season season);
+	public boolean registerTeam(Team team);
 }
