@@ -3,6 +3,9 @@ package com.team3.dao;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -288,7 +291,7 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 
 	public boolean registerSeason(Season season) {
 		String sql = "INSERT INTO SEASON  (SEASONTITLE,SEASONSTARTDT,SEASONENDDT,SEASONNUMBEROFPLAYERS,LEAGUEID  ) VALUES (?, ?, ?,20, ?)";
-		int count = getJdbcTemplate().update(sql, new Object[] {season.getSeasonName(), season.getStartDate().getTime(), season.getEndDate().getTime(), season.getLeagueID()});
+		int count = getJdbcTemplate().update(sql, new Object[] {season.getSeasonName(), season.getStartDate(), season.getEndDate(), season.getLeagueID()});
 		if(count > 0)
 			return true;
 		else
@@ -298,6 +301,38 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	public boolean registerDivision(Division division) {
 		String sql = "INSERT INTO DIVISION(DIVISIONTITLE,DIVISIONMINAGE,DIVISIONMAXAGE,DIVISIONNUMBEROFPLAYER,SEASONID) VALUES (?, ?, ?, ?, ?)";
 		int count = getJdbcTemplate().update(sql, new Object[] {division.getDivisionTitle(), division.getDivisionMinAge(), division.getDivisionMaxAge(), division.getDivisionNumPlayers(), division.getSeasonID()});
+		if(count > 0)
+			return true;
+		else
+			return false;
+	}
+	
+	public Season getSeasonDetail(String seasonId) {
+  		String sql = "SELECT SEASONID, SEASONTITLE, SEASONSTARTDT, SEASONENDDT, SEASONNUMBEROFPLAYERS, LEAGUEID FROM SEASON WHERE SEASONID = "+seasonId;
+		Season season = new Season();
+		//DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		SqlRowSet rs = (SqlRowSet)getJdbcTemplate().queryForRowSet(sql);
+		try {
+			while(rs.next()){
+				
+				season.setSeasonID(rs.getBigDecimal("SEASONID"));
+				season.setSeasonName(rs.getString("SEASONTITLE"));
+				season.setStartDate(new Timestamp(rs.getDate("SEASONSTARTDT").getTime()));
+				season.setEndDate(new Timestamp(rs.getDate("SEASONENDDT").getTime()));
+				season.setNumPlayer(rs.getInt("SEASONID"));
+				season.setLeagueID(rs.getBigDecimal("SEASONID"));
+			}				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return season;
+	}
+
+	public boolean updateSeason(Season season) {
+		String sql = "UPDATE SEASON SET SEASONTITLE = ?, SEASONSTARTDT = ?, SEASONENDDT = ? WHERE SEASONID = ?";
+		int count = getJdbcTemplate().update(sql, new Object[] {season.getSeasonName(), season.getStartDate(), season.getEndDate(), season.getSeasonID()});
 		if(count > 0)
 			return true;
 		else

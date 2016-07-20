@@ -47,4 +47,6 @@ public interface Dao {
 	public List<Team> getTeams(String divisionId);
 	public boolean registerSeason(Season season);
 	public boolean registerDivision(Division division);
+	public Season getSeasonDetail(String seasonId);
+	public boolean updateSeason(Season season);
 }

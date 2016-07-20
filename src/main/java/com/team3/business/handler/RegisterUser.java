@@ -27,4 +27,6 @@ public interface RegisterUser {
 	public List<Team> getTeams(Map<String, String> allRequestParams);
 	public boolean registerSeason(Map<String, String> allRequestParams);
 	public boolean registerDivision(Map<String, String> allRequestParams);
+	public Season getSeasonDetail(Map<String, String> allRequestParams);
+	public boolean updateSeason(Map<String, String> allRequestParams);
 }

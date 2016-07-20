@@ -20,7 +20,6 @@ import com.team3.business.handler.RegisterUser;
 import com.team3.business.models.Division;
 import com.team3.business.models.League;
 import com.team3.business.models.Player;
-import com.team3.business.models.PlayerRole;
 import com.team3.business.models.Response;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
@@ -118,5 +117,23 @@ public class LeagueController {
 		}
 		return response;
 
+	}
+	
+	@RequestMapping(value="/getSeasonDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Season getSeasonDetail(@RequestParam Map<String,String> allRequestParams) {
+		Season season = registerUser.getSeasonDetail(allRequestParams);
+		return season;
+
+	}
+	
+	@RequestMapping(value="/updateSeason", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Response<String> updateSeason(@RequestParam Map<String,String> allRequestParams) {
+		boolean status = registerUser.updateSeason(allRequestParams);
+		Response<String> response = new Response<String>();
+		if(status){
+			response.setStatus("success");
+			response.setBody("Season created successfully.");
+		}
+		return response;
 	}
 }

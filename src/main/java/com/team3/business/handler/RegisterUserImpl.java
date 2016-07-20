@@ -4,6 +4,7 @@ package com.team3.business.handler;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -12,7 +13,6 @@ import java.util.Map;
 import org.apache.geronimo.mail.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import com.team3.business.models.Address;
 import com.team3.business.models.Division;
@@ -111,21 +111,11 @@ public class RegisterUserImpl implements RegisterUser{
 	}
 
 	public boolean registerSeason(Map<String, String> allRequestParams) {
-		SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
-		Season season = new Season();
-		season.setSeasonName(allRequestParams.get("seasonName"));
-		try {
-			season.setStartDate(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("seasonStartDate")));
-			season.setEndDate(javax.xml.bind.DatatypeConverter.parseDateTime(allRequestParams.get("seasonEndDate")));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		season.setLeagueID(new BigDecimal(allRequestParams.get("leagueId")));
+		Season season = createSeasonObj(allRequestParams);
 		boolean status = daoImpl.registerSeason(season);
 		return status;
 	}
-
+	
 	public boolean registerDivision(Map<String, String> allRequestParams) {
 		Division division = new Division();
 		division.setDivisionTitle(allRequestParams.get("divisionName"));
@@ -136,6 +126,38 @@ public class RegisterUserImpl implements RegisterUser{
 		boolean status = daoImpl.registerDivision(division);
 		return status;
 	}
+	
+	public Season getSeasonDetail(Map<String, String> allRequestParams) {
+		String seasonId = allRequestParams.get("seasonId");
+		Season season = daoImpl.getSeasonDetail(seasonId);
+		return season;
+	}
+	
+	public boolean updateSeason(Map<String, String> allRequestParams) {
+		Season season = createSeasonObj(allRequestParams);
+		boolean status = daoImpl.updateSeason(season);
+		return status;
+	}
+	
+	private Season createSeasonObj(Map<String, String> allRequestParams) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Season season = new Season();
+		season.setSeasonName(allRequestParams.get("seasonName"));
+		try {
+			season.setStartDate(new Timestamp(sdf.parse(allRequestParams.get("seasonStartDate")).getTime()));
+			season.setEndDate(new Timestamp(sdf.parse(allRequestParams.get("seasonEndDate")).getTime()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(allRequestParams.get("leagueId")!=null){
+			season.setLeagueID(new BigDecimal(allRequestParams.get("leagueId")));
+		}else if(allRequestParams.get("seasonId")!=null){
+			season.setSeasonID(new BigDecimal(allRequestParams.get("seasonId")));
+		}
+			
+		return season;
+	}	
 
 	public void addperson(Map<String, String> allRequestParams) {
 		Player player = new Player();

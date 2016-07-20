@@ -1,14 +1,18 @@
 package com.team3.business.models;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.sql.Timestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Season {
 	private BigDecimal seasonID;
 	private BigDecimal leagueID;
 	private String seasonName;
-	private Calendar startDate;
-	private Calendar endDate;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z")
+	private Timestamp startDate;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z")
+	private Timestamp endDate;
 	private int numPlayer;
 	
 	
@@ -39,19 +43,19 @@ public class Season {
 		this.seasonName = seasonName;
 	}
 
-	public Calendar getStartDate() {
+	public Timestamp getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Calendar startDate) {
+	public void setStartDate(Timestamp startDate) {
 		this.startDate = startDate;
 	}
 
-	public Calendar getEndDate() {
+	public Timestamp getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Calendar endDate) {
+	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
 	}
 
