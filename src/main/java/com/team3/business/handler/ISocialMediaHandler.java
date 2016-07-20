@@ -1,6 +1,6 @@
-package com.team3.common.controller;
+package com.team3.business.handler;
 
-public interface ISocialMediaController {
+public interface ISocialMediaHandler {
 	void PostStatus(String Post);
 	void getStatuses(int NumberofPreviousStatuses);
 }

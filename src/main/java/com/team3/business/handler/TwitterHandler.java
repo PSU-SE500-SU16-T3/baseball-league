@@ -1,4 +1,4 @@
-package com.team3.common.controller;
+package com.team3.business.handler;
 
 
 
@@ -8,7 +8,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-class TwitterController implements ISocialMediaController {
+class TwitterHandler implements ISocialMediaHandler {
 	 private static twitter4j.Twitter getTwitter(){
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();

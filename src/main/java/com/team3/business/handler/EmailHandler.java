@@ -1,4 +1,4 @@
-package com.team3.common.controller;
+package com.team3.business.handler;
 
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
@@ -7,7 +7,7 @@ import org.apache.commons.mail.SimpleEmail;
 import com.team3.business.exception.BaseballLeagueException;
 import com.team3.business.exception.ExceptionMessages;
 
-public class EmailController {
+public class EmailHandler {
 
 	private String userName; //baseballeagie1234@gmail.com
 	private String password; //hihihihihi
@@ -15,7 +15,7 @@ public class EmailController {
 	
 	private final String SUBJECT = "DO NOT REPLY: Baseball League Notification Mail.";
 	
-	public EmailController(String userName, String password) {
+	public EmailHandler(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
 		email.setHostName("smtp.gmail.com");
