@@ -75,8 +75,9 @@ public class RegisterUserImpl implements RegisterUser{
 	}
 	
 	public List<Team> getTeams(Map<String, String> allRequestParams) {
-		String divisionId = allRequestParams.get("divisionId");
-		List<Team> teams = daoImpl.getTeams(divisionId);
+		String retrieveBy = allRequestParams.get("retrieveBy");
+		String retrieveId = allRequestParams.get("retrieveId");
+		List<Team> teams = daoImpl.getTeams(retrieveBy, retrieveId);
 		return teams;
 	}
 

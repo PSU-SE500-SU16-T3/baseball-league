@@ -193,16 +193,23 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		return divisions;
 	}	
 	
-	public List<Team> getTeams(String divisionId) {
-		String sql = "SELECT TEAMID, TEAMTITLE, TEAMNUMBEROFPLAYERS, FIELDID FROM TEAM WHERE DIVISIONID = ?";
+	public List<Team> getTeams(String retrieveBy, String retrieveId) {
+		String sql = "";
+		if(retrieveBy.equals("division")){
+			sql = "SELECT TEAMID, TEAMTITLE, TEAMNUMBEROFPLAYERS, FIELDID, DIVISIONID FROM TEAM WHERE DIVISIONID = ?";
+		}else{
+			sql = "SELECT TEAMID, TEAMTITLE, TEAMNUMBEROFPLAYERS, FIELDID, DIVISIONID FROM TEAM WHERE TEAMID = ?";
+		}
+		
 		List<Team> teams = new ArrayList<Team>();
-		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, new Object[] { divisionId });
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, new Object[] { retrieveId });
 		for (Map<String, Object> row : rows) {
 			Team team = new Team();
 			team.setTeamID((BigDecimal)(row.get("TEAMID")));
 			team.setTeamTitle((String)(row.get("TEAMTITLE")));
 			team.setTeamNumPlayers((BigDecimal)(row.get("TEAMNUMBEROFPLAYERS")));
 			team.setFieldID((BigDecimal)(row.get("FIELDID")));
+			team.setDivisionID((BigDecimal)(row.get("DIVISIONID")));
 			teams.add(team);
 		}		
 		return teams;
