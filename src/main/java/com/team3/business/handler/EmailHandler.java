@@ -7,7 +7,7 @@ import org.apache.commons.mail.SimpleEmail;
 import com.team3.business.exception.BaseballLeagueException;
 import com.team3.business.exception.ExceptionMessages;
 
-public class EmailHandler {
+public class EmailHandler implements ISocialMediaHandler   {
 
 	private String userName; //baseballeagie1234@gmail.com
 	private String password; //hihihihihi
@@ -15,14 +15,9 @@ public class EmailHandler {
 	
 	private final String SUBJECT = "DO NOT REPLY: Baseball League Notification Mail.";
 	
-	public EmailHandler(String userName, String password) {
-		this.userName = userName;
-		this.password = password;
-		email.setHostName("smtp.gmail.com");
-		email.setSmtpPort(465);
-		email.setSSLOnConnect(true);
-	}
 	
+	
+
 	public void sendEmail(String toLine, String subject, String message)throws BaseballLeagueException {
 		try {
 
@@ -42,4 +37,20 @@ public class EmailHandler {
 	public void sendEmail(String toLine, String message) throws BaseballLeagueException {
 		this.sendEmail(toLine, this.SUBJECT, message);
 	}
+
+	public void PostStatus(String Post) {
+		this.userName = userName;
+		this.password = password;
+		email.setHostName("smtp.gmail.com");
+		email.setSmtpPort(465);
+		email.setSSLOnConnect(true);
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void getStatuses(int NumberofPreviousStatuses) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
