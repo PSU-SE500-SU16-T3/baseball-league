@@ -218,7 +218,6 @@ CREATE TABLE Users
   passw VARCHAR(25) NOT NULL,
   email VARCHAR(25) NOT NULL,
   userID INT NOT NULL,
-  userRole INT NOT NULL,
   PRIMARY KEY (userID),
     FOREIGN KEY (personID) REFERENCES Person(personID)
 );
