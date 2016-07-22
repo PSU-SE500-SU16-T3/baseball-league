@@ -1,7 +1,8 @@
 package com.team3.business.handler;
-enum HandlerType {TwitterHandler, FacebookHandler, EmailHandler}
+
 public class SocialMediaFactory {
-	 public ISocialMediaHandler getHandler(HandlerType HandlerType){
+
+	 public ISocialMediaHandler getHandler(SocialMediaTypes HandlerType){
 		 
 		 switch(HandlerType){
 		 case EmailHandler:

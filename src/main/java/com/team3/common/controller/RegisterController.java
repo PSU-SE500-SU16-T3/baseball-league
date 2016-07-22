@@ -24,7 +24,7 @@ package com.team3.common.controller;
 	import com.team3.business.models.Season;
 	import com.team3.business.models.TeamAssignment;
 	import com.team3.business.models.TeamAssignments;
-
+	
 	@Controller
 	public class RegisterController { 
 		
