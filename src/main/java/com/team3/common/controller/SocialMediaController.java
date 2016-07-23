@@ -18,8 +18,8 @@ import com.team3.business.handler.SocialMediaTypes;
 
 @Controller
 public class SocialMediaController {
-	@Autowired
-	private SocialMediaFactory socialmediafactory;
+	
+	private SocialMediaFactory socialmediafactory= new SocialMediaFactory();
 	
 	ObjectMapper mapper = new ObjectMapper();
 	
