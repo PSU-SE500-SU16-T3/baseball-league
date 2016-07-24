@@ -36,11 +36,11 @@ import com.team3.dao.mapper.PlayerRoleMapper;
 public class DaoImpl extends JdbcDaoSupport implements Dao{
 
 	public int insertUser(User user) {
-		String sql = "INSERT INTO USERS (userName, passw, email, PersonID) VALUES (?, ?, ?, ?,)";
+		String sql = "INSERT INTO USERS(username, passw, email, PersonID) VALUES (?, ?, ?, ?)";
 					 
 		getJdbcTemplate().update(sql, new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail(), user.getPersonID()});
 		
-		String sql2 = "INSERT INTO PERSONROLEASSIGNMENT (RoleID, PersonID) VALUES ( ?, ?,)";		
+		String sql2 = "INSERT INTO PERSONROLEASSIGNMENT (RoleID, PersonID) VALUES ( ?, ?)";		
 		getJdbcTemplate().update(sql2, new Object[] { user.getUserRole(), user.getPersonID()});
 		
 		String UserIDsql = "Select UserID from USERS where userName=?";

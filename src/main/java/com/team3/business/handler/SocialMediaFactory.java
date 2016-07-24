@@ -1,5 +1,8 @@
 package com.team3.business.handler;
 
+import org.springframework.stereotype.Service;
+
+@Service("SocialMediaFactory")
 public class SocialMediaFactory {
 
 	 public ISocialMediaHandler getHandler(SocialMediaTypes HandlerType){
@@ -12,7 +15,7 @@ public class SocialMediaFactory {
 		 case TwitterHandler:
 			 return new TwitterHandler();
 		 default:
-			 return null;
+			 return new TwitterHandler();
 		 }	      
 	   }
 	
