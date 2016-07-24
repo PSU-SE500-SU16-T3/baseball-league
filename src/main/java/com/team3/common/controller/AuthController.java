@@ -30,5 +30,9 @@ public class AuthController {
 			response.setStatus("success");
 		}
 		return response;
-	}	
+	}
+	
+	public void setRegisterUser(RegisterUser registerUser) {
+		this.registerUser = registerUser;
+	}
 }

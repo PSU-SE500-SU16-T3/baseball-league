@@ -32,6 +32,10 @@ public class LeagueController {
 	@Autowired
 	private RegisterUser registerUser;
 	
+	public void setRegisterUser(RegisterUser registerUser) {
+		this.registerUser = registerUser;
+	}
+	
 	ObjectMapper mapper = new ObjectMapper();
 	
 	@RequestMapping(value="/getJson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
