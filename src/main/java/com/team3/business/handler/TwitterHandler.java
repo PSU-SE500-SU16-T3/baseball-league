@@ -8,7 +8,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-class TwitterHandler implements ISocialMediaHandler  {
+public class TwitterHandler implements ISocialMediaHandler  {
 	 private static twitter4j.Twitter getTwitter(){
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();

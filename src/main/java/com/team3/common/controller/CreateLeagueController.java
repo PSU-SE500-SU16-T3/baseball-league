@@ -21,9 +21,12 @@ public class CreateLeagueController {
 	@Autowired
 	private LeagueFactory leagueFactory;
 	
+	public void setLeagueFactory(LeagueFactory leagueFactory) {
+		this.leagueFactory = leagueFactory;
+	}
+
 	@RequestMapping(value="/setLeague", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody League setLeague(@RequestParam Map<String,String> allRequestParams) {
-		System.out.println(allRequestParams);
 		League league = leagueFactory.SetLeagueParams(allRequestParams);
 		return league;
 	}
