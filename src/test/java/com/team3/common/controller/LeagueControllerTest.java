@@ -156,7 +156,7 @@ public class LeagueControllerTest {
         mockTeamAssignment.setTeamAssignments(mockTeamAssignmentList);
         mockTeamAssignment.setTeamId(mockArguments.get("teamId"));
     	
-    	EasyMock.expect(registerUser.modifyPlayers(EasyMock.eq(mockTeamAssignment))).andReturn(new Boolean(true)).anyTimes();  
+    	EasyMock.expect(registerUser.modifyPlayers(EasyMock.isA(TeamAssignments.class))).andReturn(new Boolean(true)).anyTimes();  
         EasyMock.replay(registerUser);
         
         boolean status = leagueController.modifyPlayers(mockArguments);
