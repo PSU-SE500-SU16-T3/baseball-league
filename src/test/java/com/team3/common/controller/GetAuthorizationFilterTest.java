@@ -1,18 +1,21 @@
 package com.team3.common.controller;
 
-import com.team3.business.authorization.AuthenticationDetailsSource;
-import com.team3.business.authorization.AuthenticationFailureHandler;
-import com.team3.business.authorization.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationManager;
 import com.team3.business.authorization.GaeAuthenticationFilter;
-import com.team3.business.authorization.ServletRequest;
-import com.team3.business.authorization.SimpleUrlAuthenticationFailureHandler;
-import com.team3.business.authorization.WebAuthenticationDetailsSource;
-import com.team3.business.handler.EmailHandler;
+import org.springframework.security.authentication.AuthenticationDetailsSource;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class GetAuthorizationFilterTest {
 	GaeAuthenticationFilter authorizationFilter;
