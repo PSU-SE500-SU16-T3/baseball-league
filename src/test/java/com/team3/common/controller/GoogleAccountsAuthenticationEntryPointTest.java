@@ -6,6 +6,11 @@ import com.team3.business.authorization.GoogleAccountsAuthenticationEntryPoint;
 import com.team3.business.authorization.HttpServletRequest;
 import com.team3.business.authorization.HttpServletResponse;
 
+import org.easymock.EasyMock;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 public class GoogleAccountsAuthenticationEntryPointTest {
 	GoogleAccountsAuthenticationEntryPoint googleAccountsAthenticationEntryPoint;
 	
