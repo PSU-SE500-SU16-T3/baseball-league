@@ -9,6 +9,11 @@ import com.team3.business.handler.SocialMediaFactory;
 import com.team3.business.handler.SocialMediaTypes;
 import com.team3.business.handler.TwitterHandler;
 
+import org.easymock.EasyMock;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 public class EmailHandlerTest {
 
 	EmailHandler emailHandler;
