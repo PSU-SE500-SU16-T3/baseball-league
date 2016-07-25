@@ -1,10 +1,10 @@
 package com.team3.common.controller;
 
-import com.team3.business.authorization.AuthenticationException;
-import com.team3.business.authorization.GaeAuthenticationFilter;
 import com.team3.business.authorization.GoogleAccountsAuthenticationEntryPoint;
-import com.team3.business.authorization.HttpServletRequest;
-import com.team3.business.authorization.HttpServletResponse;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.easymock.EasyMock;
 import org.junit.After;
@@ -16,12 +16,12 @@ public class GoogleAccountsAuthenticationEntryPointTest {
 	
 	@Before  
     public void setUp() {  
-		authorizationFilter = EasyMock.createMock(GaeAuthenticationFilter.class);
+		googleAccountsAthenticationEntryPoint = EasyMock.createMock(GoogleAccountsAuthenticationEntryPoint.class);
     }  
   
     @After  
     public void tearDown() {  
-    	authorizationFilter = null;
+    	googleAccountsAthenticationEntryPoint = null;
     }
     
     @Test
