@@ -26,9 +26,11 @@ public class FacebookHandler implements ISocialMediaHandler {
 	private Facebook getfacebook(){
 		Facebook facebook = new FacebookFactory().getInstance();
 		facebook.setOAuthAppId("270872636624990", "405765261426f0d5f39ec51dd3ed4953");
-		String accessTokenString = "EAACEdEose0cBAH92UzpMXvODUhMoHmyYHmFyCVTT88oRVZAfT3gxZCc7A3CQBLCEQTYN3rfZC1AAV9G5gUmpTMJe8E0HUhdNAvyOscGZAIx3aksFIZC7nZAcGG9XBv3UqK4MXEASIsUZBlhYWe15fCMZCElSxo8kiOFCyUxbzIIWnAZDZD";
+		String accessTokenString = "EAAD2W3NJEF4BAKAkkQ7NiuTZAqnNwzzWVLEu1Id348ZB0MOkmIzTQi98mKFJNv9AdA2nNGXHkPfhnmX7PHavgjScLVVa0DBtTn4dFWTxtiJfglCyI4lRLFTS05ql1xIZB7Qm81OuPXkqeDM8ki8fsVZCV9IKISYZD";
 		AccessToken at = new AccessToken(accessTokenString);
 		facebook.setOAuthAccessToken(at);
+		facebook.setOAuthPermissions("manage_pages, publish_pages");
+		
 		return facebook;
 	}
 
