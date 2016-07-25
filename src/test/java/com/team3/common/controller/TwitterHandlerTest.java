@@ -3,6 +3,11 @@ package com.team3.common.controller;
 import com.team3.business.handler.EmailHandler;
 import com.team3.business.handler.TwitterHandler;
 
+import org.easymock.EasyMock;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 public class TwitterHandlerTest {
 
 	TwitterHandler twitterHandler;
