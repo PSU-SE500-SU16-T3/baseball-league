@@ -9,6 +9,11 @@ import com.team3.business.authorization.SimpleUrlAuthenticationFailureHandler;
 import com.team3.business.authorization.WebAuthenticationDetailsSource;
 import com.team3.business.handler.EmailHandler;
 
+import org.easymock.EasyMock;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 public class GetAuthorizationFilterTest {
 	GaeAuthenticationFilter authorizationFilter;
 	AuthenticationDetailsSource ads;
