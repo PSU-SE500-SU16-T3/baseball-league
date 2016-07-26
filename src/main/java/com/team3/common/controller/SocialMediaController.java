@@ -37,7 +37,7 @@ public class SocialMediaController {
 		}
 		else if (allRequestParams.get("service").equals("email")){
 			ISocialMediaHandler emailhandler = socialmediafactory.getHandler(SocialMediaTypes.EmailHandler);
-			emailhandler.PostStatus(allRequestParams.get("message"));
+			emailhandler.sendEmail(allRequestParams.get("emails"),allRequestParams.get("message"));
 		} else
 		{
 			System.out.println(allRequestParams.get("service"));

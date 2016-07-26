@@ -34,4 +34,9 @@ public class FacebookHandler implements ISocialMediaHandler {
 		return facebook;
 	}
 
+	public void sendEmail(String string, String string2) {
+		//stub for direct messages
+		
+	}
+
 }

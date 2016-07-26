@@ -9,8 +9,8 @@ import com.team3.business.exception.ExceptionMessages;
 
 public class EmailHandler implements ISocialMediaHandler   {
 
-	private String userName; //baseballeagie1234@gmail.com
-	private String password; //hihihihihi
+	private String userName = "baseballeagie1234@gmail.com";
+	private String password = "hihihihihi";
 	private Email email = new SimpleEmail();
 	
 	private final String SUBJECT = "DO NOT REPLY: Baseball League Notification Mail.";
@@ -18,7 +18,7 @@ public class EmailHandler implements ISocialMediaHandler   {
 	
 	
 
-	public void sendEmail(String toLine, String subject, String message)throws BaseballLeagueException {
+	public void writeEmail(String toLine, String subject, String message)throws BaseballLeagueException {
 		try {
 
 			email.setAuthentication(userName, password);
@@ -34,17 +34,23 @@ public class EmailHandler implements ISocialMediaHandler   {
 		}
 	}
 	
-	public void sendEmail(String toLine, String message) throws BaseballLeagueException {
-		this.sendEmail(toLine, this.SUBJECT, message);
+	public void sendEmail(String toLine, String message) {
+		try {
+			this.userName = userName;
+			this.password = password;
+			email.setHostName("smtp.gmail.com");
+			email.setSmtpPort(465);
+			email.setSSLOnConnect(true);
+			this.writeEmail(toLine, this.SUBJECT, message);
+		} catch (BaseballLeagueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void PostStatus(String Post) {
-		this.userName = userName;
-		this.password = password;
-		email.setHostName("smtp.gmail.com");
-		email.setSmtpPort(465);
-		email.setSSLOnConnect(true);
-		// TODO Auto-generated method stub
+
+		// method stub, cant post generic email
 		
 	}
 

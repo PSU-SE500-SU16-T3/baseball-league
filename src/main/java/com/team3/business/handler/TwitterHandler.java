@@ -45,4 +45,8 @@ public class TwitterHandler implements ISocialMediaHandler  {
 			e.printStackTrace();
 		}
 	 }
+	public void sendEmail(String string, String string2) {
+		// stub for direct messages
+		
+	}
 }
