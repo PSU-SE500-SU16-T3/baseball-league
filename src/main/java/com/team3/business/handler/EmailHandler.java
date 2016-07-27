@@ -9,8 +9,9 @@ import com.team3.business.exception.ExceptionMessages;
 
 public class EmailHandler implements ISocialMediaHandler   {
 
-	private String userName = "baseballeagie1234@gmail.com";
-	private String password = "hihihihihi";
+	//found the old email and password
+	private String userName = "baseballeagie1234@gmail.com";////baseballlegue@gmail.com
+	private String password = "hihihihihi"; ///somePass1
 	private Email email = new SimpleEmail();
 	
 	private final String SUBJECT = "DO NOT REPLY: Baseball League Notification Mail.";
@@ -20,7 +21,10 @@ public class EmailHandler implements ISocialMediaHandler   {
 
 	public void writeEmail(String toLine, String subject, String message)throws BaseballLeagueException {
 		try {
-
+			//we need to ensure tha SSL Connect is set to true as well as Hot name and SMTP port, otherwose we will get an exception
+			email.setHostName("smtp.gmail.com");
+			email.setSmtpPort(465);
+			email.setSSLOnConnect(true);
 			email.setAuthentication(userName, password);
 			email.setFrom(userName);
 			email.setSubject(subject);
