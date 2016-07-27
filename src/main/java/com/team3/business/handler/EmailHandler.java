@@ -21,10 +21,6 @@ public class EmailHandler implements ISocialMediaHandler   {
 
 	public void writeEmail(String toLine, String subject, String message)throws BaseballLeagueException {
 		try {
-			//we need to ensure tha SSL Connect is set to true as well as Hot name and SMTP port, otherwose we will get an exception
-			email.setHostName("smtp.gmail.com");
-			email.setSmtpPort(465);
-			email.setSSLOnConnect(true);
 			email.setAuthentication(userName, password);
 			email.setFrom(userName);
 			email.setSubject(subject);
@@ -40,8 +36,6 @@ public class EmailHandler implements ISocialMediaHandler   {
 	
 	public void sendEmail(String toLine, String message) {
 		try {
-			this.userName = userName;
-			this.password = password;
 			email.setHostName("smtp.gmail.com");
 			email.setSmtpPort(465);
 			email.setSSLOnConnect(true);
