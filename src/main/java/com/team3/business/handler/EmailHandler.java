@@ -10,13 +10,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-
-import com.team3.business.exception.BaseballLeagueException;
-import com.team3.business.exception.ExceptionMessages;
-
 public class EmailHandler implements ISocialMediaHandler   {
 
 	
