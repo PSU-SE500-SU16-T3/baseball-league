@@ -144,7 +144,7 @@ INSERT INTO PHONE  (    PERSONID,        PHONENUMBER,    PHNETYPE  )  Select  (s
 INSERT INTO PHONE  (    PERSONID,        PHONENUMBER,    PHNETYPE  )  Select  (select PersonID From Person where FirstName = 'Carl'),123456789, (Select PhoneTypeID from PhoneType Where PhoneType = 'Home')  From dual;
 INSERT INTO PHONE  (    PERSONID,        PHONENUMBER,    PHNETYPE  )  Select  (select PersonID From Person where FirstName = 'Lilly'),123456789, (Select PhoneTypeID from PhoneType Where PhoneType = 'Home')  From dual;
 /
-INSERT INTO LEAGUE  (    LEAGUENAME,    LEAGUELOCATION,   PERSONID)  Select  'State College League',    'Nittany Lion Softball Park', 10018 From dual);
+INSERT INTO LEAGUE  (    LEAGUENAME,    LEAGUELOCATION,   PERSONID)  Select  'State College League',    'Nittany Lion Softball Park', 10017 From dual;
 
 INSERT INTO SEASON  (    SEASONTITLE,    SEASONSTARTDT,    SEASONENDDT,    SEASONNUMBEROFPLAYERS,    LEAGUEID  )  Select    'Summer',    (to_date(add_months(sysdate,1), 'yyyy/mm/dd:hh:mi:ssam')),    (to_date(add_months(sysdate,4), 'yyyy/mm/dd:hh:mi:ssam')),    18,    (Select LEAGUEID from LEAGUE where LEAGUENAME ='State College League') from dual;
 /
