@@ -1,5 +1,15 @@
 package com.team3.business.handler;
 
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
@@ -9,40 +19,41 @@ import com.team3.business.exception.ExceptionMessages;
 
 public class EmailHandler implements ISocialMediaHandler   {
 
-	//found the old email and password
-	private String userName = "baseballeagie1234@gmail.com";////baseballlegue@gmail.com
-	private String password = "hihihihihi"; ///somePass1
-	private Email email = new SimpleEmail();
+	
+	private String userName = "baseballlegue@gmail.com";
+	private String password = "somePass1"; 
 	
 	private final String SUBJECT = "DO NOT REPLY: Baseball League Notification Mail.";
 	
 	
-	
-
-	public void writeEmail(String toLine, String subject, String message)throws BaseballLeagueException {
-		try {
-			email.setAuthentication(userName, password);
-			email.setFrom(userName);
-			email.setSubject(subject);
-			email.setMsg(message);
-			email.addTo(toLine);
-			email.send();
-		}
-		catch (EmailException e) { 
-			e.printStackTrace();
-			throw new BaseballLeagueException(ExceptionMessages.EMAIL_EXCEPTION_MESSAGE, ExceptionMessages.EMAIL_EXCEPTION_TITLE);
-		}
-	}
-	
 	public void sendEmail(String toLine, String message) {
+
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(userName, password);
+			}
+		  });
+
 		try {
-			email.setHostName("smtp.gmail.com");
-			email.setSmtpPort(465);
-			email.setSSLOnConnect(true);
-			this.writeEmail(toLine, this.SUBJECT, message);
-		} catch (BaseballLeagueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			Message messageObj = new MimeMessage(session);
+			messageObj.setFrom(new InternetAddress(userName));
+			messageObj.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toLine));
+			messageObj.setSubject(SUBJECT);
+			messageObj.setText(message);
+
+			Transport.send(messageObj);
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
