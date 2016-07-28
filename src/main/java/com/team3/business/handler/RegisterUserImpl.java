@@ -10,8 +10,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.geronimo.mail.util.Base64;
+//import org.apache.geronimo.mail.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Service;
 
 import com.team3.business.models.Address;
@@ -97,8 +98,8 @@ public class RegisterUserImpl implements RegisterUser{
 		return status;
 	}
 
-	public PlayerRole getUserDetails(Map<String, String> allRequestParams) {	
-		byte[] decoded = Base64.decode(allRequestParams.get("authdata"));
+	public PlayerRole getUserDetails(Map<String, String> allRequestParams) {
+		byte[] decoded = Base64.decode(allRequestParams.get("authdata").getBytes());
 		String authParams = "";
 		try {
 			authParams = new String(decoded, "UTF-8");

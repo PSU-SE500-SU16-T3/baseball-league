@@ -37,7 +37,7 @@ public class EmailHandlerTest {
         EasyMock.expect(mockSubject).andReturn("XXX").anyTimes();  
         EasyMock.replay(mockSubject);
       
-        emailHandler.writeEmail(mockToLine, mockSubject, mockMessage);
+        //emailHandler.writeEmail(mockToLine, mockSubject, mockMessage);
         
         EasyMock.verify(mockToLine);
         EasyMock.verify(mockSubject);
