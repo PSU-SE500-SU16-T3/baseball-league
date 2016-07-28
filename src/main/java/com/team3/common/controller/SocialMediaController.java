@@ -1,6 +1,5 @@
 package com.team3.common.controller;
 
-import java.io.Console;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team3.business.exception.BaseballLeagueException;
 import com.team3.business.handler.ISocialMediaHandler;
 import com.team3.business.handler.SocialMediaFactory;
 import com.team3.business.handler.SocialMediaTypes;
-import com.team3.business.models.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class SocialMediaController {
@@ -27,7 +25,7 @@ public class SocialMediaController {
 	}
 	
 	@RequestMapping(value="/postmessage", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody void Postmessage(@RequestParam Map<String,String> allRequestParams) {
+	public @ResponseBody void Postmessage(@RequestParam Map<String,String> allRequestParams) throws BaseballLeagueException {
 		if (allRequestParams.get("service").equals("twitter")){
 			ISocialMediaHandler twitterhandler = socialmediafactory.getHandler(SocialMediaTypes.TwitterHandler);
 			twitterhandler.PostStatus(allRequestParams.get("message"));
@@ -40,7 +38,7 @@ public class SocialMediaController {
 			emailhandler.sendEmail(allRequestParams.get("emails"),allRequestParams.get("message"));
 		} else
 		{
-			System.out.println(allRequestParams.get("service"));
+			throw new BaseballLeagueException("Cannot process message");
 		}
 		
 	}
