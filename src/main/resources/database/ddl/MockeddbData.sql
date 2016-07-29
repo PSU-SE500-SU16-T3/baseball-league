@@ -144,7 +144,7 @@ INSERT INTO PHONE  (    PERSONID,        PHONENUMBER,    PHNETYPE  )  Select  (s
 INSERT INTO PHONE  (    PERSONID,        PHONENUMBER,    PHNETYPE  )  Select  (select PersonID From Person where FirstName = 'Carl'),123456789, (Select PhoneTypeID from PhoneType Where PhoneType = 'Home')  From dual;
 INSERT INTO PHONE  (    PERSONID,        PHONENUMBER,    PHNETYPE  )  Select  (select PersonID From Person where FirstName = 'Lilly'),123456789, (Select PhoneTypeID from PhoneType Where PhoneType = 'Home')  From dual;
 /
-INSERT INTO LEAGUE  (    LEAGUENAME,    LEAGUELOCATION,   PERSONID)  Select  'State College League',    'Nittany Lion Softball Park', 10017 From dual;
+INSERT INTO LEAGUE  (    LEAGUENAME,    LEAGUELOCATION,   PERSONID)  Select  'State College League',    'Nittany Lion Softball Park', 10018 From dual;
 
 INSERT INTO SEASON  (    SEASONTITLE,    SEASONSTARTDT,    SEASONENDDT,    SEASONNUMBEROFPLAYERS,    LEAGUEID  )  Select    'Summer',    (to_date(add_months(sysdate,1), 'yyyy/mm/dd:hh:mi:ssam')),    (to_date(add_months(sysdate,4), 'yyyy/mm/dd:hh:mi:ssam')),    18,    (Select LEAGUEID from LEAGUE where LEAGUENAME ='State College League') from dual;
 /
@@ -207,7 +207,7 @@ INSERT INTO StateLookup(STATE, STATEID) VALUES        ('Wisconsin', 'WI');
 INSERT INTO StateLookup(STATE, STATEID) VALUES        ('Wyoming', 'WY');
 /
 INSERT INTO PERSONROLEASSIGNMENT(PERSONID,ROLEID) SELECT 10000, 10001 FROM DUAL;
-INSERT INTO PERSONROLEASSIGNMENT(PERSONID,ROLEID) SELECT 10001, 10001 FROM DUAL;
+INSERT INTO PERSONROLEASSIGNMENT(PERSONID,ROLEID) SELECT 10001, 10002 FROM DUAL;
 INSERT INTO PERSONROLEASSIGNMENT(PERSONID,ROLEID) SELECT 10002, 10001 FROM DUAL;
 INSERT INTO PERSONROLEASSIGNMENT(PERSONID,ROLEID) SELECT 10003, 10001 FROM DUAL;
 INSERT INTO PERSONROLEASSIGNMENT(PERSONID,ROLEID) SELECT 10004, 10001 FROM DUAL;
@@ -232,4 +232,10 @@ INSERT INTO TEAM  (TEAMTITLE, TEAMNUMBEROFPLAYERS, DIVISIONID  )  Select  'TEAM1
 INSERT INTO TEAM  (TEAMTITLE, TEAMNUMBEROFPLAYERS, DIVISIONID  )  Select  'TEAM2', 10, (Select DIVISIONID from DIVISION where DIVISIONTITLE ='Pony') From dual;
 INSERT INTO TEAM  (TEAMTITLE, TEAMNUMBEROFPLAYERS, DIVISIONID  )  Select  'TEAM3', 10, (Select DIVISIONID from DIVISION where DIVISIONTITLE ='Pony') From dual;
 /
+Insert into Game(TEAM1ID,TEAM2ID,Team1Score, Team2score ,REFEREEID,FIELDID,GAMETIME) Select (Select TeamID from Team where TEAMTITLE = 'TEAM1'),(Select TeamID from Team where TEAMTITLE = 'TEAM2'),0,0,10002,10000,sysdate from dual;
+Insert into Game(TEAM1ID,TEAM2ID,Team1Score, Team2score ,REFEREEID,FIELDID,GAMETIME) Select (Select TeamID from Team where TEAMTITLE = 'TEAM2'),(Select TeamID from Team where TEAMTITLE = 'TEAM3'),0,0,10002,10000,sysdate+1 from dual;
+Insert into Game(TEAM1ID,TEAM2ID,Team1Score, Team2score ,REFEREEID,FIELDID,GAMETIME) Select (Select TeamID from Team where TEAMTITLE = 'TEAM3'),(Select TeamID from Team where TEAMTITLE = 'TEAM1'),0,0,10002,10000,sysdate+2 from dual;
+
+/
+
 Commit;

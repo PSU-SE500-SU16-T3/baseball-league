@@ -520,14 +520,14 @@ CREATE TABLE GAME
   GameID int NOT NULL,
   Team1ID int,
   Team2ID int,
-  gameScore varchar(25),
+  Team1Score int,
+  Team2Score int,
   RefereeID int,
   FieldID int not null,
   GameTime Date not null,
   PRIMARY KEY (GameID),
   FOREIGN KEY (Team1ID) REFERENCES Team(teamID),
   FOREIGN KEY (Team2ID) REFERENCES Team(teamID),
-  FOREIGN KEY (RefereeID) REFERENCES Person(personID),
   FOREIGN KEY (FieldID) REFERENCES Field(FieldID));
 /
 
