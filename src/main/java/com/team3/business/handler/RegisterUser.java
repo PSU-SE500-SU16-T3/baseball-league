@@ -17,6 +17,7 @@ public interface RegisterUser {
 	public void addperson(Map<String,String> allRequestParams);
 	public void addpayment(Map<String,String> allRequestParams);
 	public void addaddress(Map<String,String> allRequestParams);
+	public League setLeague(Map<String,String> allRequestParams);
 	public List<League> getLeague();
 	public List<Season> getSeasons(Map<String, String> allRequestParams);
 	public List<Division> getDivisions(Map<String, String> allRequestParams);

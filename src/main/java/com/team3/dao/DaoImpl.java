@@ -74,9 +74,9 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 	}
 
 	public void insertLeague(League league) {
-		String sql = "INSERT INTO league( leaguelocation, leaguename) VALUES ( ?, ?)";
+		String sql = "INSERT INTO league( leaguelocation, leaguename, personid) VALUES ( ?, ?, ?)";
 		 
-		getJdbcTemplate().update(sql, new Object[] {league.getLeagueLocation(), league.getLeagueName()});
+		getJdbcTemplate().update(sql, new Object[] {league.getLeagueLocation(), league.getLeagueName(), league.getUserID()});
 	}
 
 	public void insertSeason(Season season) {

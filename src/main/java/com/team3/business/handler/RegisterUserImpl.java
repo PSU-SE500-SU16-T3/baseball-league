@@ -220,6 +220,17 @@ public class RegisterUserImpl implements RegisterUser{
 		payment.setPaymentType(daoImpl.getPaymentTypeID(allRequestParams.get("paymenttype")));
 		daoImpl.insertPayment(payment);
 	}
+	
+	public League setLeague(Map<String, String> allRequestParams) {
+		League league = new League();
+		league.setLeagueName(allRequestParams.get("leagueName"));
+		league.setLeagueLocation(allRequestParams.get("leagueLocation"));
+		league.setUserID(_personID);
+		
+		daoImpl.insertLeague(league);
+		
+		return league;
+	}
 
 	
 

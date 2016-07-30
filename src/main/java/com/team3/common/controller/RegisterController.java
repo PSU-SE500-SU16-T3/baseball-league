@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team3.business.handler.LeagueFactory;
 import com.team3.business.handler.RegisterUser;
+import com.team3.business.models.League;
 	
 @Controller
 public class RegisterController { 
@@ -22,6 +24,7 @@ public class RegisterController {
 	public void setRegisterUser(RegisterUser registerUser) {
 		this.registerUser = registerUser;
 	}
+	
 	@RequestMapping(value="/addperson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody void addperson(@RequestParam Map<String,String> allRequestParams) {
 		registerUser.addperson(allRequestParams);
@@ -36,6 +39,12 @@ public class RegisterController {
 	@RequestMapping(value="/addpayment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody void addpayment(@RequestParam Map<String,String> allRequestParams) {
 		registerUser.addpayment(allRequestParams);
+	}
+	
+	@RequestMapping(value="/setLeague", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody League setLeague(@RequestParam Map<String,String> allRequestParams) {
+		League league = registerUser.setLeague(allRequestParams);
+		return league;
 	}
 }
 
