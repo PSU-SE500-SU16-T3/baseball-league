@@ -154,9 +154,26 @@ public class RegisterUserImpl implements RegisterUser{
 		return season;
 	}
 	
+	public Division getDivisionDetail(Map<String, String> allRequestParams) {
+		String divisionId = allRequestParams.get("divisionId");
+		Division division = daoImpl.getDivisionDetail(divisionId);
+		return division;
+	}
+	
 	public boolean updateSeason(Map<String, String> allRequestParams) {
 		Season season = createSeasonObj(allRequestParams);
 		boolean status = daoImpl.updateSeason(season);
+		return status;
+	}	
+
+	public boolean updateDivision(Map<String, String> allRequestParams) {
+		Division division = new Division();
+		division.setDivisionID(new BigDecimal(allRequestParams.get("divisionID")));
+		division.setDivisionTitle(allRequestParams.get("divisionName"));
+		division.setDivisionMinAge(new BigDecimal(allRequestParams.get("minAge")));
+		division.setDivisionMaxAge(new BigDecimal(allRequestParams.get("maxAge")));
+		division.setDivisionNumPlayers(new BigDecimal(allRequestParams.get("maxNoOfPlayers")));
+		boolean status = daoImpl.updateDivision(division);
 		return status;
 	}
 	
@@ -264,6 +281,5 @@ public class RegisterUserImpl implements RegisterUser{
 		return league;
 	}
 
-	
 
 }
