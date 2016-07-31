@@ -356,11 +356,37 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		return season;
 	}
 
+	public Division getDivisionDetail(String divisionId) {
+		String sql = "SELECT DIVISIONID, DIVISIONTITLE, DIVISIONMINAGE, DIVISIONMAXAGE, DIVISIONNUMBEROFPLAYER, SEASONID FROM DIVISION WHERE DIVISIONID = "+divisionId;
+		Division division = new Division();
+		SqlRowSet rs = (SqlRowSet)getJdbcTemplate().queryForRowSet(sql);
+		try {
+			while(rs.next()){	
+				division.setDivisionID(rs.getBigDecimal("DIVISIONID"));
+				division.setDivisionTitle(rs.getString("DIVISIONTITLE"));
+				division.setDivisionMinAge(rs.getBigDecimal("DIVISIONMINAGE"));
+				division.setDivisionMaxAge(rs.getBigDecimal("DIVISIONMAXAGE"));
+				division.setDivisionNumPlayers(rs.getBigDecimal("DIVISIONNUMBEROFPLAYER"));
+			}				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return division;
+	}
 	
-
 	public boolean updateSeason(Season season) {
 		String sql = "UPDATE SEASON SET SEASONTITLE = ?, SEASONSTARTDT = ?, SEASONENDDT = ? WHERE SEASONID = ?";
 		int count = getJdbcTemplate().update(sql, new Object[] {season.getSeasonName(), season.getStartDate(), season.getEndDate(), season.getSeasonID()});
+		if(count > 0)
+			return true;
+		else
+			return false;
+	}
+
+	public boolean updateDivision(Division division) {
+		String sql = "UPDATE DIVISION SET DIVISIONTITLE = ?, DIVISIONMINAGE = ?, DIVISIONMAXAGE = ?, DIVISIONNUMBEROFPLAYER = ? WHERE DIVISIONID = ?";
+		int count = getJdbcTemplate().update(sql, new Object[] {division.getDivisionTitle(), division.getDivisionMinAge(), division.getDivisionMaxAge(), division.getDivisionNumPlayers(), division.getDivisionID()});
 		if(count > 0)
 			return true;
 		else
@@ -428,5 +454,5 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 				LeagueIDSql, new Object[] { LeagueName }, int.class);
 		return LeagueID;	
 	}
-
+	
 }

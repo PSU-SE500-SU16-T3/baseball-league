@@ -33,4 +33,6 @@ public interface RegisterUser {
 	public void addaddress(Map<String,String> allRequestParams);
 	public League submitLeague(Map<String, String> allRequestParams);
 	public League submitleagueByName(Map<String, String> allRequestParams);
+	public Division getDivisionDetail(Map<String, String> allRequestParams);
+	public boolean updateDivision(Map<String, String> allRequestParams);
 }

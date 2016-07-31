@@ -54,4 +54,6 @@ public interface Dao {
 	public void insertPersonLeague(int LeagueID, int UserID);
 	public String getLeagueName(int LeagueID);
 	public int getLeagueIDbyName(String LeagueName);
+	public Division getDivisionDetail(String divisionId);
+	public boolean updateDivision(Division division);
 }
