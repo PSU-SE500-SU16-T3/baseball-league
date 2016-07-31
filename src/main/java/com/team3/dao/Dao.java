@@ -50,4 +50,7 @@ public interface Dao {
 	public Season getSeasonDetail(String seasonId);
 	public boolean updateSeason(Season season);
 	public boolean registerTeam(Team team);
+	public int getLeagueID(String LeagueLoc);
+	public void insertPersonLeague(int LeagueID, int UserID);
+	public String getLeagueName(int LeagueID);
 }

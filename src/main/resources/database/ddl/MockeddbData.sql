@@ -144,7 +144,9 @@ INSERT INTO PHONE  (    PERSONID,        PHONENUMBER,    PHNETYPE  )  Select  (s
 INSERT INTO PHONE  (    PERSONID,        PHONENUMBER,    PHNETYPE  )  Select  (select PersonID From Person where FirstName = 'Carl'),123456789, (Select PhoneTypeID from PhoneType Where PhoneType = 'Home')  From dual;
 INSERT INTO PHONE  (    PERSONID,        PHONENUMBER,    PHNETYPE  )  Select  (select PersonID From Person where FirstName = 'Lilly'),123456789, (Select PhoneTypeID from PhoneType Where PhoneType = 'Home')  From dual;
 /
-INSERT INTO LEAGUE  (    LEAGUENAME,    LEAGUELOCATION,   PERSONID)  Select  'State College League',    'Nittany Lion Softball Park', 10018 From dual;
+INSERT INTO LEAGUE  (    LEAGUENAME,    LEAGUELOCATION,   PERSONID)  Select  'State College League',       'Nittany Lion Softball Park', 10018 From dual;
+INSERT INTO LEAGUE  (    LEAGUENAME,    LEAGUELOCATION,   PERSONID)  Select  'Tussey View Park League',    'Tussey View Park', 10019 From dual;
+INSERT INTO LEAGUE  (    LEAGUENAME,    LEAGUELOCATION,   PERSONID)  Select  'Tudek Memorial Park League', 'Tudek Memorial Park', 10020 From dual;
 
 INSERT INTO SEASON  (    SEASONTITLE,    SEASONSTARTDT,    SEASONENDDT,    SEASONNUMBEROFPLAYERS,    LEAGUEID  )  Select    'Summer',    (to_date(add_months(sysdate,1), 'yyyy/mm/dd:hh:mi:ssam')),    (to_date(add_months(sysdate,4), 'yyyy/mm/dd:hh:mi:ssam')),    18,    (Select LEAGUEID from LEAGUE where LEAGUENAME ='State College League') from dual;
 /
@@ -237,5 +239,11 @@ Insert into Game(TEAM1ID,TEAM2ID,Team1Score, Team2score ,REFEREEID,FIELDID,GAMET
 Insert into Game(TEAM1ID,TEAM2ID,Team1Score, Team2score ,REFEREEID,FIELDID,GAMETIME) Select (Select TeamID from Team where TEAMTITLE = 'TEAM3'),(Select TeamID from Team where TEAMTITLE = 'TEAM1'),0,0,10002,10000,sysdate+2 from dual;
 
 /
+INSERT INTO PersonLeague(PERSONID,LEAGUEID) SELECT 10002, 10000 FROM DUAL;
+INSERT INTO PersonLeague(PERSONID,LEAGUEID) SELECT 10003, 10000 FROM DUAL;
+INSERT INTO PersonLeague(PERSONID,LEAGUEID) SELECT 10004, 10001 FROM DUAL;
+INSERT INTO PersonLeague(PERSONID,LEAGUEID) SELECT 10005, 10001 FROM DUAL;
+INSERT INTO PersonLeague(PERSONID,LEAGUEID) SELECT 10006, 10002 FROM DUAL;
+INSERT INTO PersonLeague(PERSONID,LEAGUEID) SELECT 10007, 10002 FROM DUAL;
 
 Commit;

@@ -390,6 +390,27 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		return Fullname;	
 	}
 	
+	public int getLeagueID(String LeagueLoc) {
+		String LeagueIDSql = "Select LEAGUEID from LEAGUE where LEAGUELOCATION =?";
+		
+		int LeagueID=(int)getJdbcTemplate().queryForObject(
+				LeagueIDSql, new Object[] { LeagueLoc }, int.class);
+		return LeagueID;	
+	}
+	
+	public void insertPersonLeague(int LeagueID, int UserID) {		
+		String InsertPersonLeagueSql = "INSERT INTO PERSONLEAGUE (PersonID, LeagueID) VALUES ( ?, ?)";
+		
+		getJdbcTemplate().update(InsertPersonLeagueSql, new Object[] { UserID, LeagueID});
+	}
+	
+	public String getLeagueName(int LeagueID) {
+		String LeagueNameSql = "Select LEAGUENAME from LEAGUE where LEAGUEID =?";
+		
+		String LeagueName=(String)getJdbcTemplate().queryForObject(
+				LeagueNameSql, new Object[] { LeagueID }, String.class);
+		return LeagueName;	
+	}
 	
 
 }

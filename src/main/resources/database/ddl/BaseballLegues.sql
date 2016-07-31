@@ -171,6 +171,15 @@ EXCEPTION
       END IF;
 END;
 /
+BEGIN
+EXECUTE IMMEDIATE 'Drop Table PersonLeague cascade constraints';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
 
 Drop Sequence ADDRESSID_SEQ;
 
@@ -541,4 +550,12 @@ BEGIN
   INTO   :new.GameID
   FROM   dual;
 END;
+/
+CREATE TABLE PersonLeague
+(
+  personID int NOT NULL,
+  leagueID INT NOT NULL,
+  FOREIGN KEY (personID) REFERENCES Person(personID),
+  FOREIGN KEY (leagueID) REFERENCES League(leagueID)
+);
 /
