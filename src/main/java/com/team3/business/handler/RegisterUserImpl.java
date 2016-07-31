@@ -263,6 +263,29 @@ public class RegisterUserImpl implements RegisterUser{
 		
 		return league;
 	}
+	
+	public League submitleagueByName(Map<String, String> allRequestParams) {
+		League league = new League();
+//		league.setLeagueName(allRequestParams.get("leagueName"));
+//		league.setLeagueLocation(allRequestParams.get("leagueLocation"));
+//		league.setUserID(_personID);
+		
+		System.out.println("INside submitLeagueByName and the league name is:"+allRequestParams.get("leaguename"));
+		//System.out.println("The LeagueID is:"+leagueID);
+		
+		int leagueID = daoImpl.getLeagueIDbyName(allRequestParams.get("leaguename"));
+		
+		
+		// todo:  use real personID when the findleague page is connected to registration
+		//daoImpl.insertPersonLeague(leagueID, _personID);
+		daoImpl.insertPersonLeague(leagueID, 10008);
+		
+		String leagueName = daoImpl.getLeagueName(leagueID);
+		
+		league.setLeagueName(leagueName);
+		
+		return league;
+	}
 
 	
 

@@ -52,6 +52,12 @@ public class RegisterController {
 		League league = registerUser.submitLeague(allRequestParams);
 		return league;
 	}
+	
+	@RequestMapping(value="/submitleagueByName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody League submitleagueByName(@RequestParam Map<String,String> allRequestParams) {
+		League league = registerUser.submitleagueByName(allRequestParams);
+		return league;
+	}
 }
 
 

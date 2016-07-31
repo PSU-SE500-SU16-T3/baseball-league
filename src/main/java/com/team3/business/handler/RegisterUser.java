@@ -32,4 +32,5 @@ public interface RegisterUser {
 	public boolean registerTeam(Map<String, String> allRequestParams);
 	public void addaddress(Map<String,String> allRequestParams);
 	public League submitLeague(Map<String, String> allRequestParams);
+	public League submitleagueByName(Map<String, String> allRequestParams);
 }

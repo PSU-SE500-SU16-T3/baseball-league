@@ -421,5 +421,12 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		return LeagueName;	
 	}
 	
+	public int getLeagueIDbyName(String LeagueName) {
+		String LeagueIDSql = "Select LEAGUEID from LEAGUE where LEAGUENAME =?";
+		
+		int LeagueID=(int)getJdbcTemplate().queryForObject(
+				LeagueIDSql, new Object[] { LeagueName }, int.class);
+		return LeagueID;	
+	}
 
 }
