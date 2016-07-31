@@ -16,6 +16,9 @@ import com.team3.business.handler.SocialMediaFactory;
 import com.team3.business.handler.SocialMediaTypes;
 import com.team3.business.handler.TwitterHandler;
 
+import facebook4j.FacebookException;
+import twitter4j.TwitterException;
+
 public class SocialMediaControllerTest {
 	
 	SocialMediaController socialMediaController;
@@ -34,7 +37,7 @@ public class SocialMediaControllerTest {
     }
     
     @Test
-    public void testPostmessageIfTwitter() throws BaseballLeagueException { 
+    public void testPostmessageIfTwitter() throws BaseballLeagueException, TwitterException, FacebookException { 
     	Map<String,String> mockArguments = EasyMock.createMock(HashMap.class);
     	ISocialMediaHandler mockISocialMediaHandler = EasyMock.createMock(TwitterHandler.class);
     	
@@ -58,7 +61,7 @@ public class SocialMediaControllerTest {
     }
     
     @Test
-    public void testPostmessageIfFacebook() throws BaseballLeagueException { 
+    public void testPostmessageIfFacebook() throws BaseballLeagueException, TwitterException, FacebookException { 
     	Map<String,String> mockArguments = EasyMock.createMock(HashMap.class);
     	ISocialMediaHandler mockISocialMediaHandler = EasyMock.createMock(FacebookHandler.class);
     	
@@ -82,7 +85,7 @@ public class SocialMediaControllerTest {
     }
     
     @Test
-    public void testPostmessageIfEmail() throws BaseballLeagueException { 
+    public void testPostmessageIfEmail() throws BaseballLeagueException, TwitterException, FacebookException { 
     	Map<String,String> mockArguments = EasyMock.createMock(HashMap.class);
     	ISocialMediaHandler mockISocialMediaHandler = EasyMock.createMock(EmailHandler.class);
     	
@@ -107,7 +110,7 @@ public class SocialMediaControllerTest {
     }
     
     @Test(expected=BaseballLeagueException.class)
-    public void testPostmessageIfNoHandlerFound() throws BaseballLeagueException{ 
+    public void testPostmessageIfNoHandlerFound() throws BaseballLeagueException, TwitterException, FacebookException{ 
     	Map<String,String> mockArguments = EasyMock.createMock(HashMap.class);
     	
     	EasyMock.expect(mockArguments.get("service")).andReturn("xyz").anyTimes();

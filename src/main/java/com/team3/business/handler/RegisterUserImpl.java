@@ -32,8 +32,18 @@ import com.team3.dao.Dao;
 public class RegisterUserImpl implements RegisterUser{
 	
 	@Autowired
-	Dao daoImpl;
-	private static int _personID;
+	Dao daoImpl;	
+	
+	public void setDaoImpl(Dao daoImpl) {
+		this.daoImpl = daoImpl;
+	}
+	
+	private static int _personID;	
+	
+	public static void set_personID(int _personID) {
+		RegisterUserImpl._personID = _personID;
+	}
+
 	public Player processUser(Map<String, String> allRequestParams) {
 		//User user = new User();
 		Player player = new Player();
@@ -150,7 +160,7 @@ public class RegisterUserImpl implements RegisterUser{
 		return status;
 	}
 	
-	private Season createSeasonObj(Map<String, String> allRequestParams) {
+	public  Season createSeasonObj(Map<String, String> allRequestParams) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Season season = new Season();
 		season.setSeasonName(allRequestParams.get("seasonName"));

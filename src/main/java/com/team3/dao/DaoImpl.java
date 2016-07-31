@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -34,17 +36,24 @@ import com.team3.dao.mapper.PlayerRoleMapper;
 
 @Component("daoImpl")
 public class DaoImpl extends JdbcDaoSupport implements Dao{
+	
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+	
+	public void setDbTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	public int insertUser(User user) {
 		String sql = "INSERT INTO USERS(username, passw, email, PersonID) VALUES (?, ?, ?, ?)";
-					 
-		getJdbcTemplate().update(sql, new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail(), user.getPersonID()});
+				 
+		this.jdbcTemplate.update(sql, new Object[] { user.getUserName(), user.getUserPassword(), user.getUserEmail(), user.getPersonID()});
 		
 		String sql2 = "INSERT INTO PERSONROLEASSIGNMENT (RoleID, PersonID) VALUES ( ?, ?)";		
-		getJdbcTemplate().update(sql2, new Object[] { user.getUserRole(), user.getPersonID()});
+		this.jdbcTemplate.update(sql2, new Object[] { user.getUserRole(), user.getPersonID()});
 		
 		String UserIDsql = "Select UserID from USERS where userName=?";
-		int UserID=(int)getJdbcTemplate().queryForObject(
+		int UserID=(int)this.jdbcTemplate.queryForObject(
 				UserIDsql, new Object[] { user.getUserName() }, int.class);
 		return UserID;		
 		
@@ -300,7 +309,7 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 
 	public boolean registerSeason(Season season) {
 		String sql = "INSERT INTO SEASON  (SEASONTITLE,SEASONSTARTDT,SEASONENDDT,SEASONNUMBEROFPLAYERS,LEAGUEID  ) VALUES (?, ?, ?,20, ?)";
-		int count = getJdbcTemplate().update(sql, new Object[] {season.getSeasonName(), season.getStartDate(), season.getEndDate(), season.getLeagueID()});
+		int count = this.jdbcTemplate.update(sql, new Object[] {season.getSeasonName(), season.getStartDate(), season.getEndDate(), season.getLeagueID()});
 		if(count > 0)
 			return true;
 		else

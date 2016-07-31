@@ -45,5 +45,7 @@
     <bean id="daoImpl" class="com.team3.dao.DaoImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+	<bean id="template" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 </beans>

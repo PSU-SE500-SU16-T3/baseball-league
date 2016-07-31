@@ -15,6 +15,9 @@ import com.team3.business.handler.ISocialMediaHandler;
 import com.team3.business.handler.SocialMediaFactory;
 import com.team3.business.handler.SocialMediaTypes;
 
+import facebook4j.FacebookException;
+import twitter4j.TwitterException;
+
 @Controller
 public class SocialMediaController {
 	@Autowired
@@ -25,7 +28,7 @@ public class SocialMediaController {
 	}
 	
 	@RequestMapping(value="/postmessage", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody void Postmessage(@RequestParam Map<String,String> allRequestParams) throws BaseballLeagueException {
+	public @ResponseBody void Postmessage(@RequestParam Map<String,String> allRequestParams) throws BaseballLeagueException, TwitterException, FacebookException {
 		if (allRequestParams.get("service").equals("twitter")){
 			ISocialMediaHandler twitterhandler = socialmediafactory.getHandler(SocialMediaTypes.TwitterHandler);
 			twitterhandler.PostStatus(allRequestParams.get("message"));

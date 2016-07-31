@@ -1,12 +1,15 @@
 package com.team3.business.handler;
 
-import com.team3.business.handler.EmailHandler;
-import com.team3.business.handler.TwitterHandler;
+import static org.junit.Assert.assertEquals;
 
 import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterHandlerTest {
 
@@ -14,37 +17,40 @@ public class TwitterHandlerTest {
 	
 	@Before  
     public void setUp() {  
-		twitterHandler = EasyMock.createMock(TwitterHandler.class);
+		twitterHandler = new TwitterHandler();
     }  
   
     @After  
     public void tearDown() {  
-    	twitterHandler = null; 
+    	//twitterHandler = null; 
     }
     
-    //@Test
-    public void testPostStatus() { 
-    	String mockPost = EasyMock.createMock(String.class);
+    @Test
+    public void testPostStatus() throws Exception {
+    	String mockPost = "xyz";
+    	Twitter mockTwitter = EasyMock.createMock(Twitter.class);
+    	Status mockStatus = EasyMock.createMock(Status.class);
     	
-    	EasyMock.expect(mockPost).andReturn("XYZ").anyTimes();  
-        EasyMock.replay(mockPost);
-      
-        twitterHandler.PostStatus(mockPost);
-        
-        EasyMock.verify(mockPost);
-    }
-    
-    //@Test
-    public void testGetStatuses() { 
-    	int mockNumberofPreviousStatuses = EasyMock.createMock(int.class);
+    	TwitterHandler mockTwitterHandler = EasyMock.createMockBuilder(TwitterHandler.class)
+    			.addMockedMethod("getTwitter")
+    			.createMock();
+        EasyMock.expect(mockTwitterHandler.getTwitter()).andReturn(mockTwitter).anyTimes();
+        EasyMock.replay(mockTwitterHandler);
     	
-    	EasyMock.expect(mockNumberofPreviousStatuses).andReturn(1).anyTimes();  
-        EasyMock.replay(mockNumberofPreviousStatuses);
+    	EasyMock.expect(mockTwitter.updateStatus(mockPost)).andReturn(mockStatus).anyTimes();    	
+    	EasyMock.replay(mockTwitter);    	
       
-        twitterHandler.getStatuses(mockNumberofPreviousStatuses);
+    	mockTwitterHandler.PostStatus(mockPost);   
         
-        EasyMock.verify(mockNumberofPreviousStatuses);
+        EasyMock.verify(mockTwitterHandler);
+        EasyMock.verify(mockTwitter);
     }
     
-    
+    @Test
+    public void testGetTwitter() throws Exception {
+      
+        Twitter response = twitterHandler.getTwitter();
+        
+        assertEquals((new TwitterFactory((new ConfigurationBuilder()).build()).getInstance().getClass()), response.getClass());
+    }
 }
