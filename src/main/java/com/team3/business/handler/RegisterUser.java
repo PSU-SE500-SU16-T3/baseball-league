@@ -20,7 +20,7 @@ public interface RegisterUser {
 	public List<League> getLeague();
 	public List<Season> getSeasons(Map<String, String> allRequestParams);
 	public List<Division> getDivisions(Map<String, String> allRequestParams);
-	public List<Player> getUnassignedPlayers();
+	public List<Player> getUnassignedPlayers(Map<String, String> allRequestParams);
 	public List<Player> getAssignedPlayers(Map<String, String> allRequestParams);
 	public boolean modifyPlayers(TeamAssignments teamAssignment);
 	public PlayerRole getUserDetails(Map<String, String> allRequestParams);
@@ -35,4 +35,5 @@ public interface RegisterUser {
 	public League submitleagueByName(Map<String, String> allRequestParams);
 	public Division getDivisionDetail(Map<String, String> allRequestParams);
 	public boolean updateDivision(Map<String, String> allRequestParams);
+	public boolean updateTeam(Map<String, String> allRequestParams);
 }

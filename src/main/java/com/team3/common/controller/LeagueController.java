@@ -74,8 +74,8 @@ public class LeagueController {
 	}
 	
 	@RequestMapping(value="/getUnassignedPlayers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Player> getUnassignedPlayers() {
-		List<Player> players = registerUser.getUnassignedPlayers();
+	public @ResponseBody List<Player> getUnassignedPlayers(@RequestParam Map<String,String> allRequestParams) {
+		List<Player> players = registerUser.getUnassignedPlayers(allRequestParams);
 		return players;
 
 	}
@@ -147,7 +147,7 @@ public class LeagueController {
 		Response<String> response = new Response<String>();
 		if(status){
 			response.setStatus("success");
-			response.setBody("Season created successfully.");
+			response.setBody("Season information updated successfully.");
 		}
 		return response;
 	}
@@ -165,7 +165,18 @@ public class LeagueController {
 		Response<String> response = new Response<String>();
 		if(status){
 			response.setStatus("success");
-			response.setBody("Division created successfully.");
+			response.setBody("Division information updated successfully.");
+		}
+		return response;
+	}
+	
+	@RequestMapping(value="/updateTeam", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Response<String> updateTeam(@RequestParam Map<String,String> allRequestParams) {
+		boolean status = registerUser.updateTeam(allRequestParams);
+		Response<String> response = new Response<String>();
+		if(status){
+			response.setStatus("success");
+			response.setBody("Team information updated successfully.");
 		}
 		return response;
 	}

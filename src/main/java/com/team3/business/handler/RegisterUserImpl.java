@@ -92,8 +92,9 @@ public class RegisterUserImpl implements RegisterUser{
 		return teams;
 	}
 
-	public List<Player> getUnassignedPlayers() {
-		List<Player> players = daoImpl.getUnassignedPlayers();
+	public List<Player> getUnassignedPlayers(Map<String, String> allRequestParams) {
+		String leagueId = allRequestParams.get("leagueId");
+		List<Player> players = daoImpl.getUnassignedPlayers(leagueId);
 		return players;
 	}
 
@@ -177,6 +178,15 @@ public class RegisterUserImpl implements RegisterUser{
 		return status;
 	}
 	
+	public boolean updateTeam(Map<String, String> allRequestParams) {
+		Team team = new Team();		
+		team.setTeamID(new BigDecimal(allRequestParams.get("teamId")));
+		team.setTeamTitle(allRequestParams.get("teamName"));
+		team.setTeamNumPlayers(new BigDecimal(allRequestParams.get("noOfPlayers")));
+		boolean status = daoImpl.updateTeam(team);
+		return status;
+	}
+
 	public  Season createSeasonObj(Map<String, String> allRequestParams) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Season season = new Season();

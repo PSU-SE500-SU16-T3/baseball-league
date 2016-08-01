@@ -40,7 +40,7 @@ public interface Dao {
 	public List<Game> getGame();
 	public List<Season> getSeasons(String leagueId);
 	public List<Division> getDivisions(String seasonId);
-	public List<Player> getUnassignedPlayers();
+	public List<Player> getUnassignedPlayers(String leagueId);
 	public List<Player> getAssignedPlayers(String teamId);
 	public boolean modifyPlayers(TeamAssignments teamAssignments);
 	public PlayerRole getUserDetails(String username);
@@ -56,4 +56,5 @@ public interface Dao {
 	public int getLeagueIDbyName(String LeagueName);
 	public Division getDivisionDetail(String divisionId);
 	public boolean updateDivision(Division division);
+	public boolean updateTeam(Team team);
 }
