@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3.business.handler.RegisterUser;
 import com.team3.business.models.Division;
+import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.Player;
 import com.team3.business.models.Response;
@@ -150,5 +151,11 @@ public class LeagueController {
 			response.setBody("Season created successfully.");
 		}
 		return response;
+	}
+	
+	@RequestMapping(value="/getGames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Game> getGames(@RequestParam Map<String,String> allRequestParams) {
+		List<Game> Games = registerUser.getGames(allRequestParams);
+		return Games;
 	}
 }

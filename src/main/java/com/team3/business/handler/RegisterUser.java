@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.team3.business.models.Division;
+import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
@@ -32,4 +33,5 @@ public interface RegisterUser {
 	public boolean registerTeam(Map<String, String> allRequestParams);
 	public void addaddress(Map<String,String> allRequestParams);
 	public League submitLeague(Map<String, String> allRequestParams);
+	public List<Game> getGames(Map<String, String> allRequestParams);
 }

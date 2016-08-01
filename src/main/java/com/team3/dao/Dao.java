@@ -53,4 +53,5 @@ public interface Dao {
 	public int getLeagueID(String LeagueLoc);
 	public void insertPersonLeague(int LeagueID, int UserID);
 	public String getLeagueName(int LeagueID);
+	public List<Game> getGames(String retrieveId);
 }

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.team3.business.models.Address;
 import com.team3.business.models.Division;
+import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.Payment;
 import com.team3.business.models.Phone;
@@ -262,6 +263,12 @@ public class RegisterUserImpl implements RegisterUser{
 		league.setLeagueName(leagueName);
 		
 		return league;
+	}
+
+	public List<Game> getGames(Map<String, String> allRequestParams) {
+		String retrieveId = allRequestParams.get("PersonID");
+		List<Game> Games = daoImpl.getGames(retrieveId);
+		return Games;
 	}
 
 	

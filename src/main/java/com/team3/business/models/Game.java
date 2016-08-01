@@ -11,6 +11,7 @@ public class Game {
 	private BigDecimal refereeId;
 	private BigDecimal fieldId;
 	private Date gameTime;
+	private String FieldName;
 	public BigDecimal getGameId() {
 		return gameId;
 	}
@@ -52,5 +53,11 @@ public class Game {
 	}
 	public void setGameTime(Date gameTime) {
 		this.gameTime = gameTime;
+	}
+	public String getFieldName() {
+		return FieldName;
+	}
+	public void setFieldName(String fieldName) {
+		FieldName = fieldName;
 	}
 }

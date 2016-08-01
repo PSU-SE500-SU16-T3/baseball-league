@@ -1,6 +1,7 @@
 package com.team3.dao;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -419,6 +420,22 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		String LeagueName=(String)getJdbcTemplate().queryForObject(
 				LeagueNameSql, new Object[] { LeagueID }, String.class);
 		return LeagueName;	
+	}
+
+	public List<Game> getGames(String PersonID) {
+		String sql = "Select GameID, GameTime, FieldName from(Select Game.GAMEID GAMEID,Game.TEAM1ID TEAM1ID,Game.TEAM2ID TEAM2ID,Game.TEAM1SCORE TEAM1SCORE,Game.TEAM2SCORE TEAM2SCORE,Game.REFEREEID REFEREEID,Game.FIELDID FIELDID,Game.GAMETIME GAMETIME,"
+			+ "TEAM.TEAMID TEAMID,TEAM.TEAMTITLE TEAMTITLE,TEAM.TEAMNUMBEROFPLAYERS TEAMNUMBEROFPLAYERS,TEAM.DIVISIONID DIVISIONID,TeamAssignment.TEAMID TEAMID_1,"
+			+ "TeamAssignment.PERSONID PERSONID From Game Join TEAM on Team1ID=TeamID or Game.TEAM2ID=TeamID join TeamAssignment on TEAM.TeamID=TeamAssignment.TEAMID where personID=? ) p join FIELD on p.FIELDID =Field.FieldID group by GameID, FieldName,Gametime";
+		List<Game> Games = new ArrayList<Game>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, PersonID);
+		for (Map<String, Object> row : rows) {
+			Game game = new Game();
+			game.setGameId((BigDecimal)(row.get("GAMEID")));
+			game.setGameTime((Date)(row.get("GAMETIME")));
+			game.setFieldName((String)(row.get("FIELDNAME")));
+			Games.add(game);
+		}		
+		return Games;
 	}
 	
 
