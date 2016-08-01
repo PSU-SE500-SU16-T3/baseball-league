@@ -93,8 +93,9 @@ public class RegisterUserImpl implements RegisterUser{
 		return teams;
 	}
 
-	public List<Player> getUnassignedPlayers() {
-		List<Player> players = daoImpl.getUnassignedPlayers();
+	public List<Player> getUnassignedPlayers(Map<String, String> allRequestParams) {
+		String leagueId = allRequestParams.get("leagueId");
+		List<Player> players = daoImpl.getUnassignedPlayers(leagueId);
 		return players;
 	}
 
@@ -155,12 +156,38 @@ public class RegisterUserImpl implements RegisterUser{
 		return season;
 	}
 	
+	public Division getDivisionDetail(Map<String, String> allRequestParams) {
+		String divisionId = allRequestParams.get("divisionId");
+		Division division = daoImpl.getDivisionDetail(divisionId);
+		return division;
+	}
+	
 	public boolean updateSeason(Map<String, String> allRequestParams) {
 		Season season = createSeasonObj(allRequestParams);
 		boolean status = daoImpl.updateSeason(season);
 		return status;
+	}	
+
+	public boolean updateDivision(Map<String, String> allRequestParams) {
+		Division division = new Division();
+		division.setDivisionID(new BigDecimal(allRequestParams.get("divisionID")));
+		division.setDivisionTitle(allRequestParams.get("divisionName"));
+		division.setDivisionMinAge(new BigDecimal(allRequestParams.get("minAge")));
+		division.setDivisionMaxAge(new BigDecimal(allRequestParams.get("maxAge")));
+		division.setDivisionNumPlayers(new BigDecimal(allRequestParams.get("maxNoOfPlayers")));
+		boolean status = daoImpl.updateDivision(division);
+		return status;
 	}
 	
+	public boolean updateTeam(Map<String, String> allRequestParams) {
+		Team team = new Team();		
+		team.setTeamID(new BigDecimal(allRequestParams.get("teamId")));
+		team.setTeamTitle(allRequestParams.get("teamName"));
+		team.setTeamNumPlayers(new BigDecimal(allRequestParams.get("noOfPlayers")));
+		boolean status = daoImpl.updateTeam(team);
+		return status;
+	}
+
 	public  Season createSeasonObj(Map<String, String> allRequestParams) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Season season = new Season();
@@ -265,12 +292,37 @@ public class RegisterUserImpl implements RegisterUser{
 		return league;
 	}
 
+
 	public List<Game> getGames(Map<String, String> allRequestParams) {
 		String retrieveId = allRequestParams.get("PersonID");
 		List<Game> Games = daoImpl.getGames(retrieveId);
 		return Games;
 	}
 
+
 	
+	public League submitleagueByName(Map<String, String> allRequestParams) {
+		League league = new League();
+//		league.setLeagueName(allRequestParams.get("leagueName"));
+//		league.setLeagueLocation(allRequestParams.get("leagueLocation"));
+//		league.setUserID(_personID);
+		
+		System.out.println("INside submitLeagueByName and the league name is:"+allRequestParams.get("leaguename"));
+		//System.out.println("The LeagueID is:"+leagueID);
+		
+		int leagueID = daoImpl.getLeagueIDbyName(allRequestParams.get("leaguename"));
+		
+		
+		// todo:  use real personID when the findleague page is connected to registration
+		//daoImpl.insertPersonLeague(leagueID, _personID);
+		daoImpl.insertPersonLeague(leagueID, 10008);
+		
+		String leagueName = daoImpl.getLeagueName(leagueID);
+		
+		league.setLeagueName(leagueName);
+		
+		return league;
+	}
+
 
 }

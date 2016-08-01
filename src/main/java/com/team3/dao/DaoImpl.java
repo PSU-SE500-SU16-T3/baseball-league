@@ -242,11 +242,11 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		return players;
 	}
 	
-	public List<Player> getUnassignedPlayers() {
-		String sql = "SELECT P.PERSONID, P.FIRSTNAME, P.LASTNAME FROM PERSON P, PERSONROLEASSIGNMENT PRA WHERE P.PERSONID NOT IN "
-				+ "(SELECT PERSONID FROM TEAMASSIGNMENT) AND P.PERSONID=PRA.PERSONID AND PRA.ROLEID = 10001 ORDER BY P.FIRSTNAME ASC";
+	public List<Player> getUnassignedPlayers(String leagueId) {
+		String sql = "SELECT P.PERSONID, P.FIRSTNAME, P.LASTNAME FROM PERSON P, PERSONROLEASSIGNMENT PRA, PERSONLEAGUE PL  WHERE P.PERSONID NOT IN (SELECT PERSONID FROM TEAMASSIGNMENT) "
+				+ "AND P.PERSONID=PRA.PERSONID AND PRA.ROLEID = 10001 AND PL.LEAGUEID = ? AND P.PERSONID = PL.PERSONID ORDER BY P.FIRSTNAME ASC";
 		List<Player> players = new ArrayList<Player>();
-		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, new Object[] { leagueId });
 		for (Map<String, Object> row : rows) {
 			Player player = new Player();
 			player.setPersonID((BigDecimal)(row.get("PERSONID")));
@@ -357,11 +357,46 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		return season;
 	}
 
+	public Division getDivisionDetail(String divisionId) {
+		String sql = "SELECT DIVISIONID, DIVISIONTITLE, DIVISIONMINAGE, DIVISIONMAXAGE, DIVISIONNUMBEROFPLAYER, SEASONID FROM DIVISION WHERE DIVISIONID = "+divisionId;
+		Division division = new Division();
+		SqlRowSet rs = (SqlRowSet)getJdbcTemplate().queryForRowSet(sql);
+		try {
+			while(rs.next()){	
+				division.setDivisionID(rs.getBigDecimal("DIVISIONID"));
+				division.setDivisionTitle(rs.getString("DIVISIONTITLE"));
+				division.setDivisionMinAge(rs.getBigDecimal("DIVISIONMINAGE"));
+				division.setDivisionMaxAge(rs.getBigDecimal("DIVISIONMAXAGE"));
+				division.setDivisionNumPlayers(rs.getBigDecimal("DIVISIONNUMBEROFPLAYER"));
+			}				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return division;
+	}
 	
-
 	public boolean updateSeason(Season season) {
 		String sql = "UPDATE SEASON SET SEASONTITLE = ?, SEASONSTARTDT = ?, SEASONENDDT = ? WHERE SEASONID = ?";
 		int count = getJdbcTemplate().update(sql, new Object[] {season.getSeasonName(), season.getStartDate(), season.getEndDate(), season.getSeasonID()});
+		if(count > 0)
+			return true;
+		else
+			return false;
+	}
+
+	public boolean updateDivision(Division division) {
+		String sql = "UPDATE DIVISION SET DIVISIONTITLE = ?, DIVISIONMINAGE = ?, DIVISIONMAXAGE = ?, DIVISIONNUMBEROFPLAYER = ? WHERE DIVISIONID = ?";
+		int count = getJdbcTemplate().update(sql, new Object[] {division.getDivisionTitle(), division.getDivisionMinAge(), division.getDivisionMaxAge(), division.getDivisionNumPlayers(), division.getDivisionID()});
+		if(count > 0)
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean updateTeam(Team team) {
+		String sql = "UPDATE TEAM SET TEAMTITLE = ?, TEAMNUMBEROFPLAYERS = ? WHERE TEAMID = ?";
+		int count = getJdbcTemplate().update(sql, new Object[] {team.getTeamTitle(), team.getTeamNumPlayers(), team.getTeamID()});
 		if(count > 0)
 			return true;
 		else
@@ -421,6 +456,14 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 				LeagueNameSql, new Object[] { LeagueID }, String.class);
 		return LeagueName;	
 	}
+	
+	public int getLeagueIDbyName(String LeagueName) {
+		String LeagueIDSql = "Select LEAGUEID from LEAGUE where LEAGUENAME =?";
+		
+		int LeagueID=(int)getJdbcTemplate().queryForObject(
+				LeagueIDSql, new Object[] { LeagueName }, int.class);
+		return LeagueID;	
+	}
 
 	public List<Game> getGames(String PersonID) {
 		String sql = "Select GameID, GameTime, FieldName from(Select Game.GAMEID GAMEID,Game.TEAM1ID TEAM1ID,Game.TEAM2ID TEAM2ID,Game.TEAM1SCORE TEAM1SCORE,Game.TEAM2SCORE TEAM2SCORE,Game.REFEREEID REFEREEID,Game.FIELDID FIELDID,Game.GAMETIME GAMETIME,"
@@ -438,5 +481,4 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		return Games;
 	}
 	
-
 }

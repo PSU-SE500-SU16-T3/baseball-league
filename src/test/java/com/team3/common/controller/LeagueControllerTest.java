@@ -106,19 +106,14 @@ public class LeagueControllerTest {
     
     @Test
     public void testGetUnassignedPlayers() {
-    	List<Player> players = new ArrayList<Player>();
-    	Player player = new Player();
-    	player.setFirstName("Tim");
-    	player.setLastName("Rogers");
-    	player.setPersonID(new BigDecimal("10000"));
-    	players.add(player);
+    	Map<String,String> mockArguments = EasyMock.createMock(HashMap.class);
     	
-    	EasyMock.expect(registerUser.getUnassignedPlayers()).andReturn(players).anyTimes();  
+    	EasyMock.expect(registerUser.getUnassignedPlayers(mockArguments)).andReturn(new ArrayList<Player>()).anyTimes();  
         EasyMock.replay(registerUser);
         
         EasyMock.verify(registerUser);
         
-        assertEquals(leagueController.getUnassignedPlayers().size(), players.size());      
+        assertEquals(leagueController.getUnassignedPlayers(mockArguments).getClass(), ArrayList.class);      
        
     }
     
@@ -235,7 +230,7 @@ public class LeagueControllerTest {
         Response<String> response = leagueController.updateSeason(mockArguments);
         
         assertEquals(response.getStatus(), "success");
-        assertEquals(response.getBody(), "Season created successfully.");
+        assertEquals(response.getBody(), "Season information updated successfully.");
         
         EasyMock.verify(registerUser);
     }

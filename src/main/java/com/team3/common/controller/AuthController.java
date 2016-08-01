@@ -28,6 +28,10 @@ public class AuthController {
 			response.setBody(playerRole);
 			response.setRedirectTo("/admin/home");
 			response.setStatus("success");
+		}else if(playerRole.getRoleId().equals("10001")){
+			response.setBody(playerRole);
+			response.setRedirectTo("/player/home");
+			response.setStatus("success");
 		}
 		return response;
 	}

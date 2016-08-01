@@ -155,11 +155,14 @@ public class RegisterUserImplTest {
     @Test
     public void testGetUnassignedPlayers() {
     	List<Player> mockPlayers = EasyMock.createMock(ArrayList.class);
+    	
+    	EasyMock.expect(mockArguments.get("leagueId")).andReturn("10001").anyTimes();
+    	EasyMock.replay(mockArguments);
         
-    	EasyMock.expect(mockDaoImpl.getUnassignedPlayers()).andReturn(mockPlayers).anyTimes();
+    	EasyMock.expect(mockDaoImpl.getUnassignedPlayers(EasyMock.isA(String.class))).andReturn(mockPlayers).anyTimes();
     	EasyMock.replay(mockDaoImpl);
     	
-    	List<Player> response = registerUserImpl.getUnassignedPlayers();
+    	List<Player> response = registerUserImpl.getUnassignedPlayers(mockArguments);
     	
     	assertEquals(response, mockPlayers);
     	
