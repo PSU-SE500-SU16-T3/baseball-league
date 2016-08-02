@@ -8,6 +8,7 @@ import com.team3.business.models.Field;
 import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.Payment;
+import com.team3.business.models.PersonInfo;
 import com.team3.business.models.Phone;
 import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
@@ -58,4 +59,5 @@ public interface Dao {
 	public Division getDivisionDetail(String divisionId);
 	public boolean updateDivision(Division division);
 	public boolean updateTeam(Team team);
+	public PersonInfo getPersonInfo(String string);
 }

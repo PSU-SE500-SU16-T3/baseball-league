@@ -24,6 +24,7 @@ import com.team3.business.models.Field;
 import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.Payment;
+import com.team3.business.models.PersonInfo;
 import com.team3.business.models.Phone;
 import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
@@ -33,6 +34,7 @@ import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignment;
 import com.team3.business.models.TeamAssignments;
 import com.team3.business.models.User;
+import com.team3.dao.mapper.PersonRowMapper;
 import com.team3.dao.mapper.PlayerRoleMapper;
 
 @Component("daoImpl")
@@ -474,11 +476,33 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		for (Map<String, Object> row : rows) {
 			Game game = new Game();
 			game.setGameId((BigDecimal)(row.get("GAMEID")));
-			game.setGameTime((Date)(row.get("GAMETIME")));
+			game.setGameTime((Date) convertTimestamp((Timestamp) row.get("GAMETIME")));
 			game.setFieldName((String)(row.get("FIELDNAME")));
 			Games.add(game);
 		}		
 		return Games;
+	}
+	 static final java.sql.Date convertTimestamp(final java.sql.Timestamp timestamp)
+	  {
+	    java.sql.Date returnValue;
+
+	    if (timestamp != null)
+	    {
+	      returnValue = new java.sql.Date(timestamp.getTime());
+	    }
+	    else
+	    {
+	      returnValue = null; // an exception might be better here.
+	    }
+
+	    return returnValue;
+	  }
+	public PersonInfo getPersonInfo(String PersonID) {
+		String sql = "Select * from (Select FirstName, LastNAme, UserName, Email, DOB, PhoneNumber, PhoneType from PERSON join Users on PERSON.PERSONID = Users.PERSONID Join Phone on Person.PersonID =Phone.PERSONID join Phonetype on Phone.PHNETYPE = Phonetype.PHONETYPEID where Person.PersonID=?)" 
+		 + "Pivot (max(PhoneNumber) For Phonetype In ('Mobile' as Mobile, 'Home' as Home))";
+		PersonInfo person = (PersonInfo)getJdbcTemplate().queryForObject(sql, new Object[]{PersonID}, new PersonRowMapper());
+		
+		return person;		
 	}
 	
 }

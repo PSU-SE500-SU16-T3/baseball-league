@@ -20,6 +20,7 @@ import com.team3.business.handler.RegisterUser;
 import com.team3.business.models.Division;
 import com.team3.business.models.Game;
 import com.team3.business.models.League;
+import com.team3.business.models.PersonInfo;
 import com.team3.business.models.Player;
 import com.team3.business.models.Response;
 import com.team3.business.models.Season;
@@ -187,4 +188,11 @@ public class LeagueController {
 		List<Game> Games = registerUser.getGames(allRequestParams);
 		return Games;
 	}
+	
+	@RequestMapping(value="/getPersonInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody PersonInfo getPersonInfo(@RequestParam Map<String,String> allRequestParams) {
+		PersonInfo person = registerUser.getPersonInfo(allRequestParams);
+		return person;
+	}
+	
 }

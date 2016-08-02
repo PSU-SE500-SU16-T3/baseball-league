@@ -6,6 +6,7 @@ import java.util.Map;
 import com.team3.business.models.Division;
 import com.team3.business.models.Game;
 import com.team3.business.models.League;
+import com.team3.business.models.PersonInfo;
 import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
 import com.team3.business.models.Season;
@@ -38,4 +39,5 @@ public interface RegisterUser {
 	public Division getDivisionDetail(Map<String, String> allRequestParams);
 	public boolean updateDivision(Map<String, String> allRequestParams);
 	public boolean updateTeam(Map<String, String> allRequestParams);
+	public PersonInfo getPersonInfo(Map<String, String> allRequestParams);
 }

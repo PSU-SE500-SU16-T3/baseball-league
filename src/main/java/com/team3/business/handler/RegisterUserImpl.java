@@ -20,6 +20,7 @@ import com.team3.business.models.Division;
 import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.Payment;
+import com.team3.business.models.PersonInfo;
 import com.team3.business.models.Phone;
 import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
@@ -294,7 +295,7 @@ public class RegisterUserImpl implements RegisterUser{
 
 
 	public List<Game> getGames(Map<String, String> allRequestParams) {
-		String retrieveId = allRequestParams.get("PersonID");
+		String retrieveId = allRequestParams.get("personID");
 		List<Game> Games = daoImpl.getGames(retrieveId);
 		return Games;
 	}
@@ -322,6 +323,12 @@ public class RegisterUserImpl implements RegisterUser{
 		league.setLeagueName(leagueName);
 		
 		return league;
+	}
+
+	public PersonInfo getPersonInfo(Map<String, String> allRequestParams) {
+		PersonInfo personinfo = new PersonInfo();
+		personinfo = daoImpl.getPersonInfo(allRequestParams.get("personID"));
+		return personinfo;
 	}
 
 
