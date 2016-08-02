@@ -272,18 +272,11 @@ public class RegisterUserImpl implements RegisterUser{
 	
 	public League submitLeague(Map<String, String> allRequestParams) {
 		League league = new League();
-//		league.setLeagueName(allRequestParams.get("leagueName"));
-//		league.setLeagueLocation(allRequestParams.get("leagueLocation"));
-//		league.setUserID(_personID);
 		
 		int leagueID = daoImpl.getLeagueID(allRequestParams.get("leagueLocation"));
-		
-		//System.out.println("INside submitLeague and the league location is:"+allRequestParams.get("leagueLocation"));
-		//System.out.println("The LeagueID is:"+leagueID);
-		
-		// todo:  use real personID when the findleague page is connected to registration
-		//daoImpl.insertPersonLeague(leagueID, _personID);
-		daoImpl.insertPersonLeague(leagueID, 10008);
+
+		daoImpl.insertPersonLeague(leagueID, _personID);
+		//daoImpl.insertPersonLeague(leagueID, 10008);
 		
 		String leagueName = daoImpl.getLeagueName(leagueID);
 		
@@ -292,35 +285,21 @@ public class RegisterUserImpl implements RegisterUser{
 		return league;
 	}
 
-
 	public List<Game> getGames(Map<String, String> allRequestParams) {
 		String retrieveId = allRequestParams.get("PersonID");
 		List<Game> Games = daoImpl.getGames(retrieveId);
 		return Games;
 	}
-
-
 	
 	public League submitleagueByName(Map<String, String> allRequestParams) {
-		League league = new League();
-//		league.setLeagueName(allRequestParams.get("leagueName"));
-//		league.setLeagueLocation(allRequestParams.get("leagueLocation"));
-//		league.setUserID(_personID);
-		
-		System.out.println("INside submitLeagueByName and the league name is:"+allRequestParams.get("leaguename"));
-		//System.out.println("The LeagueID is:"+leagueID);
-		
+		League league = new League();		
 		int leagueID = daoImpl.getLeagueIDbyName(allRequestParams.get("leaguename"));
-		
-		
-		// todo:  use real personID when the findleague page is connected to registration
-		//daoImpl.insertPersonLeague(leagueID, _personID);
-		daoImpl.insertPersonLeague(leagueID, 10008);
+
+		daoImpl.insertPersonLeague(leagueID, _personID);
+		//daoImpl.insertPersonLeague(leagueID, 10008);
 		
 		String leagueName = daoImpl.getLeagueName(leagueID);
-		
 		league.setLeagueName(leagueName);
-		
 		return league;
 	}
 
