@@ -385,6 +385,7 @@ CREATE TABLE Field
   fieldID INT NOT NULL,
   fieldName VARCHAR(50) NOT NULL,
   fieldLocation VARCHAR(200) NOT NULL,
+  LeagueID int Not Null,
   PRIMARY KEY (fieldID)
 );
 /
@@ -466,7 +467,8 @@ CREATE TABLE RefereePlayer
 (
   refereeID INT NOT NULL,
   personID INT NOT NULL,
-  PRIMARY KEY (refereeID, personID),
+  leagueID int Not Null,
+  PRIMARY KEY (refereeID, personID,leagueID),
   FOREIGN KEY (personID) REFERENCES Person(personID)
 );
 /

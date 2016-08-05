@@ -60,4 +60,7 @@ public interface Dao {
 	public boolean updateDivision(Division division);
 	public boolean updateTeam(Team team);
 	public PersonInfo getPersonInfo(String string);
+	public List<Field> getFields(String retrieveId);
+	public List<RefereePlayer> getRefs(String retrieveId);
+	public boolean registerGame(Game game);
 }

@@ -4,10 +4,14 @@ package com.team3.business.handler;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 //import org.apache.geronimo.mail.util.Base64;
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import com.team3.business.models.Address;
 import com.team3.business.models.Division;
+import com.team3.business.models.Field;
 import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.Payment;
@@ -24,6 +29,7 @@ import com.team3.business.models.PersonInfo;
 import com.team3.business.models.Phone;
 import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
+import com.team3.business.models.RefereePlayer;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignments;
@@ -308,6 +314,42 @@ public class RegisterUserImpl implements RegisterUser{
 		PersonInfo personinfo = new PersonInfo();
 		personinfo = daoImpl.getPersonInfo(allRequestParams.get("personID"));
 		return personinfo;
+	}
+
+	public List<Field> getFields(Map<String, String> allRequestParams) {
+		String retrieveId = allRequestParams.get("leagueID");
+		List<Field> Fields = daoImpl.getFields(retrieveId);
+		return Fields;
+	}
+
+	public List<RefereePlayer> getRefs(Map<String, String> allRequestParams) {
+		String retrieveId = allRequestParams.get("leagueID");
+		List<RefereePlayer> RefereePlayers = daoImpl.getRefs(retrieveId);
+		return RefereePlayers;
+	}
+
+	public boolean postGame(Map<String, String> allRequestParams) {
+		String fieldID = allRequestParams.get("fieldID");
+		String refID = allRequestParams.get("refID");
+		String team1ID = allRequestParams.get("team1");
+		String team2ID = allRequestParams.get("team2");
+		String gamedate = allRequestParams.get("gamedate");
+		Game game =new Game();
+		game.setFieldId(new BigDecimal(fieldID));
+		DateFormat format = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+		try {
+			game.setGameTime(format.parse(gamedate));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		game.setTeam1Id(new BigDecimal(team1ID));
+		game.setTeam2Id(new BigDecimal(team2ID));
+		game.setRefereeId(new BigDecimal(refID));
+		boolean status = daoImpl.registerGame(game);
+		return status;
+		
+		
 	}
 
 

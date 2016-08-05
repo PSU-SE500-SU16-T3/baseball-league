@@ -504,5 +504,41 @@ public class DaoImpl extends JdbcDaoSupport implements Dao{
 		
 		return person;		
 	}
+
+	public List<Field> getFields(String retrieveId) {
+		String sql = "Select FieldID, FieldName, FieldLocation From Field where LeagueID=?";
+		List<Field> fields = new ArrayList<Field>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, new Object[] { retrieveId });
+		for (Map<String, Object> row : rows) {
+			Field field = new Field();
+			field.setFieldID((BigDecimal)(row.get("FieldID")));
+			field.setFieldName((String)(row.get("FieldName")));
+			field.setFieldLocation((String)(row.get("FieldLocation")));
+			fields.add(field);
+		}		
+		return fields;
+	}
+
+	public List<RefereePlayer> getRefs(String retrieveId) {
+		String sql = "Select RefereeID, Firstname ||' '|| Lastname as Fullname from REFEREEPLAYER join PERSON on PERSON.PERSONID = REFEREEPLAYER.PERSONID where REFEREEPLAYER.LEAGUEID = ?";
+		List<RefereePlayer> refereePlayers = new ArrayList<RefereePlayer>();
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, new Object[] { retrieveId });
+		for (Map<String, Object> row : rows) {
+			RefereePlayer ref = new RefereePlayer();
+			ref.setFirstName((String)(row.get("FULLNAME")));
+			ref.setRefereePlayerID((BigDecimal) (row.get("REFEREEID")));
+			refereePlayers.add(ref);
+		}		
+		return refereePlayers;
+	}
+
+	public boolean registerGame(Game game) {		 
+		String sql = "INSERT INTO Game  (TEAM1ID,TEAM2ID,TEAM1SCORE,TEAM2SCORE,REFEREEID,FIELDID,GAMETIME  ) VALUES (?, ?, 0,0, ?,?,?)";
+		int count = this.jdbcTemplate.update(sql, new Object[] {game.getTeam1Id(), game.getTeam2Id(), game.getRefereeId(), game.getFieldId(),game.getGameTime()});
+		if(count > 0)
+			return true;
+		else
+			return false;
+	}
 	
 }

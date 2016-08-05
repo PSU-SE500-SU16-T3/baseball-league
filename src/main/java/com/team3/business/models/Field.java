@@ -1,9 +1,12 @@
 package com.team3.business.models;
 
+import java.math.BigDecimal;
+
 public class Field {
 	private String fieldName;
 	private String fieldLocation;
-	private int fieldID;
+	private BigDecimal fieldID;
+	private int LeagueID;
 	
 	public String getFieldName() {
 		return fieldName;
@@ -17,10 +20,16 @@ public class Field {
 	public void setFieldLocation(String fieldLocation) {
 		this.fieldLocation = fieldLocation;
 	}
-	public int getFieldID() {
+	public BigDecimal getFieldID() {
 		return fieldID;
 	}
-	public void setFieldID(int fieldID) {
-		this.fieldID = fieldID;
+	public void setFieldID(BigDecimal bigDecimal) {
+		this.fieldID = bigDecimal;
+	}
+	public int getLeagueID() {
+		return LeagueID;
+	}
+	public void setLeagueID(int leagueID) {
+		LeagueID = leagueID;
 	}
 }

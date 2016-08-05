@@ -18,10 +18,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3.business.handler.RegisterUser;
 import com.team3.business.models.Division;
+import com.team3.business.models.Field;
 import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.PersonInfo;
 import com.team3.business.models.Player;
+import com.team3.business.models.RefereePlayer;
 import com.team3.business.models.Response;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
@@ -74,6 +76,18 @@ public class LeagueController {
 		return teams;
 
 	}
+	@RequestMapping(value="/getFields", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Field> getFields(@RequestParam Map<String,String> allRequestParams) {
+		List<Field> fields = registerUser.getFields(allRequestParams);
+		return fields;
+
+	}
+	@RequestMapping(value="/getRefs", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<RefereePlayer> getRefs(@RequestParam Map<String,String> allRequestParams) {
+		List<RefereePlayer> refs = registerUser.getRefs(allRequestParams);
+		return refs;
+
+	}
 	
 	@RequestMapping(value="/getUnassignedPlayers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Player> getUnassignedPlayers(@RequestParam Map<String,String> allRequestParams) {
@@ -111,6 +125,19 @@ public class LeagueController {
 		return response;
 
 	}
+	
+	@RequestMapping(value="/postgame", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Response<String> postGame(@RequestParam Map<String,String> allRequestParams) {
+		boolean status = registerUser.postGame(allRequestParams);
+		Response<String> response = new Response<String>();
+		if(status){
+			response.setStatus("success");
+			response.setBody("Game created successfully.");
+		}
+		return response;
+
+	}
+	
 	
 	@RequestMapping(value="/registerDivision", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Response<String> registerDivision(@RequestParam Map<String,String> allRequestParams) {

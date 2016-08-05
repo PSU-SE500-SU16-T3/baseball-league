@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.team3.business.models.Division;
+import com.team3.business.models.Field;
 import com.team3.business.models.Game;
 import com.team3.business.models.League;
 import com.team3.business.models.PersonInfo;
 import com.team3.business.models.Player;
 import com.team3.business.models.PlayerRole;
+import com.team3.business.models.RefereePlayer;
 import com.team3.business.models.Season;
 import com.team3.business.models.Team;
 import com.team3.business.models.TeamAssignments;
@@ -40,4 +42,7 @@ public interface RegisterUser {
 	public boolean updateDivision(Map<String, String> allRequestParams);
 	public boolean updateTeam(Map<String, String> allRequestParams);
 	public PersonInfo getPersonInfo(Map<String, String> allRequestParams);
+	public List<Field> getFields(Map<String, String> allRequestParams);
+	public List<RefereePlayer> getRefs(Map<String, String> allRequestParams);
+	public boolean postGame(Map<String, String> allRequestParams);
 }

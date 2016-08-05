@@ -150,9 +150,9 @@ INSERT INTO LEAGUE  (    LEAGUENAME,    LEAGUELOCATION,   PERSONID)  Select  'Tu
 
 INSERT INTO SEASON  (    SEASONTITLE,    SEASONSTARTDT,    SEASONENDDT,    SEASONNUMBEROFPLAYERS,    LEAGUEID  )  Select    'Summer',    (to_date(add_months(sysdate,1), 'yyyy/mm/dd:hh:mi:ssam')),    (to_date(add_months(sysdate,4), 'yyyy/mm/dd:hh:mi:ssam')),    18,    (Select LEAGUEID from LEAGUE where LEAGUENAME ='State College League') from dual;
 /
-INSERT INTO FIELD ( FIELDNAME, FIELDLOCATION ) VALUES  ( 'Main Field', 'Nittany Lion Softball Park'  );
+INSERT INTO FIELD ( FIELDNAME, FIELDLOCATION, LeagueID ) VALUES  ( 'Main Field', 'Nittany Lion Softball Park',10000  );
 /
-INSERT INTO REFEREEPLAYER  ( PERSONID) Select PersonID From PERSON where FirstName = 'Harry';
+INSERT INTO REFEREEPLAYER  ( PERSONID, LeagueID) Select (Select PersonID From PERSON where FirstName = 'Artem'),10000 from dual;
 /
 Insert into Division(DIVISIONTITLE,DIVISIONMINAGE,DIVISIONMAXAGE,DIVISIONNUMBEROFPLAYER,SEASONID) Select 'Pony',10,14,18,(Select SEASONID from Season Where SEASONTITLE='Summer') from dual;
 /
